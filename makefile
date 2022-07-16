@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD
 EXEC = myprogram
-OBJECTS = main.o vec.o basis.o 
+OBJECTS = main.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 $EXEC: ${OBJECTS}
