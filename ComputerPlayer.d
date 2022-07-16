@@ -1,1 +1,0 @@
-ComputerPlayer.o: ComputerPlayer.cc

@@ -1,1 +1,0 @@
-HumanPlayer.o: HumanPlayer.cc
