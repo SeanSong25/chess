@@ -1,0 +1,1 @@
+Queen.o: Queen.cc

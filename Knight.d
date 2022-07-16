@@ -1,0 +1,1 @@
+Knight.o: Knight.cc
