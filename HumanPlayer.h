@@ -6,7 +6,7 @@ class HumanPlayer : Player{
     public:
         void makeMove() override;
         HumanPlayer(Colour colour);
-        ~HumanPlayer(){};
+        ~HumanPlayer();
     private:
         struct Move decideNextMove() override;
         void resign();
