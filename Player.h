@@ -2,7 +2,9 @@
 #define PLAYER_H
 #include "Colours.h"
 #include "Move.h"
+#include "PlayerType.h"
 #include "memory"
+
 class ChessBoard;
 class Player {
   private:
@@ -16,6 +18,8 @@ class Player {
     bool inCheck;
     Colour colour;
     virtual void makeMove() = 0;
+
+    virtual PlayerType playerType() = 0;  // Return HUMAN or COMPUTER
 };
 
 #endif

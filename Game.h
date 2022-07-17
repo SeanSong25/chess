@@ -19,6 +19,7 @@ class Game {
 
     // Helper functions
     bool gameRunning;
+    bool hasCustomSetup;
     void SwitchCurrentPlayer();
     Player* initPlayer(std::string);
     void startGame();

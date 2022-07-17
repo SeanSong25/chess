@@ -6,13 +6,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
-make: *** No rule to make target `all'.  Stop.
 
+# Make data base, printed on Sat Jul 16 23:10:09 2022
 
-# Make data base, printed on Sat Jul 16 22:36:02 2022
-
- 
 # Variables
 
 # automatic
@@ -160,7 +156,6 @@ MAKELEVEL := 0
 # makefile (from `makefile', line 4)
 OBJECTS = main.o Piece.o ChessBoard.o Game.o Player.o ComputerPlayer.o HumanPlayer.o Observer.o Pawn.o Rook.o Knight.o King.o Queen.o ScoreBoard.o TextDisplay.o  GraphicDisplay.o TextModifier.o
 # environment
- 
 CONDA_PREFIX = /Users/kgao/opt/anaconda3
 # environment
 TERM = xterm-256color
@@ -179,9 +174,9 @@ LANG = C
 
 # Directories
 
-# . (device 16777222, inode 49499736): 79 files, no impossibilities.
+# . (device 16777222, inode 49499736): 80 files, no impossibilities.
 
-# 79 files, no impossibilities in 1 directories.
+# 80 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -314,6 +309,9 @@ Move.h:
 
 # Not a target:
 Rook.cc:
+ 
+make: *** No rule to make target `all'.  Stop.
+
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -338,7 +336,7 @@ ScoreBoard.d:
 ComputerPlayer.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-16 22:35:57
+#  Last modified 2022-07-16 22:49:35
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -353,7 +351,7 @@ Piece.o: Piece.cc Piece.h
 HumanPlayer.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-16 22:35:57
+#  Last modified 2022-07-16 22:49:35
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -373,7 +371,6 @@ Knight.d:
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
- 
 
 # Not a target:
 TextModifier.h:
@@ -394,7 +391,7 @@ ChessBoard.d:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-16 22:35:54
+#  Last modified 2022-07-16 23:10:02
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -417,7 +414,7 @@ King.o: King.cc King.h
 Game.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-16 22:35:57
+#  Last modified 2022-07-16 23:09:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -499,7 +496,7 @@ ScoreBoard.o: ScoreBoard.cc ScoreBoard.h Colours.h TextModifier.h
 main.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-16 22:35:56
+#  Last modified 2022-07-16 22:49:34
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -515,12 +512,12 @@ TextModifier.d:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-ComputerPlayer.o: ComputerPlayer.cc ComputerPlayer.h Player.h Colours.h Move.h Position.h
+ComputerPlayer.o: ComputerPlayer.cc ComputerPlayer.h Player.h Colours.h Move.h Position.h PlayerType.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-HumanPlayer.o: HumanPlayer.cc HumanPlayer.h Player.h Colours.h Move.h Position.h
+HumanPlayer.o: HumanPlayer.cc HumanPlayer.h Player.h Colours.h Move.h Position.h PlayerType.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -549,7 +546,6 @@ Knight.o: Knight.cc Knight.h
 #  File has not been updated.
 
 # Not a target:
- 
 Position.h:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -566,7 +562,7 @@ ScoreBoard.cc:
 #  Modification time never checked.
 #  File has not been updated.
 
-Game.o: Game.cc Game.h ChessBoard.h GraphicDisplay.h Player.h Colours.h Move.h Position.h ScoreBoard.h TextDisplay.h Piece.h ComputerPlayer.h HumanPlayer.h TextModifier.h
+Game.o: Game.cc Game.h ChessBoard.h GraphicDisplay.h Player.h Colours.h Move.h Position.h PlayerType.h ScoreBoard.h TextDisplay.h Piece.h ComputerPlayer.h HumanPlayer.h TextModifier.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -596,7 +592,7 @@ HumanPlayer.cc:
 Player.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-16 22:35:57
+#  Last modified 2022-07-16 22:49:35
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -604,6 +600,7 @@ Player.d:
 
 GraphicDisplay.o: GraphicDisplay.cc
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -647,7 +644,7 @@ Rook.d:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-main.o: main.cc Game.h ChessBoard.h GraphicDisplay.h Player.h Colours.h Move.h Position.h ScoreBoard.h TextDisplay.h Piece.h
+main.o: main.cc Game.h ChessBoard.h GraphicDisplay.h Player.h Colours.h Move.h Position.h PlayerType.h ScoreBoard.h TextDisplay.h Piece.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -682,6 +679,12 @@ Pawn.h:
 #  File has not been updated.
 
 # Not a target:
+PlayerType.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 main.cc:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -709,13 +712,13 @@ Piece.d:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-Player.o: Player.cc Player.h Colours.h Move.h Position.h
+Player.o: Player.cc Player.h Colours.h Move.h Position.h PlayerType.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=77/1024=8%, Rehash=0, Collisions=0/190=0%
+# Load=78/1024=8%, Rehash=0, Collisions=0/196=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -727,6 +730,6 @@ Player.o: Player.cc Player.h Colours.h Move.h Position.h
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 3904 / max = 3904 / min = 3904 / avg = 3904
 
-# Finished Make data base on Sat Jul 16 22:36:02 2022
+# Finished Make data base on Sat Jul 16 23:10:09 2022
 
  
