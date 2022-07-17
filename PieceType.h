@@ -1,6 +1,6 @@
 #ifndef PIECETYPE_H
 #define PIECETYPE_H
-enum PIECETYPE{
+enum PieceType{
     PAWN,
     KING,
     KNIGHT,
