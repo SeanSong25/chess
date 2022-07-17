@@ -1,13 +1,13 @@
 #ifndef COMPUTERPLAYER_H
 #define COMPUTERPLAYER_H
 #include "Player.h"
-class ComputerPlayer: Player{
+class ComputerPlayer: public Player{
     public:
         void makeMove() override;
-        ComputerPlayer(Colour colour);
-        ~ComputerPlayer();
+        virtual ~ComputerPlayer();
     private:
         struct Move decideNextMove() override;
+        virtual struct Move computeNextMove();
 };
 
 #endif

@@ -1,4 +1,4 @@
 #include "ComputerLevelOne.h"
-ComputerLevelOne::ComputerLevelOne(Colour colour){
-    this->colour = colour;
+ComputerLevelOne::ComputerLevelOne(Colour col){
+    colour = col;
 }

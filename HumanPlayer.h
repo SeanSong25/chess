@@ -2,15 +2,14 @@
 #define HUMANPLAYER_H
 #include "Player.h"
 #include <iostream>
-class HumanPlayer : Player{
+class HumanPlayer : public Player{
     public:
         void makeMove() override;
         HumanPlayer(Colour colour);
         ~HumanPlayer();
     private:
         struct Move decideNextMove() override;
-        void resign();
-    
+        void resign();  
 };
 
 #endif
