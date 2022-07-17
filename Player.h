@@ -10,7 +10,7 @@ private:
 public:
     bool inCheck;
     Colour colour;
-    virtual void makeMove() = 0;
+    virtual bool makeMove() = 0;
     virtual ~Player(){};
 protected:
     std::shared_ptr<ChessBoard> board;

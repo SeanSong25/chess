@@ -1,9 +1,13 @@
 #include "ComputerPlayer.h"
 #include "ChessBoard.h"
 
-void ComputerPlayer::makeMove(){
+bool ComputerPlayer::makeMove(){
     struct Move move = decideNextMove();
-    board.get()->makeMove(move);
+    if(board.get()->checkMove(move)){
+        board.get()->makeMove(move);
+        return true;
+    }
+    return false;
 }
 
 ComputerPlayer::~ComputerPlayer(){}

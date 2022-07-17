@@ -4,7 +4,7 @@
 #include <iostream>
 class HumanPlayer : public Player{
     public:
-        void makeMove() override;
+        bool makeMove() override;
         HumanPlayer(Colour colour);
         ~HumanPlayer();
     private:

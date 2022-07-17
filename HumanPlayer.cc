@@ -11,6 +11,11 @@ HumanPlayer::HumanPlayer(Colour colour){
 void HumanPlayer::resign(){}
 
 struct Move HumanPlayer::decideNextMove(){
+    struct Move m;
+    return m;
+}
+
+bool HumanPlayer::makeMove(){
     string line;
     getline(cin, line);
     stringstream ss(line);
@@ -33,15 +38,20 @@ struct Move HumanPlayer::decideNextMove(){
     }
 
     if(cnt == 2){
-        board.get()->makeMove(move);
+        if(board.get()->checkMove(move)){
+            board.get()->makeMove(move);
+            return true;
+        }else{
+            return false;
+        }
     }else{
-        board.get()->promote(move,pieceType);
+        if(board.get()->checkPromotion(move, pieceType)){
+            board.get()->promote(move, pieceType);
+            return true;
+        }else{
+            return false;
+        }
     }
-    return move;
-}
-
-void HumanPlayer::makeMove(){
-    decideNextMove();
 }
 
 HumanPlayer::~HumanPlayer(){}

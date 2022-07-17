@@ -4,8 +4,10 @@
 #include "Piece.h"
 class ChessBoard{
 public:
-    bool makeMove(struct Move);
-    bool promote(struct Move, char pieceType);
+    void makeMove(struct Move);
+    void promote(struct Move, char pieceType);
+    bool checkMove(struct Move);
+    bool checkPromotion(struct Move, char pieceType);
 };
 
 #endif
