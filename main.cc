@@ -1,4 +1,6 @@
-#include "Colours.h"
-int main(){
+#include "Game.h"
 
+int main() {
+    Game chessGame{};
+    chessGame.play();
 }
