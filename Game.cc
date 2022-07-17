@@ -76,10 +76,15 @@ Player* Game::initPlayer(string player) {
     Player* retPtr = nullptr;
 
     if (player == "human") {
+        retPtr = new HumanPlayer();
     } else if (player == "computer1") {
+        retPtr = new ComputerPlayer();
     } else if (player == "computer2") {
+        retPtr = new ComputerPlayer();
     } else if (player == "computer3") {
+        retPtr = new ComputerPlayer();
     } else if (player == "computer4") {
+        retPtr = new ComputerPlayer();
     }
 
     return retPtr;
