@@ -5,7 +5,7 @@
 #include "Move.h"
 class ChessBoard;
 class Player{
-private:
+protected:
     std::shared_ptr<ChessBoard> board;
     virtual struct Move decideNextMove();
 public:
