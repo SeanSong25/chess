@@ -1,7 +1,7 @@
 #ifndef COMPUTERPLAYER_H
 #define COMPUTERPLAYER_H
 #include "Player.h"
-#include "PlayerType.h"
+#include "utils.h"
 
 class ComputerPlayer : public Player {
   public:

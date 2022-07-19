@@ -1,7 +1,6 @@
 #ifndef SCORE_BOARD_H
 #define SCORE_BOARD_H
-#include "Colours.h"
-
+#include "utils.h"
 class ScoreBoard {
     float whiteScore;
     float blackScore;

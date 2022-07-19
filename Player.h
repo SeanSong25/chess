@@ -1,9 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "Colours.h"
-#include "Move.h"
-#include "PlayerType.h"
 #include "memory"
+#include "utils.h"
 
 class ChessBoard;
 class Player {

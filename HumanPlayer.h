@@ -1,7 +1,7 @@
 #ifndef HUMANPLAYER_H
 #define HUMANPLAYER_H
 #include "Player.h"
-#include "PlayerType.h"
+#include "utils.h"
 
 class HumanPlayer : public Player {
   public:

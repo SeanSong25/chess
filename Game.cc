@@ -5,8 +5,8 @@
 
 #include "ComputerPlayer.h"
 #include "HumanPlayer.h"
-#include "PlayerType.h"
 #include "TextModifier.h"
+#include "utils.h"
 using namespace std;
 using namespace TextColour;
 
@@ -146,7 +146,7 @@ void Game::resignGame() {
         cout << Modifier(FG_YELLOW);
         cout << "Black player resigned" << endl;
         cout << "White player win the game!" << endl;
-        cout << Modifier(FG_DEFAULT) << endl;
+        cout << Modifier(FG_DEFAULT);
 
         scoreBoard->updateScore(WHITE);
     } else {
