@@ -17,15 +17,6 @@ enum PlayerType{
     COMPUTER
 };
 
-struct Move{
-    Move();
-    Move(Position start, Position end);
-    struct Position start;
-    struct Position end;
-    void setStart(struct Position p);
-    void setEnd(struct Position p);
-};
-
 struct Position{
     int row;
     int col;
@@ -33,5 +24,14 @@ struct Position{
     Position();
     int getRowIndex();
     int getColumnIndex();
+};
+
+struct Move{
+    Move();
+    Move(Position start, Position end);
+    struct Position start;
+    struct Position end;
+    void setStart(struct Position p);
+    void setEnd(struct Position p);
 };
 #endif
