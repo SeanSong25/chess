@@ -9,7 +9,8 @@ class TextDisplay {
     std::vector<std::vector<char>> textBoard;
 
   public:
-    friend std::ostream& operator<<(std::ostream, const TextDisplay&);
+    TextDisplay();
+    friend std::ostream& operator<<(std::ostream&, const TextDisplay&);
     void notify(Piece&);
 };
 

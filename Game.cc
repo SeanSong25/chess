@@ -88,10 +88,10 @@ void Game::startGame() {
 
     // announceTurn();
     if (whitePlayerStart == false) {
-        cout << Modifier(FG_CYAN) << "Black player's turn"
+        cout << Modifier(FG_YELLOW) << "Black player's turn"
              << Modifier(FG_DEFAULT) << endl;
     } else {
-        cout << Modifier(FG_CYAN) << "White player's turn"
+        cout << Modifier(FG_YELLOW) << "White player's turn"
              << Modifier(FG_DEFAULT) << endl;
     }
 
@@ -101,10 +101,10 @@ void Game::startGame() {
 
 void Game::announceTurn() {
     if (currentPlayer->colour == BLACK) {
-        cout << Modifier(FG_CYAN) << "Black player's turn"
+        cout << Modifier(FG_YELLOW) << "Black player's turn"
              << Modifier(FG_DEFAULT) << endl;
     } else {
-        cout << Modifier(FG_CYAN) << "White player's turn"
+        cout << Modifier(FG_YELLOW) << "White player's turn"
              << Modifier(FG_DEFAULT) << endl;
     }
 }
@@ -185,13 +185,16 @@ void Game::moveGame() {
 
     SwitchCurrentPlayer();
 
-    cout << Modifier(FG_CYAN);
+    cout << Modifier(FG_YELLOW);
     if (currentPlayer == blackPlayer) {
         cout << "Black player's turn" << endl;
     } else {
         cout << "White player's turn" << endl;
     }
-    cout << Modifier(FG_DEFAULT);
+    cout << Modifier(FG_YELLOW);
+
+    // Print board
+    cout << *textDisplay << endl;
 }
 
 void Game::setupGame() {
