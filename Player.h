@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include "utils.h"
 #include <memory>
+#include <vector>
 class ChessBoard;
 class Player{
 private:

@@ -7,7 +7,7 @@ class ComputerPlayer: public Player{
         virtual ~ComputerPlayer();
     private:
         struct Move decideNextMove() override;
-        virtual struct Move computeNextMove();
+        virtual struct Move computeNextMove() = 0;
     protected:
         std::shared_ptr<ChessBoard> board;
 };
