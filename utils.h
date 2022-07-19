@@ -17,7 +17,6 @@ enum PlayerType{
     COMPUTER
 };
 
-
 struct Position{
     int row;
     int col;
@@ -25,6 +24,8 @@ struct Position{
     Position();
     int getRowIndex();
     int getColumnIndex();
+    bool operator==(const Position &) const;
+    bool operator!=(const Position &) const;
 };
 
 struct Move{
