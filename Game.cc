@@ -15,8 +15,6 @@ Game::Game() {
     board = make_shared<ChessBoard>();
     textDisplay = make_unique<TextDisplay>();
     graphicDisplay = make_unique<GraphicDisplay>();
-    gameRunning = false;
-    hasCustomSetup = false;
 }
 
 void Game::play() {
@@ -31,6 +29,7 @@ void Game::play() {
             this->moveGame();
         } else if (cmd == "setup") {
             this->setupGame();
+        } else if (cmd == "undo") {
         }
     }
 
@@ -57,7 +56,6 @@ void Game::startGame() {
     // TODO: Initialize white and black players
     whitePlayer = initPlayer(x);
     blackPlayer = initPlayer(y);
-    currentPlayer = whitePlayer;
 
     // Return if the game is not successfully initialized
     if (whitePlayer == nullptr || blackPlayer == nullptr) {
@@ -70,6 +68,10 @@ void Game::startGame() {
 
     // TODO: Pass in the shared pointer board to the players
 
+    // TODO: Initialize pieces in the board
+    if (hasCustomSetup) {
+    }
+
     // Successfully initialized the game
     cout << Modifier(FG_GREEN);
     cout << "Game initialized" << endl;
@@ -77,11 +79,34 @@ void Game::startGame() {
     cout << "Black player: " << y << endl;
     cout << Modifier(FG_DEFAULT);
 
+    // Set current player
+    if (whitePlayerStart) {
+        currentPlayer = whitePlayer;
+    } else {
+        currentPlayer = blackPlayer;
+    }
+
+    // announceTurn();
+    if (whitePlayerStart == false) {
+        cout << Modifier(FG_CYAN) << "Black player's turn"
+             << Modifier(FG_DEFAULT) << endl;
+    } else {
+        cout << Modifier(FG_CYAN) << "White player's turn"
+             << Modifier(FG_DEFAULT) << endl;
+    }
+
     // Game is now running
     gameRunning = true;
+}
 
-    cout << Modifier(FG_CYAN) << "White player's turn"
-         << Modifier(FG_DEFAULT) << endl;
+void Game::announceTurn() {
+    if (currentPlayer->colour == BLACK) {
+        cout << Modifier(FG_CYAN) << "Black player's turn"
+             << Modifier(FG_DEFAULT) << endl;
+    } else {
+        cout << Modifier(FG_CYAN) << "White player's turn"
+             << Modifier(FG_DEFAULT) << endl;
+    }
 }
 
 // TODO: Helper function for initializing human and computer players
@@ -208,10 +233,10 @@ void Game::setupGame() {
             });
 
             if (colour == "white") {
-                currentPlayer = whitePlayer;
+                whitePlayerStart = true;
                 cout << Modifier(FG_GREEN) << "Game now start with white player" << Modifier(FG_DEFAULT) << endl;
             } else if (colour == "black") {
-                currentPlayer = blackPlayer;
+                whitePlayerStart = false;
                 cout << Modifier(FG_GREEN) << "Game now start with black player" << Modifier(FG_DEFAULT) << endl;
             } else {
                 cout << Modifier(FG_RED) << "Colour not valid" << Modifier(FG_DEFAULT) << endl;

@@ -18,14 +18,16 @@ class Game {
     std::unique_ptr<GraphicDisplay> graphicDisplay;
 
     // Helper functions
-    bool gameRunning;
-    bool hasCustomSetup;
+    bool gameRunning = false;
+    bool hasCustomSetup = false;
+    bool whitePlayerStart = true;
     void SwitchCurrentPlayer();
     Player* initPlayer(std::string);
     void startGame();
     void setupGame();
     void resignGame();
     void moveGame();
+    void announceTurn();
 
   public:
     Game();
