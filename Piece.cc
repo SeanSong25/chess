@@ -1,3 +1,4 @@
+#include "utils.h"
 #include "Piece.h"
 #include <algorithm>
 

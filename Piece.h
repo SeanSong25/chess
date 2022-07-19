@@ -1,6 +1,6 @@
 #ifndef PIECE_H
 #define PIECE_H
-#include "Colours.h"
+#include "utils.h"
 #include "ChessBoard.h"
 #include "Position.h"
 #include "PieceType.h"
