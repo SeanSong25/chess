@@ -1,4 +1,5 @@
 #include "utils.h"
+<<<<<<< HEAD
 Position::Position(std::string s){
     char c = s[0];
     col = (int)c - (int)'a';
@@ -40,3 +41,15 @@ void Move::setEnd(struct Position p){
     end = p;
 }
 
+=======
+
+Position::Position(int row, int col): row{row}, col{col} {}
+
+bool Position::operator==(const Position& p) const {
+    return (row == p.row && col == p.col);
+}
+
+bool Position::operator!=(const Position& p) const {
+    return (row != p.row || col != p.col);
+}
+>>>>>>> fb73a6ad8df4145ee74982adbed739a0021a7f85
