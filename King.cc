@@ -205,6 +205,7 @@ bool King::isCheckMate() {
     }
     for (auto &piece : playerPieces) {
         for (auto &pos : piece -> getPossibleNextPos()) {
+            
         }
     }
 

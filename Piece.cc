@@ -35,6 +35,11 @@ std::vector<Position> Piece::getPossibleCaptures() {
     return possibleCaptures;
 }
 
+// check if the move will put king in check
+bool Piece::putsKingInCheck(Position p) {
+
+}
+
 // check if input move is valid
 bool Piece::isMoveValid(Position p) {
     // check if physcially possible

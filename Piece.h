@@ -23,6 +23,7 @@ class Piece{
         PieceType getPieceType();
         std::vector<Position> getPossibleNextPos();
         std::vector<Position> getPossibleCaptures();
+        bool putsKingInCheck(Position);
         bool isMoveValid(Position);
         bool canBeCaptured(Position);
         virtual void move(Position);
