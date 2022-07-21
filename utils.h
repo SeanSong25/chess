@@ -20,8 +20,9 @@ enum PlayerType{
 struct Position{
     int row;
     int col;
-    Position(std::string s);
     Position();
+    Position(int, int);
+    Position(std::string s);
     int getRowIndex();
     int getColumnIndex();
     bool operator==(const Position &) const;
