@@ -20,22 +20,16 @@ enum PlayerType{
 struct Position{
     int row;
     int col;
-    Position();
     Position(int, int);
-    Position(std::string s);
-    Position(struct Position & p);
-    int getRowIndex();
-    int getColumnIndex();
+    Position(const Position & p);
+    Position & operator=(const Position &p);
     bool operator==(const Position &) const;
     bool operator!=(const Position &) const;
 };
 
 struct Move{
-    Move();
     Move(Position start, Position end);
-    struct Position start;
-    struct Position end;
-    void setStart(struct Position p);
-    void setEnd(struct Position p);
+    Position start;
+    Position end;
 };
 #endif
