@@ -11,7 +11,7 @@ class TextDisplay {
   public:
     TextDisplay();
     friend std::ostream& operator<<(std::ostream&, const TextDisplay&);
-    void notifyTextDisplay(const vector<vector<Piece*>>& theBoard);
+    void notifyTextDisplay(const std::vector<std::vector<Piece*>>& theBoard);
 };
 
 #endif

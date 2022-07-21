@@ -3,6 +3,9 @@
 #include <vector>
 
 #include "Piece.h"
+#include "utils.h"
+
+class Piece;
 
 class ChessBoard {
   private:
@@ -13,7 +16,7 @@ class ChessBoard {
     std::vector<Piece *> getWhiteRooks();  // first rook should be the one to the left
     std::vector<Piece *> getBlackRooks();
     std::vector<Piece *> getWhiteKing();
-    std::vector<Piece *> getBlackRooks();
+    std::vector<Piece *> getBlackKing();
     std::vector<Piece *> getWhitePieces();
     std::vector<Piece *> getBlackPieces();
 };
