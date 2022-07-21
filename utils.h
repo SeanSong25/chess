@@ -23,13 +23,16 @@ struct Position{
     Position(std::string s);
     Position(struct Position & p);
     Position();
+    Position(int, int);
     int getRowIndex();
     int getColumnIndex();
+    bool operator==(const Position &) const;
+    bool operator!=(const Position &) const;
 };
 
 struct Move{
     Move();
-    Move(Position start, Position end);
+    Move(struct Position start, struct Position end);
     struct Position start;
     struct Position end;
     void setStart(struct Position p);

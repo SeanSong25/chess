@@ -6,8 +6,8 @@ class ComputerPlayer: public Player{
         bool makeMove() override;
         virtual ~ComputerPlayer();
     private:
+        virtual struct Move computeNextMove();
         struct Move decideNextMove() override;
-        virtual struct Move computeNextMove() = 0;
     protected:
         std::shared_ptr<ChessBoard> board;
 };

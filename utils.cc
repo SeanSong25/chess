@@ -6,6 +6,11 @@ Position::Position(std::string s){
     row = (int) c;
 }
 
+Position::Position(struct Position & p){
+    this->row = p.row;
+    this->col = p.col;
+}
+
 Position::Position(){
     row = -1;
     col = -1;
