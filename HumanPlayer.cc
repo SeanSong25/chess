@@ -1,6 +1,7 @@
 #include "HumanPlayer.h"
 #include <string>
 #include <sstream>
+#include <iostream>
 #include "ChessBoard.h"
 using namespace std;
 
@@ -8,10 +9,9 @@ HumanPlayer::HumanPlayer(Colour colour){
     this->colour = colour;
 }
 
-void HumanPlayer::resign(){}
-
 struct Move HumanPlayer::decideNextMove(){
-    struct Move m;
+    struct Position tempPosition{0,0};
+    struct Move m{tempPosition, tempPosition};
     return m;
 }
 
@@ -21,16 +21,16 @@ bool HumanPlayer::makeMove(){
     stringstream ss(line);
     int cnt = 0;
     string word;
-    struct Move move;
-    struct Position tempPosition;
+    struct Position tempPosition{0,0};
+    struct Move move{tempPosition, tempPosition};
     char pieceType;
     while(ss >> word){
         if(cnt == 1){
-            tempPosition = Position{word};
-            move.setStart(tempPosition);
+            tempPosition = stringToPosition(word);
+            move.start = tempPosition;
         }else if (cnt == 2){
-            tempPosition = Position{word};
-            move.setEnd(tempPosition);
+            tempPosition = stringToPosition(word);
+            move.end = tempPosition;
         }else if(cnt == 3){
             pieceType = word[0];
         }
@@ -55,3 +55,4 @@ bool HumanPlayer::makeMove(){
 }
 
 HumanPlayer::~HumanPlayer(){}
+PlayerType HumanPlayer::playerType() { return PlayerType::HUMAN; }

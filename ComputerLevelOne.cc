@@ -14,7 +14,8 @@ struct Move ComputerLevelOne::computeNextMove(){
     nextMoves = board.get()->getNextMoves();
     
     int moveIndex = 0;
-    struct Move decisionMove;
+    Position tempPosition{0,0};
+    Move decisionMove{tempPosition, tempPosition};
     if(nextMoves.size() == 1){
         decisionMove = nextMoves[0];
         board.get()->makeMove(decisionMove);

@@ -5,16 +5,16 @@
 #include <vector>
 class ChessBoard;
 class Player{
-private:
-    virtual struct Move decideNextMove();
 public:
-    bool inCheck;
-    Colour colour;
+    Colour getColour();
     virtual bool makeMove() = 0;
-    virtual ~Player() = 0;
+    virtual PlayerType playerType() = 0; // Return HUMAN or COMPUTER
+    virtual ~Player() = default;
 protected:
     std::shared_ptr<ChessBoard> board;
+    Colour colour;
     void setBoard(std::shared_ptr<ChessBoard> board);
+private:
+    virtual Move decideNextMove();
 };
-
 #endif

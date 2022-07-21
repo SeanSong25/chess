@@ -7,9 +7,8 @@ class HumanPlayer : public Player{
         bool makeMove() override;
         HumanPlayer(Colour colour);
         ~HumanPlayer();
+        PlayerType playerType() override;
     private:
         struct Move decideNextMove() override;
-        void resign();  
 };
-
 #endif

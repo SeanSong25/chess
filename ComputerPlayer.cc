@@ -2,17 +2,17 @@
 #include "ChessBoard.h"
 
 bool ComputerPlayer::makeMove(){
-    struct Move move;
-    move = decideNextMove();
+    
+    Move move = decideNextMove();
     if(board.get()->checkMove(move)){
         board.get()->makeMove(move);
         return true;
     }
-    return false;
+    return true;
 }
 
 struct Move ComputerPlayer::computeNextMove(){
-    struct Position p;
+    struct Position p{0,0};
     struct Move m(p,p);
     return m;
 }
@@ -22,4 +22,4 @@ struct Move ComputerPlayer::decideNextMove(){
 }
 
 ComputerPlayer::~ComputerPlayer(){}
-
+PlayerType ComputerPlayer::playerType() { return PlayerType::COMPUTER; }

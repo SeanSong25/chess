@@ -4,12 +4,10 @@
 class ComputerPlayer: public Player{
     public:
         bool makeMove() override;
-        virtual ~ComputerPlayer();
+        PlayerType playerType() override;
+        virtual ~ComputerPlayer() = 0;
     private:
         virtual struct Move computeNextMove();
         struct Move decideNextMove() override;
-    protected:
-        std::shared_ptr<ChessBoard> board;
 };
-
 #endif

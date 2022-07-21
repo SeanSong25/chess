@@ -1,8 +1,13 @@
 #ifndef ROOK_H
 #define ROOK_H
+#include "Piece.h"
 
-class Rook{
+class Rook : public Piece {
+  private:
+    bool firstMove;
 
+  public:
+    bool isFirstMove() override;
 };
 
 #endif

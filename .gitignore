@@ -1,5 +1,5 @@
 *.o
 *.d
+vscode
+vscode/*
 chessProgram
-settings.json
-
