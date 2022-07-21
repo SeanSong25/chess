@@ -3,6 +3,9 @@
 #include "utils.h"
 
 class ChessBoard {
+  public:
+    ChessBoard();
+    ~ChessBoard();
 };
 
 #endif

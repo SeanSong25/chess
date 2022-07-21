@@ -39,6 +39,8 @@ void Game::play() {
     scoreBoard->printScore();
 }
 
+/* Start a new game with white-player and black-player
+   parameter can be human or computer[1-4] */
 void Game::startGame() {
     if (gameRunning == true) {
         cout << Modifier(FG_RED);
@@ -47,13 +49,10 @@ void Game::startGame() {
         return;
     }
 
-    /* Start a new game with white-player and black-player
-       parameter can be human or computer[1-4] */
-
     string x, y;
     cin >> x >> y;
 
-    // TODO: Initialize white and black players
+    // Initialize white and black players
     whitePlayer = initPlayer(x);
     blackPlayer = initPlayer(y);
 
@@ -65,8 +64,6 @@ void Game::startGame() {
         cout << Modifier(FG_DEFAULT);
         return;
     }
-
-    // TODO: Pass in the shared pointer board to the players
 
     // TODO: Initialize pieces in the board
     if (hasCustomSetup) {
@@ -87,13 +84,14 @@ void Game::startGame() {
     }
 
     // announceTurn();
-    if (whitePlayerStart == false) {
-        cout << Modifier(FG_YELLOW) << "Black player's turn"
-             << Modifier(FG_DEFAULT) << endl;
-    } else {
-        cout << Modifier(FG_YELLOW) << "White player's turn"
-             << Modifier(FG_DEFAULT) << endl;
-    }
+
+    // if (whitePlayerStart == false) {
+    //     cout << Modifier(FG_YELLOW) << "Black player's turn"
+    //          << Modifier(FG_DEFAULT) << endl;
+    // } else {
+    //     cout << Modifier(FG_YELLOW) << "White player's turn"
+    //          << Modifier(FG_DEFAULT) << endl;
+    // }
 
     // Game is now running
     gameRunning = true;
@@ -110,6 +108,7 @@ void Game::announceTurn() {
 }
 
 // TODO: Helper function for initializing human and computer players
+// TODO: Pass in the shared pointer board to the players
 Player* Game::initPlayer(string player) {
     Player* retPtr = nullptr;
 
@@ -184,14 +183,15 @@ void Game::moveGame() {
     currentPlayer->makeMove();
 
     SwitchCurrentPlayer();
+    // anounceTurn();
 
-    cout << Modifier(FG_YELLOW);
-    if (currentPlayer == blackPlayer) {
-        cout << "Black player's turn" << endl;
-    } else {
-        cout << "White player's turn" << endl;
-    }
-    cout << Modifier(FG_YELLOW);
+    // cout << Modifier(FG_YELLOW);
+    // if (currentPlayer == blackPlayer) {
+    //     cout << "Black player's turn" << endl;
+    // } else {
+    //     cout << "White player's turn" << endl;
+    // }
+    // cout << Modifier(FG_YELLOW);
 
     // Print board
     cout << *textDisplay << endl;

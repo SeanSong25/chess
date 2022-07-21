@@ -1,7 +1,8 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/kgao/Desktop/chess'
 g++ -std=c++14 -Wall -MMD   -c -o main.o main.cc
 g++ -std=c++14 -Wall -MMD   -c -o Piece.o Piece.cc
+ 
 g++ -std=c++14 -Wall -MMD   -c -o ChessBoard.o ChessBoard.cc
 g++ -std=c++14 -Wall -MMD   -c -o Game.o Game.cc
 g++ -std=c++14 -Wall -MMD   -c -o Player.o Player.cc
