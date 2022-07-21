@@ -4,7 +4,7 @@
 
 class King : public Piece{
     private:
-        bool isFirstMove;
+        bool firstMove;
         std::vector<Piece *> attackingPieces;
         void updatePossibleNextPos() override;
         bool canCastle(Piece *);
@@ -12,7 +12,6 @@ class King : public Piece{
         King(std::shared_ptr<ChessBoard>, Colour, Position);
         void getAttackingPieces();
         bool isCheckMate();
-        void move(Position) override;
         ~King();
 };
 

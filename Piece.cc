@@ -20,9 +20,24 @@ Position Piece::getPosition() {
     return position;
 }
 
+// setter for position
+void Piece::setPosition(Position p) {
+    position = p;
+}
+
 // getter for piece type
 PieceType Piece::getPieceType() {
     return pieceType;
+}
+
+// check if it is the first move (getter for firstMove)
+bool Piece::isFirstMove() {
+    return firstMove;
+}
+
+// setter for firstMove
+void Piece::setFirstMove(bool b) {
+    firstMove = b;
 }
 
 // getter for possible next position
@@ -45,7 +60,9 @@ bool Piece::isMoveValid(Position p) {
     // check if physcially possible
     if (std::find(possibleNextPos.begin(), possibleNextPos.end(), p) != possibleNextPos.end()) {
         // check if this move puts player's king in check
-
+        if (putsKingInCheck(p)) {
+            return false;
+        }
         return true;
     } else {
         return false;
@@ -69,12 +86,6 @@ bool Piece::canBeCaptured(Position p) {
     }
 
     return false;
-}
-
-// move (base class)
-void Piece::move(Position p) {
-    // update position
-    position = p;
 }
 
 // destructor
