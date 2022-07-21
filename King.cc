@@ -3,7 +3,7 @@
 // constructor
 King::King(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
     Piece{board, colour, position, PieceType::KING}, 
-    isFirstMove{true},
+    firstMove{true},
     attackingPieces{std::vector<Piece *> ()} {}
 
 // get possible next positions and possible next captures for King
@@ -107,7 +107,7 @@ void King::updatePossibleNextPos() {
 
 // return true if player can castle
 bool King::canCastle(Piece *rook) {
-    if (!isFirstMove || !rook -> isFirstMove()) {
+    if (!firstMove || !rook -> isFirstMove()) {
         return false;
     }
 
@@ -205,6 +205,7 @@ bool King::isCheckMate() {
     }
     for (auto &piece : playerPieces) {
         for (auto &pos : piece -> getPossibleNextPos()) {
+            
         }
     }
 

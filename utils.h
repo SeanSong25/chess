@@ -31,7 +31,7 @@ Position stringToPosition (std::string);
 
 struct Move{
     Move(Position start, Position end);
-    struct Position start;
-    struct Position end;
+    Position start;
+    Position end;
 };
 #endif

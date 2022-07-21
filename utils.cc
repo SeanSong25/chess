@@ -27,5 +27,5 @@ Position stringToPosition (std::string s){
     return p;
 }
 
-Move::Move(struct Position start, struct Position end):start{start}, end{end}{}
+Move::Move(Position start, Position end):start{start}, end{end}{}
 

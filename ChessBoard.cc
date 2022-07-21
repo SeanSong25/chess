@@ -81,10 +81,9 @@ vector<vector<Piece *>> ChessBoard::getBoard() {
     return theBoard;
 }
 
-vector<vector<Piece *>> getBoard() {}
-vector<Piece *> getWhiteRooks() {}
-vector<Piece *> getBlackRooks() {}
-vector<Piece *> getWhiteKing() {}
-vector<Piece *> getBlackKing() {}
-vector<Piece *> getWhitePieces() {}
-vector<Piece *> getBlackPieces() {}
+vector<Piece *> ChessBoard::getWhiteRooks() {}
+vector<Piece *> ChessBoard::getBlackRooks() {}
+vector<Piece *> ChessBoard::getWhiteKing() {}
+vector<Piece *> ChessBoard::getBlackKing() {}
+vector<Piece *> ChessBoard::getWhitePieces() {}
+vector<Piece *> ChessBoard::getBlackPieces() {}

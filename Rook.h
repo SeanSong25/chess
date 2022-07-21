@@ -7,7 +7,6 @@ class Rook : public Piece {
     bool firstMove;
 
   public:
-    bool isFirstMove() override;
 };
 
 #endif
