@@ -1,5 +1,5 @@
 #include "utils.h"
-<<<<<<< HEAD
+
 Position::Position(std::string s){
     char c = s[0];
     col = (int)c - (int)'a';
@@ -7,18 +7,28 @@ Position::Position(std::string s){
     row = (int) c;
 }
 
-Position::Position(){
+Position::Position() {
     row = -1;
     col = -1;
 }
 
-int Position::getRowIndex(){
-    return 8 - row;
+Position::Position(int row, int col): row{row}, col{col} {}
+
+Position::Position(struct Position &p){
+    row = p.row;
+    col = p.col;
 }
 
-Position::Position(struct Position & p){
-    this->row = p.row;
-    this->col = p.col;
+bool Position::operator==(const Position& p) const {
+    return (row == p.row && col == p.col);
+}
+
+bool Position::operator!=(const Position& p) const {
+    return (row != p.row || col != p.col);
+}
+
+int Position::getRowIndex(){
+    return 8 - row;
 }
 
 int Position::getColumnIndex(){
@@ -40,16 +50,3 @@ void Move::setStart(struct Position p){
 void Move::setEnd(struct Position p){
     end = p;
 }
-
-=======
-
-Position::Position(int row, int col): row{row}, col{col} {}
-
-bool Position::operator==(const Position& p) const {
-    return (row == p.row && col == p.col);
-}
-
-bool Position::operator!=(const Position& p) const {
-    return (row != p.row || col != p.col);
-}
->>>>>>> fb73a6ad8df4145ee74982adbed739a0021a7f85
