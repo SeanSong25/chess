@@ -11,7 +11,7 @@ public:
     bool inCheck;
     Colour colour;
     virtual bool makeMove() = 0;
-    virtual ~Player(){};
+    virtual ~Player() = 0;
 protected:
     std::shared_ptr<ChessBoard> board;
     void setBoard(std::shared_ptr<ChessBoard> board);

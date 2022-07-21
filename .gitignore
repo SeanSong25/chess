@@ -1,4 +1,5 @@
 *.o
 *.d
 chessProgram
+settings.json
 

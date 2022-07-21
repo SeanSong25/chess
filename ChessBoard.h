@@ -8,8 +8,8 @@ public:
     void promote(struct Move, char pieceType);
     bool checkMove(struct Move);
     bool checkPromotion(struct Move, char pieceType);
+    void undo();
     std::vector<struct Move> getNextMoves();
-    void commitMove(struct Move);
 };
 
 #endif

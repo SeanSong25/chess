@@ -10,4 +10,8 @@ bool ComputerPlayer::makeMove(){
     return false;
 }
 
+struct Move ComputerPlayer::decideNextMove(){
+    return computeNextMove();
+}
+
 ComputerPlayer::~ComputerPlayer(){}

@@ -21,6 +21,7 @@ struct Position{
     int row;
     int col;
     Position(std::string s);
+    Position(struct Position & p);
     Position();
     int getRowIndex();
     int getColumnIndex();
