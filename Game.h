@@ -27,7 +27,12 @@ class Game {
     void setupGame();
     void resignGame();
     void moveGame();
-    void announceTurn();
+    void endGame();       // TODO: handle the reset after each game
+    void announceTurn();  // announce black's move / white's move
+    void setupColour();
+
+    // Notify text display and graphic display after change
+    void notifyDisplays();
 
   public:
     Game();
