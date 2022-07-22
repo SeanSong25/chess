@@ -13,6 +13,7 @@ class ChessBoard : public std::enable_shared_from_this<ChessBoard> {
   public:
     ChessBoard();
     ~ChessBoard();
+    void destroy();
 
     // Functions for board setup
     void defaultInit();  // Initialize standard 8 x 8 board pieces

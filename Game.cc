@@ -163,7 +163,7 @@ void Game::resignGame() {
          << Modifier(FG_DEFAULT) << endl;
     scoreBoard->printScore();
 
-    gameRunning = false;
+    endGame();
 }
 
 void Game::SwitchCurrentPlayer() {
@@ -264,4 +264,13 @@ void Game::setupColour() {
 void Game::notifyDisplays() {
     textDisplay->notifyTextDisplay(board->getBoard());
     // graphicDisplay->notifyGraphicDisplay(board->getBoard());
+}
+
+void Game::endGame() {
+    gameRunning = false;
+    hasCustomSetup = false;
+    whitePlayerStart = true;
+    if (whitePlayer) delete whitePlayer;
+    if (blackPlayer) delete blackPlayer;
+    board->destroy();
 }
