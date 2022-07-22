@@ -3,4 +3,8 @@
 vscode
 *.json
 vscode/*
+.vscode
+.vscode/*
 chessProgram
+
+testCase.txt
