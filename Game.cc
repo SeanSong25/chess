@@ -3,8 +3,8 @@
 #include <algorithm>
 #include <iostream>
 
-#include "ComputerLevelOne.h"
 #include "ComputerPlayer.h"
+#include "ComputerLevelOne.h"
 #include "HumanPlayer.h"
 #include "TextModifier.h"
 #include "utils.h"
@@ -12,16 +12,14 @@ using namespace std;
 using namespace TextColour;
 
 Game::Game() {
+    scoreBoard = make_unique<ScoreBoard>();
     board = make_shared<ChessBoard>();
     textDisplay = make_unique<TextDisplay>();
-    scoreBoard = make_unique<ScoreBoard>();
     graphicDisplay = make_unique<GraphicDisplay>();
 }
 
 void Game::play() {
     string cmd;
-    cout << Modifier(FG_BLUE) << "Welcome to the chess game"
-         << Modifier(FG_DEFAULT) << endl;
 
     while (cin >> cmd) {
         if (cmd == "game") {
@@ -52,7 +50,6 @@ void Game::startGame() {
         return;
     }
 
-    // Read in player type (human / computer[1-4])
     string x, y;
     cin >> x >> y;
 
@@ -69,13 +66,8 @@ void Game::startGame() {
         return;
     }
 
-    // Pass in the board to the players
-    whitePlayer->setBoard(board);
-    blackPlayer->setBoard(board);
-
-    // Default initialize pieces if no custom setup
-    if (!hasCustomSetup) {
-        board->defaultInit();
+    // TODO: Initialize pieces in the board
+    if (hasCustomSetup) {
     }
 
     // Successfully initialized the game
@@ -92,9 +84,15 @@ void Game::startGame() {
         currentPlayer = blackPlayer;
     }
 
-    announceTurn();
-    notifyDisplays();
-    cout << *textDisplay << endl;
+    // announceTurn();
+
+    // if (whitePlayerStart == false) {
+    //     cout << Modifier(FG_YELLOW) << "Black player's turn"
+    //          << Modifier(FG_DEFAULT) << endl;
+    // } else {
+    //     cout << Modifier(FG_YELLOW) << "White player's turn"
+    //          << Modifier(FG_DEFAULT) << endl;
+    // }
 
     // Game is now running
     gameRunning = true;
@@ -110,7 +108,8 @@ void Game::announceTurn() {
     }
 }
 
-// TODO: Change the computerLevelOnes to level 2,3,4
+// TODO: Helper function for initializing human and computer players
+// TODO: Pass in the shared pointer board to the players
 Player* Game::initPlayer(string player, Colour colour) {
     Player* retPtr = nullptr;
 
@@ -163,7 +162,7 @@ void Game::resignGame() {
          << Modifier(FG_DEFAULT) << endl;
     scoreBoard->printScore();
 
-    endGame();
+    gameRunning = false;
 }
 
 void Game::SwitchCurrentPlayer() {
@@ -182,19 +181,21 @@ void Game::moveGame() {
     }
 
     // TODO: need to check whether the move is successful
-    bool successMove = currentPlayer->makeMove();
+    currentPlayer->makeMove();
 
-    if (successMove) {
-        SwitchCurrentPlayer();
-        announceTurn();
-        notifyDisplays();
-        cout << *textDisplay << endl;
-    } else {
-        cout << Modifier(FG_RED) << "Sorry, move not valid"
-             << Modifier(FG_DEFAULT) << endl;
+    SwitchCurrentPlayer();
+    // anounceTurn();
 
-        announceTurn();
-    }
+    // cout << Modifier(FG_YELLOW);
+    // if (currentPlayer == blackPlayer) {
+    //     cout << "Black player's turn" << endl;
+    // } else {
+    //     cout << "White player's turn" << endl;
+    // }
+    // cout << Modifier(FG_YELLOW);
+
+    // Print board
+    cout << *textDisplay << endl;
 }
 
 void Game::setupGame() {
@@ -209,24 +210,43 @@ void Game::setupGame() {
     string cmd;
     while (cin >> cmd) {
         if (cmd == "+") {
-            board->setupPiece();
-            notifyDisplays();
-            cout << *textDisplay << endl;
+            // TODO: add piece to board
+
+            char piece;
+            string pos;
+            cin >> piece >> pos;
+
+            cout << Modifier(FG_GREEN) << "Places the piece " << piece << " on the square " << pos << Modifier(FG_DEFAULT) << endl;
         }
 
         else if (cmd == "-") {
-            board->removePiece();
-            notifyDisplays();
-            cout << *textDisplay << endl;
+            // TODO: delete piece from board
+            string pos;
+            cin >> pos;
+
+            cout << Modifier(FG_GREEN) << "Removes the piece from square " << pos << Modifier(FG_DEFAULT) << endl;
         }
 
         else if (cmd == "=") {
-            setupColour();
-        }
+            string colour;
+            cin >> colour;
 
-        else if (cmd == "done") {
-            // TODO: check the kings are not in checked
+            // Convert colour to lowercase
+            std::for_each(colour.begin(), colour.end(), [](char& c) {
+                c = ::tolower(c);
+            });
 
+            if (colour == "white") {
+                whitePlayerStart = true;
+                cout << Modifier(FG_GREEN) << "Game now start with white player" << Modifier(FG_DEFAULT) << endl;
+            } else if (colour == "black") {
+                whitePlayerStart = false;
+                cout << Modifier(FG_GREEN) << "Game now start with black player" << Modifier(FG_DEFAULT) << endl;
+            } else {
+                cout << Modifier(FG_RED) << "Colour not valid" << Modifier(FG_DEFAULT) << endl;
+            }
+
+        } else if (cmd == "done") {
             cout << Modifier(FG_YELLOW) << "Finished board setup" << Modifier(FG_DEFAULT) << endl;
             return;
         }
@@ -237,42 +257,4 @@ void Game::setupGame() {
     }
 
     hasCustomSetup = true;
-}
-
-void Game::setupColour() {
-    string colour;
-    cin >> colour;
-
-    for_each(colour.begin(), colour.end(), [](char& c) {
-        c = ::tolower(c);
-    });
-
-    if (colour == "white") {
-        whitePlayerStart = true;
-        cout << Modifier(FG_GREEN) << "Game now start with white player" << Modifier(FG_DEFAULT) << endl;
-    }
-
-    else if (colour == "black") {
-        whitePlayerStart = false;
-        cout << Modifier(FG_GREEN) << "Game now start with black player" << Modifier(FG_DEFAULT) << endl;
-    }
-
-    else {
-        cout << Modifier(FG_RED) << "Colour not valid"
-             << Modifier(FG_DEFAULT) << endl;
-    }
-}
-
-void Game::notifyDisplays() {
-    textDisplay->notifyTextDisplay(board->getBoard());
-    // graphicDisplay->notifyGraphicDisplay(board->getBoard());
-}
-
-void Game::endGame() {
-    gameRunning = false;
-    hasCustomSetup = false;
-    whitePlayerStart = true;
-    if (whitePlayer) delete whitePlayer;
-    if (blackPlayer) delete blackPlayer;
-    board->destroy();
 }

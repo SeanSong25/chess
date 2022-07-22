@@ -1,10 +1,9 @@
 #ifndef UTILS_H
 #define UTILS_H
 #include <string>
-enum Colour { BLACK,
-              WHITE };
+enum Colour{BLACK,WHITE};
 
-enum PieceType {
+enum PieceType{
     PAWN,
     KING,
     KNIGHT,
@@ -13,12 +12,12 @@ enum PieceType {
     BISHOP
 };
 
-enum PlayerType {
+enum PlayerType{
     HUMAN,
     COMPUTER
 };
 
-struct Position {
+struct Position{
     int row;
     int col;
     Position(int, int);
@@ -28,9 +27,9 @@ struct Position {
     Position operator=(const Position &p);
 };
 
-Position stringToPosition(std::string);
+Position stringToPosition (std::string);
 
-struct Move {
+struct Move{
     Move(Position start, Position end);
     Position start;
     Position end;

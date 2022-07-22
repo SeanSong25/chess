@@ -2,7 +2,7 @@
 #define PAWN_H
 
 class Pawn{
-    
+
 };
 
 #endif

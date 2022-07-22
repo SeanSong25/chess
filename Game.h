@@ -25,14 +25,9 @@ class Game {
     Player* initPlayer(std::string, Colour);
     void startGame();
     void setupGame();
-    void setupColour();
     void resignGame();
     void moveGame();
-    void endGame();       // TODO: handle the reset after each game
-    void announceTurn();  // announce black's move / white's move
-
-    // Notify text display and graphic display after change
-    void notifyDisplays();
+    void announceTurn();
 
   public:
     Game();
