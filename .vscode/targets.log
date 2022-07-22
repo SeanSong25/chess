@@ -6,8 +6,12 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
+make: *** No rule to make target `all'.  Stop.
 
-# Make data base, printed on Fri Jul 22 11:48:07 2022
+
+# Make data base, printed on Fri Jul 22 15:40:36 2022
+ 
 
 # Variables
 
@@ -166,9 +170,9 @@ LANG = C
 
 # Directories
 
-# . (device 16777221, inode 49499736): 86 files, no impossibilities.
+# . (device 16777221, inode 49499736): 87 files, no impossibilities.
 
-# 86 files, no impossibilities in 1 directories.
+# 87 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -186,7 +190,7 @@ ScoreBoard.h:
 TextDisplay.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:10
+#  Last modified 2022-07-22 13:58:43
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -208,7 +212,8 @@ HumanPlayer.h:
 King.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:08
+ 
+#  Last modified 2022-07-22 13:58:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -218,7 +223,7 @@ King.d:
 ComputerLevelOne.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:07
+#  Last modified 2022-07-22 13:58:40
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -297,9 +302,8 @@ utils.h:
 Queen.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:09
+#  Last modified 2022-07-22 13:58:42
 #  File has been updated.
- 
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
@@ -336,7 +340,7 @@ ScoreBoard.d:
 ComputerPlayer.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:07
+#  Last modified 2022-07-22 13:58:40
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -351,7 +355,7 @@ Piece.o: Piece.cc utils.h Piece.h ChessBoard.h Player.h
 HumanPlayer.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:07
+#  Last modified 2022-07-22 13:58:40
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -372,7 +376,7 @@ TextDisplay.o: TextDisplay.cc TextDisplay.h Piece.h ChessBoard.h Player.h utils.
 Knight.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:08
+#  Last modified 2022-07-22 13:58:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -388,7 +392,7 @@ TextModifier.h:
 ChessBoard.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:05
+#  Last modified 2022-07-22 13:58:39
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -409,6 +413,7 @@ XEC: main.o Piece.o ChessBoard.o Game.o Player.o ComputerPlayer.o ComputerLevelO
 #  File has not been updated.
 #  commands to execute (from `makefile', line 8):
 	${CXX} ${CXXFLAFS} ${OBJECTS} -o ${EXEC}
+ 
 	
 
 King.o: King.cc King.h Piece.h ChessBoard.h Player.h utils.h
@@ -420,7 +425,7 @@ King.o: King.cc King.h Piece.h ChessBoard.h Player.h utils.h
 Game.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:06
+#  Last modified 2022-07-22 14:02:43
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -478,7 +483,7 @@ King.cc:
 utils.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:09
+#  Last modified 2022-07-22 12:04:30
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -488,7 +493,7 @@ utils.d:
 Bishop.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:09
+#  Last modified 2022-07-22 13:58:42
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -521,7 +526,7 @@ ScoreBoard.o: ScoreBoard.cc ScoreBoard.h utils.h TextModifier.h
 main.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:30:20
+#  Last modified 2022-07-22 13:58:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -579,9 +584,6 @@ Knight.o: Knight.cc Knight.h Piece.h ChessBoard.h Player.h utils.h
 ChessBoard.o: ChessBoard.cc ChessBoard.h Piece.h utils.h Player.h Bishop.h King.h Knight.h Pawn.h Queen.h Rook.h TextModifier.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
- 
-make: *** No rule to make target `all'.  Stop.
-
 #  File has not been updated.
 
 # Not a target:
@@ -646,6 +648,7 @@ ChessBoard.cc:
 # Not a target:
 Piece.h:
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -675,7 +678,7 @@ TextDisplay.h:
 Rook.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:08
+#  Last modified 2022-07-22 13:58:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -755,7 +758,7 @@ TextModifier.cc:
 Piece.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:30:20
+#  Last modified 2022-07-22 13:58:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -779,6 +782,6 @@ Player.o: Player.cc Player.h utils.h
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 3868 / max = 3868 / min = 3868 / avg = 3868
 
-# Finished Make data base on Fri Jul 22 11:48:07 2022
+# Finished Make data base on Fri Jul 22 15:40:36 2022
 
  

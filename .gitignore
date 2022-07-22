@@ -2,4 +2,6 @@
 *.d
 vscode
 vscode/*
+.vscode
+.vscode/*
 chessProgram

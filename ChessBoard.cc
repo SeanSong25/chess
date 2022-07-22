@@ -16,7 +16,7 @@
 using namespace std;
 
 // ----------------------------------------------------------------------------
-// Ctor and dtor
+// Constructor and destructor
 
 ChessBoard::ChessBoard() {
     // Construct 8 x 8 chessboard
@@ -188,12 +188,65 @@ vector<vector<Piece *>> ChessBoard::getBoard() {
     return theBoard;
 }
 
-vector<Piece *> ChessBoard::getWhiteRooks() {}
-vector<Piece *> ChessBoard::getBlackRooks() {}
+vector<Piece *> ChessBoard::getWhiteRooks() {
+    vector<Piece *> whiteRooks{};
+
+    for (int r = 0; r < 8; ++r) {
+        for (int c = 0; c < 8; ++c) {
+            Piece *p = theBoard[r][c];
+            if (p != nullptr && p->getPieceType() == ROOK && p->getColour() == WHITE) {
+                whiteRooks.emplace_back(p);
+            }
+        }
+    }
+    return whiteRooks;
+}
+
+vector<Piece *> ChessBoard::getBlackRooks() {
+    vector<Piece *> blackRooks{};
+
+    for (int r = 0; r < 8; ++r) {
+        for (int c = 0; c < 8; ++c) {
+            Piece *p = theBoard[r][c];
+            if (p != nullptr && p->getPieceType() == ROOK && p->getColour() == BLACK) {
+                blackRooks.emplace_back(p);
+            }
+        }
+    }
+    return blackRooks;
+}
+
+// Change this to return Piece* ?
 vector<Piece *> ChessBoard::getWhiteKing() {}
 vector<Piece *> ChessBoard::getBlackKing() {}
-vector<Piece *> ChessBoard::getWhitePieces() {}
-vector<Piece *> ChessBoard::getBlackPieces() {}
+
+vector<Piece *> ChessBoard::getWhitePieces() {
+    vector<Piece *> whitePieces{};
+
+    for (int r = 0; r < 8; ++r) {
+        for (int c = 0; c < 8; ++c) {
+            Piece *p = theBoard[r][c];
+            if (p != nullptr && p->getColour() == WHITE) {
+                whitePieces.emplace_back(p);
+            }
+        }
+    }
+    return whitePieces;
+}
+
+vector<Piece *> ChessBoard::getBlackPieces() {
+    vector<Piece *> blackPieces{};
+
+    for (int r = 0; r < 8; ++r) {
+        for (int c = 0; c < 8; ++c) {
+            Piece *p = theBoard[r][c];
+            if (p != nullptr && p->getColour() == BLACK) {
+                blackPieces.emplace_back(p);
+            }
+        }
+    }
+    return blackPieces;
+}
 
 // ----------------------------------------------------------------------------
 // Game Logic
