@@ -1,15 +1,34 @@
 #include "ChessBoard.h"
+#include <iostream>
 using namespace std;
 
-void ChessBoard::makeMove(struct Move){
+void ChessBoard::makeMove(Move m){
+    Position p1 = m.start;
+    Position p2 = m.end;
+    Piece* temp = theBoard[p1.row][p1.col];
+    if(theBoard[p2.row][p2.col] == nullptr){
+        theBoard[p2.row][p2.col] = temp;
+    }else{
+        delete theBoard[p2.row][p2.col];
+        theBoard[p2.row][p2.col] = temp;
+        //if the final position has a piece, delete the original piece
+        //and place the new piece
+    }
+    cout<<theBoard[p2.row][p2.col]->getPieceType()<<endl;
+    //testing the piecetype of that final psoition
 }
 
-void ChessBoard::promote(struct Move, char pieceType){
+void ChessBoard::promote(struct Move m, char pieceType){
 }
 
-bool ChessBoard::checkMove(struct Move){return true;}
+void ChessBoard::setPiece(Piece* p, Position pos){
+    int row = pos.row;
+    int col = pos.col;
+    theBoard[row][col] = p;
+}
+bool ChessBoard::checkMove(struct Move m){return true;}
 
-bool ChessBoard::checkPromotion(struct Move, char pieceType){return true;}
+bool ChessBoard::checkPromotion(struct Move m, char pieceType){return true;}
 
 void ChessBoard::undo(){}
 

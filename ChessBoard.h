@@ -22,6 +22,7 @@ class ChessBoard {
     void makeMove(struct Move);
     void promote(struct Move, char pieceType);
     bool checkMove(struct Move);
+    void setPiece(Piece* p, Position pos);
     bool checkPromotion(struct Move, char pieceType);
     void undo();
     std::vector<struct Move> getNextMoves();

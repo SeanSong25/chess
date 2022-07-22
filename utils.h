@@ -24,7 +24,7 @@ struct Position{
     Position(const Position &p);
     bool operator==(const Position &) const;
     bool operator!=(const Position &) const;
-    Position &operator=(const Position &p);
+    Position operator=(const Position &p);
 };
 
 Position stringToPosition (std::string);

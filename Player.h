@@ -10,9 +10,10 @@ public:
     virtual bool makeMove() = 0;
     virtual PlayerType playerType() = 0; // Return HUMAN or COMPUTER
     virtual ~Player() = default;
+    void setBoard(std::shared_ptr<ChessBoard> board);
 protected:
     std::shared_ptr<ChessBoard> board;
     Colour colour;
-    void setBoard(std::shared_ptr<ChessBoard> board);
+    
 };
 #endif
