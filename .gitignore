@@ -1,5 +1,6 @@
 *.o
 *.d
 vscode
+*.json
 vscode/*
 chessProgram
