@@ -1,5 +1,7 @@
 #include "utils.h"
 
+Position::Position(): row{-1}, col{-1} {}
+
 Position::Position(int row, int col): row{row}, col{col} {}
 
 Position::Position(const Position &p){
@@ -9,7 +11,9 @@ Position::Position(const Position &p){
 
 Position &Position::operator=(const Position &p){
     Position newPos{p};
-    return newPos;
+    row = newPos.row;
+    col = newPos.col;
+    return *this;
 }
 
 bool Position::operator==(const Position& p) const {

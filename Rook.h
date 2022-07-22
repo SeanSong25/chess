@@ -4,9 +4,12 @@
 
 class Rook : public Piece {
   private:
-    bool firstMove;
-
+    void updatePossibleNextPos() override;
   public:
+    Rook(std::shared_ptr<ChessBoard>, Colour, Position);
+    Rook(Rook &r);
+    Rook *clone() override;
+    ~Rook();
 };
 
 #endif

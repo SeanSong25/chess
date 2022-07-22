@@ -4,6 +4,17 @@
 Bishop::Bishop(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
     Piece{board, colour, position, PieceType::BISHOP} {}
 
+// copy constructor
+Bishop::Bishop(Bishop &b) {
+    board = b.board;
+    colour = b.getColour();
+    position = b.getPosition();
+    pieceType = b.getPieceType();
+    firstMove = b.isFirstMove();
+    possibleNextPos = b.getPossibleNextPos();
+    possibleCaptures = b.getPossibleCaptures();
+}
+
 // update possible next positions and possible next captures for Bishop
 void Bishop::updatePossibleNextPos() {
     // clear all previous data
@@ -61,6 +72,10 @@ void Bishop::updatePossibleNextPos() {
             break;
         }
     }
+}
+
+Bishop *Bishop::clone() {
+    return new Bishop(*this);
 }
 
 Bishop::~Bishop() {}

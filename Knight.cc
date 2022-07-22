@@ -4,6 +4,17 @@
 Knight::Knight(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
     Piece{board, colour, position, PieceType::KNIGHT} {}
 
+// copy constructor
+Knight::Knight(Knight &k) {
+    board = k.board;
+    colour = k.getColour();
+    position = k.getPosition();
+    pieceType = k.getPieceType();
+    firstMove = k.isFirstMove();
+    possibleNextPos = k.getPossibleNextPos();
+    possibleCaptures = k.getPossibleCaptures();
+}
+
 // update possible next positions and possible next captures for Knight
 void Knight::updatePossibleNextPos() {
     // clear all previous data
@@ -84,6 +95,10 @@ void Knight::updatePossibleNextPos() {
                 possibleCaptures.emplace_back(row - 2, col - 1);
         }
     }
+}
+
+Knight *Knight::clone() {
+    return new Knight(*this);
 }
 
 Knight::~Knight() {}

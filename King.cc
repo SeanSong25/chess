@@ -3,8 +3,19 @@
 // constructor
 King::King(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
     Piece{board, colour, position, PieceType::KING}, 
-    firstMove{true},
     attackingPieces{std::vector<Piece *> ()} {}
+
+// copy constructor
+King::King(King &k) {
+    board = k.board;
+    colour = k.getColour();
+    position = k.getPosition();
+    pieceType = k.getPieceType();
+    firstMove = k.isFirstMove();
+    possibleNextPos = k.getPossibleNextPos();
+    possibleCaptures = k.getPossibleCaptures();
+    attackingPieces = k.getAttackingPieces();
+}
 
 // get possible next positions and possible next captures for King
 void King::updatePossibleNextPos() {
@@ -97,11 +108,19 @@ void King::updatePossibleNextPos() {
     }
 
     if (canCastle(rooks[0])) {
-        possibleNextPos.emplace_back(row, col - 2);
+        if (rooks[0] -> getPosition().col == 0) {
+           possibleNextPos.emplace_back(row, col - 2); 
+        } else {
+           possibleNextPos.emplace_back(row, col + 2); 
+        }
     }
 
     if (canCastle(rooks[1])) {
-        possibleNextPos.emplace_back(row, col + 2);
+        if (rooks[1] -> getPosition().col == 0) {
+           possibleNextPos.emplace_back(row, col - 2); 
+        } else {
+           possibleNextPos.emplace_back(row, col + 2); 
+        }
     }
 }
 
@@ -112,7 +131,22 @@ bool King::canCastle(Piece *rook) {
     }
 
     Position rookPos = rook -> getPosition();
-    if (position.col < rookPos.col) {
+    // check if they are on the same row
+    if (position.row != rookPos.row) {
+        return false;
+    }
+    if (rookPos.col == 0 && position.col == 4) {
+        if (board -> getBoard()[position.row][position.col - 1] || 
+            board -> getBoard()[position.row][position.col - 2] || 
+            board -> getBoard()[position.row][position.col - 3]) {
+                return false;
+        }
+        Position middlePos = Position(position.row, position.col - 1);
+        Position finalPos = Position(position.row, position.col - 2);
+        if (canBeCaptured(position) || canBeCaptured(middlePos) || canBeCaptured(finalPos)) {
+            return false;
+        }
+    } else if (rookPos.col == 7 && position.col == 4) {
         if (board -> getBoard()[position.row][position.col + 1] || 
             board -> getBoard()[position.row][position.col + 2]) {
                 return false;
@@ -123,20 +157,17 @@ bool King::canCastle(Piece *rook) {
             return false;
         }
     } else {
-        if (board -> getBoard()[position.row][position.col - 1] || 
-            board -> getBoard()[position.row][position.col - 2]) {
-                return false;
-        }
-        Position middlePos = Position(position.row, position.col - 1);
-        Position finalPos = Position(position.row, position.col - 2);
-        if (canBeCaptured(position) || canBeCaptured(middlePos) || canBeCaptured(finalPos)) {
-            return false;
-        }
+        return false;
     }
 }
 
+// getter for attacking pieces
+std::vector<Piece *> King::getAttackingPieces() {
+    return attackingPieces;
+}
+
 // get attacking pieces 
-void King::getAttackingPieces() {
+void King::updateAttackingPieces() {
     // clear any previous attacking pieces
     attackingPieces.clear();
 
@@ -165,8 +196,8 @@ bool King::isCheckMate() {
         return false;
     }
 
-    // if it is in check, get attacking pieces
-    getAttackingPieces();
+    // if it is in check, update attacking pieces
+    updateAttackingPieces();
 
     // check if king can move to escape
     if (possibleNextPos.size() == 0) {
@@ -199,17 +230,23 @@ bool King::isCheckMate() {
     // check if a piece can be moved between the attacking piece and king to avoid the attack
     std::vector<Piece *> playerPieces;
     if (colour == Colour::BLACK) {
-        playerPieces = board -> getWhitePieces();
-    } else {
         playerPieces = board -> getBlackPieces();
+    } else {
+        playerPieces = board -> getWhitePieces();
     }
     for (auto &piece : playerPieces) {
         for (auto &pos : piece -> getPossibleNextPos()) {
-            
+            if (!piece -> putsKingInCheck(pos)) {
+                return false;
+            }
         }
     }
 
     return true;
+}
+
+King *King::clone() {
+    return new King(*this);
 }
 
 King::~King() {}

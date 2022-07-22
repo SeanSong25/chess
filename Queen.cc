@@ -4,6 +4,17 @@
 Queen::Queen(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
     Piece{board, colour, position, PieceType::QUEEN} {}
 
+// copy constructor
+Queen::Queen(Queen &q) {
+    board = q.board;
+    colour = q.getColour();
+    position = q.getPosition();
+    pieceType = q.getPieceType();
+    firstMove = q.isFirstMove();
+    possibleNextPos = q.getPossibleNextPos();
+    possibleCaptures = q.getPossibleCaptures();
+}
+
 // update possible next positions and possible next captures for Queen
 void Queen::updatePossibleNextPos() {
     // clear all previous data
@@ -115,4 +126,5 @@ void Queen::updatePossibleNextPos() {
     }
 }
 
+// destructor
 Queen::~Queen() {}

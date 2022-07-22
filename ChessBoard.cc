@@ -65,6 +65,8 @@ vector<vector<Piece *>> ChessBoard::getBoard() {
 
 vector<Piece *> ChessBoard::getWhiteRooks() {}
 vector<Piece *> ChessBoard::getBlackRooks() {}
+vector<Piece *> ChessBoard::getWhitePawns() {}
+vector<Piece *> ChessBoard::getBlackPawns() {}
 vector<Piece *> ChessBoard::getWhiteKing() {}
 vector<Piece *> ChessBoard::getBlackKing() {}
 vector<Piece *> ChessBoard::getWhitePieces() {}

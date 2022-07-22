@@ -16,9 +16,9 @@ class Piece{
         bool firstMove;
         std::vector<Position> possibleNextPos;
         std::vector<Position> possibleCaptures;
-        bool putsKingInCheck(Position);
         bool canBeCaptured(Position);
     public:
+        Piece();
         Piece(std::shared_ptr<ChessBoard>, Colour, Position, PieceType);
         Colour getColour();
         Position getPosition();
@@ -26,10 +26,15 @@ class Piece{
         PieceType getPieceType();
         bool isFirstMove();
         void setFirstMove(bool);
-        virtual void updatePossibleNextPos() = 0;
         std::vector<Position> getPossibleNextPos();
         std::vector<Position> getPossibleCaptures();
+        virtual void updatePossibleNextPos() = 0;
+        virtual Piece *clone() = 0;
+        virtual void setEnpassant(Piece *p);
+        bool putsKingInCheck(Position);
         bool isMoveValid(Position);
+        virtual void checkEnPassant(Position);
+        virtual void afterMove();
         virtual ~Piece() = 0;
 };
 

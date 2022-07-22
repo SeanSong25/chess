@@ -7,6 +7,7 @@ class Queen : public Piece {
         void updatePossibleNextPos() override;
     public:
         Queen(std::shared_ptr<ChessBoard>, Colour, Position);
+        Queen(Queen &);
         ~Queen();
 };
 

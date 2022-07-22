@@ -20,6 +20,7 @@ enum PlayerType{
 struct Position{
     int row;
     int col;
+    Position();
     Position(int, int);
     Position(const Position & p);
     Position & operator=(const Position &p);

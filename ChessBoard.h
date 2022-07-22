@@ -18,6 +18,8 @@ class ChessBoard {
     std::vector<std::vector<Piece *>> getBoard();
     std::vector<Piece *> getWhiteRooks();
     std::vector<Piece *> getBlackRooks();
+    std::vector<Piece *> getWhitePawns();
+    std::vector<Piece *> getBlackPawns();
     std::vector<Piece *> getWhiteKing();
     std::vector<Piece *> getBlackKing();
     std::vector<Piece *> getWhitePieces();
