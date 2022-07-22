@@ -7,6 +7,6 @@ class ComputerLevelOne : public ComputerPlayer{
         ComputerLevelOne(Colour colour);
         void setBoard(std::shared_ptr<ChessBoard> board);
     private:
-        struct Move computeNextMove() override;
+        struct Move decideNextMove() override;
 };
 #endif

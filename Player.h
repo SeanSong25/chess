@@ -14,7 +14,5 @@ protected:
     std::shared_ptr<ChessBoard> board;
     Colour colour;
     void setBoard(std::shared_ptr<ChessBoard> board);
-private:
-    virtual Move decideNextMove();
 };
 #endif

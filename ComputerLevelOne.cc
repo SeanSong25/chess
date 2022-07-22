@@ -9,23 +9,30 @@ void ComputerLevelOne::setBoard(shared_ptr<ChessBoard> board){
     this->board = board;
 }
 
-struct Move ComputerLevelOne::computeNextMove(){
+struct Move ComputerLevelOne::decideNextMove(){
     vector<struct Move> nextMoves;
-    nextMoves = board.get()->getNextMoves();
+    nextMoves = board.get()->getNextMoves(); 
+    //get all possible moves from the possible moves of the board
     
     int moveIndex = 0;
-    Position tempPosition{0,0};
+    Position tempPosition{-1,-1};
     Move decisionMove{tempPosition, tempPosition};
-    if(nextMoves.size() == 1){
-        decisionMove = nextMoves[0];
-        board.get()->makeMove(decisionMove);
+    //default decision Move to -1, -1 so when returned to makeMpve, it fails and return false
+    vector<struct Move> validMoves;
+    //contains all the valid moves
+    for(auto i : nextMoves){
+        if(board.get()->checkMove(i)){
+            validMoves.emplace_back(i);
+        }
     }
-    else{
-        moveIndex = rand()%nextMoves.size();
-        decisionMove = nextMoves[moveIndex];
-        board.get()->makeMove(decisionMove);
-        
+
+    if(validMoves.size() == 0){
+        return decisionMove; //if there is no valid moves return -1, -1
     }
+
+    moveIndex = rand()%validMoves.size(); //find a random position in the valid moves array
+    decisionMove = validMoves[moveIndex];
+    return decisionMove;
 }
 
 // ----- Unit test ------

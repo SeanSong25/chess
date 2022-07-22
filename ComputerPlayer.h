@@ -7,7 +7,6 @@ class ComputerPlayer: public Player{
         PlayerType playerType() override;
         virtual ~ComputerPlayer() = 0;
     private:
-        virtual struct Move computeNextMove();
-        struct Move decideNextMove() override;
+        virtual struct Move decideNextMove() = 0;
 };
 #endif

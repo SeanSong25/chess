@@ -9,12 +9,6 @@ HumanPlayer::HumanPlayer(Colour colour){
     this->colour = colour;
 }
 
-struct Move HumanPlayer::decideNextMove(){
-    struct Position tempPosition{0,0};
-    struct Move m{tempPosition, tempPosition};
-    return m;
-}
-
 bool HumanPlayer::makeMove(){
     string line;
     getline(cin, line);

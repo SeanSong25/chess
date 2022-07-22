@@ -2,24 +2,14 @@
 #include "ChessBoard.h"
 
 bool ComputerPlayer::makeMove(){
-    
     Move move = decideNextMove();
-    if(board.get()->checkMove(move)){
-        board.get()->makeMove(move);
-        return true;
-    }
+    if(move.start.row == -1 && move.start.col == -1){return false;} 
+    //if the start index is -1, it means there is no valid moves, return valse
+    board.get()->makeMove(move);
+    //successfully found a valid move, return true;
     return true;
 }
 
-struct Move ComputerPlayer::computeNextMove(){
-    struct Position p{0,0};
-    struct Move m(p,p);
-    return m;
-}
-
-struct Move ComputerPlayer::decideNextMove(){
-    return computeNextMove();
-}
 
 ComputerPlayer::~ComputerPlayer(){}
 PlayerType ComputerPlayer::playerType() { return PlayerType::COMPUTER; }
