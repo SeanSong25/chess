@@ -10,9 +10,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Fri Jul 22 15:40:36 2022
- 
+# Make data base, printed on Fri Jul 22 17:41:56 2022
 
+ 
 # Variables
 
 # automatic
@@ -33,8 +33,8 @@ SHELL = /bin/sh
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
-# makefile (from `TextModifier.d', line 1)
-MAKEFILE_LIST :=  makefile main.d Piece.d ChessBoard.d Game.d Player.d ComputerPlayer.d ComputerLevelOne.d HumanPlayer.d Observer.d Pawn.d Rook.d Knight.d King.d Queen.d Bishop.d utils.d ScoreBoard.d TextDisplay.d GraphicDisplay.d TextModifier.d
+# makefile (from `makefile', line 1)
+MAKEFILE_LIST :=  makefile
 # makefile (from `makefile', line 2)
 CXXFLAGS = -std=c++14 -Wall -MMD
 # environment
@@ -162,7 +162,7 @@ _CE_CONDA =
 # environment
 LANG = C
 # variable set hash-table stats:
-# Load=73/1024=7%, Rehash=0, Collisions=2/141=1%
+# Load=73/1024=7%, Rehash=0, Collisions=2/101=2%
 
 # Pattern-specific Variable Values
 
@@ -170,9 +170,9 @@ LANG = C
 
 # Directories
 
-# . (device 16777221, inode 49499736): 87 files, no impossibilities.
+# . (device 16777221, inode 49499736): 47 files, no impossibilities.
 
-# 87 files, no impossibilities in 1 directories.
+# 47 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -181,41 +181,23 @@ LANG = C
 # Files
 
 # Not a target:
-ScoreBoard.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 TextDisplay.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 13:58:43
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-# Not a target:
-ComputerPlayer.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-HumanPlayer.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
+ 
 # Not a target:
 King.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-07-22 13:58:41
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -223,9 +205,9 @@ King.d:
 ComputerLevelOne.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 13:58:40
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -233,9 +215,9 @@ ComputerLevelOne.d:
 Observer.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:07
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -243,17 +225,11 @@ Observer.d:
 Pawn.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:07
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-Knight.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
 
 # Not a target:
 all:
@@ -264,19 +240,8 @@ all:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-Rook.o: Rook.cc Rook.h Piece.h ChessBoard.h Player.h utils.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
 # Not a target:
-ChessBoard.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-Player.cc:
+Rook.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -287,46 +252,22 @@ Player.cc:
 #  File has not been updated.
 
 # Not a target:
-Game.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-utils.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 Queen.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 13:58:42
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-GraphicDisplay.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-Rook.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
 
 # Not a target:
 ScoreBoard.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:10
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -340,13 +281,14 @@ ScoreBoard.d:
 ComputerPlayer.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 13:58:40
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-Piece.o: Piece.cc utils.h Piece.h ChessBoard.h Player.h
+# Not a target:
+Piece.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -355,19 +297,14 @@ Piece.o: Piece.cc utils.h Piece.h ChessBoard.h Player.h
 HumanPlayer.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 13:58:40
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
-Bishop.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-TextDisplay.o: TextDisplay.cc TextDisplay.h Piece.h ChessBoard.h Player.h utils.h TextModifier.h
+TextDisplay.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -376,25 +313,19 @@ TextDisplay.o: TextDisplay.cc TextDisplay.h Piece.h ChessBoard.h Player.h utils.
 Knight.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 13:58:41
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-TextModifier.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
 
 # Not a target:
 ChessBoard.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 13:58:39
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -413,10 +344,10 @@ XEC: main.o Piece.o ChessBoard.o Game.o Player.o ComputerPlayer.o ComputerLevelO
 #  File has not been updated.
 #  commands to execute (from `makefile', line 8):
 	${CXX} ${CXXFLAFS} ${OBJECTS} -o ${EXEC}
- 
 	
 
-King.o: King.cc King.h Piece.h ChessBoard.h Player.h utils.h
+# Not a target:
+King.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -425,29 +356,27 @@ King.o: King.cc King.h Piece.h ChessBoard.h Player.h utils.h
 Game.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 14:02:43
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
+ 
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-ComputerLevelOne.o: ComputerLevelOne.cc ComputerLevelOne.h ComputerPlayer.h Player.h utils.h ChessBoard.h Piece.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-Observer.o: Observer.cc Observer.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-Pawn.o: Pawn.cc Pawn.h
+# Not a target:
+ComputerLevelOne.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-Piece.cc:
+Observer.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Pawn.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -456,25 +385,14 @@ Piece.cc:
 GraphicDisplay.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:10
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
-TextDisplay.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-Queen.o: Queen.cc Queen.h Piece.h ChessBoard.h Player.h utils.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-King.cc:
+Queen.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -483,9 +401,9 @@ King.cc:
 utils.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 12:04:30
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -493,31 +411,14 @@ utils.d:
 Bishop.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 13:58:42
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
-ComputerLevelOne.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-Observer.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-Pawn.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-ScoreBoard.o: ScoreBoard.cc ScoreBoard.h utils.h TextModifier.h
+ScoreBoard.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -526,9 +427,9 @@ ScoreBoard.o: ScoreBoard.cc ScoreBoard.h utils.h TextModifier.h
 main.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 13:58:38
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -536,30 +437,20 @@ main.d:
 TextModifier.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:11
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-ComputerPlayer.o: ComputerPlayer.cc ComputerPlayer.h Player.h utils.h ChessBoard.h Piece.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-HumanPlayer.o: HumanPlayer.cc HumanPlayer.h Player.h utils.h ChessBoard.h Piece.h
+# Not a target:
+ComputerPlayer.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-Queen.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-Player.h:
+HumanPlayer.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -571,28 +462,19 @@ Player.h:
 #  File has not been updated.
 
 # Not a target:
-Rook.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-Knight.o: Knight.cc Knight.h Piece.h ChessBoard.h Player.h utils.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-ChessBoard.o: ChessBoard.cc ChessBoard.h Piece.h utils.h Player.h Bishop.h King.h Knight.h Pawn.h Queen.h Rook.h TextModifier.h
+Knight.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-ScoreBoard.cc:
+ChessBoard.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-Game.o: Game.cc Game.h ChessBoard.h Piece.h utils.h Player.h GraphicDisplay.h ScoreBoard.h TextDisplay.h ComputerLevelOne.h ComputerPlayer.h HumanPlayer.h TextModifier.h
+# Not a target:
+Game.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -607,69 +489,29 @@ clean:
 	
 
 # Not a target:
-ComputerPlayer.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-HumanPlayer.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 Player.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 23:31:06
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-GraphicDisplay.o: GraphicDisplay.cc
+# Not a target:
+GraphicDisplay.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-Knight.cc:
+utils.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-ChessBoard.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-Piece.h:
-#  Implicit rule search has not been done.
- 
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-Game.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-utils.o: utils.cc utils.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-Bishop.o: Bishop.cc Bishop.h Piece.h ChessBoard.h Player.h utils.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-TextDisplay.h:
+Bishop.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -678,78 +520,20 @@ TextDisplay.h:
 Rook.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 13:58:41
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-main.o: main.cc Game.h ChessBoard.h Piece.h utils.h Player.h GraphicDisplay.h ScoreBoard.h TextDisplay.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-TextModifier.o: TextModifier.cc TextModifier.h
+# Not a target:
+main.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-GraphicDisplay.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-King.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-ComputerLevelOne.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-Observer.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-Pawn.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-utils.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-Bishop.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-main.cc:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-Queen.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-TextModifier.cc:
+TextModifier.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -758,19 +542,21 @@ TextModifier.cc:
 Piece.d:
 #  A default, MAKEFILES, or -include/sinclude makefile.
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 13:58:38
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-Player.o: Player.cc Player.h utils.h
+ 
+# Not a target:
+Player.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=86/1024=8%, Rehash=0, Collisions=32/250=13%
+# Load=47/1024=5%, Rehash=0, Collisions=0/100=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -782,6 +568,6 @@ Player.o: Player.cc Player.h utils.h
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 3868 / max = 3868 / min = 3868 / avg = 3868
 
-# Finished Make data base on Fri Jul 22 15:40:36 2022
+# Finished Make data base on Fri Jul 22 17:41:56 2022
 
  

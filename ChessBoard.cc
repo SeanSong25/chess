@@ -44,20 +44,20 @@ void ChessBoard::defaultInit() {
     // Initialize black pawns
     int row = 1;
     for (int col = 0; col < 8; col++) {
-        // theBoard[row][col] = new Pawn(shared_from_this(), BLACK, {row, col});
+        theBoard[row][col] = new Pawn(shared_from_this(), BLACK, {row, col});
     }
 
     // Initialize black pawns
     row = 6;
     for (int col = 0; col < 8; col++) {
-        // theBoard[row][col] = new Pawn(shared_from_this(), WHITE, {row, col});
+        theBoard[row][col] = new Pawn(shared_from_this(), WHITE, {row, col});
     }
 
     // Initialize Rooks
-    // theBoard[0][0] = new Rook(shared_from_this(), BLACK, {0, 0});
-    // theBoard[0][7] = new Rook(shared_from_this(), BLACK, {0, 7});
-    // theBoard[7][0] = new Rook(shared_from_this(), WHITE, {7, 0});
-    // theBoard[7][7] = new Rook(shared_from_this(), WHITE, {7, 7});
+    theBoard[0][0] = new Rook(shared_from_this(), BLACK, {0, 0});
+    theBoard[0][7] = new Rook(shared_from_this(), BLACK, {0, 7});
+    theBoard[7][0] = new Rook(shared_from_this(), WHITE, {7, 0});
+    theBoard[7][7] = new Rook(shared_from_this(), WHITE, {7, 7});
 
     // Initialize Knights
     theBoard[0][1] = new Knight(shared_from_this(), BLACK, {0, 1});
@@ -109,9 +109,9 @@ void ChessBoard::setupPiece() {
 
     // Create piece
     switch (p) {
-        // case 'r':
-        // theBoard[r][c] = new Rook(shared_from_this(), BLACK, pos);
-        // break;
+        case 'r':
+            theBoard[r][c] = new Rook(shared_from_this(), BLACK, pos);
+            break;
         case 'n':
             theBoard[r][c] = new Knight(shared_from_this(), BLACK, pos);
             break;
@@ -124,12 +124,12 @@ void ChessBoard::setupPiece() {
         case 'k':
             theBoard[r][c] = new King(shared_from_this(), BLACK, pos);
             break;
-        // case 'p':
-        //     theBoard[r][c] = new Pawn(shared_from_this(), BLACK, pos);
-        //     break;
-        // case 'R':
-        // theBoard[r][c] = new Rook(shared_from_this(), WHITE, pos);
-        // break;
+        case 'p':
+            theBoard[r][c] = new Pawn(shared_from_this(), BLACK, pos);
+            break;
+        case 'R':
+            theBoard[r][c] = new Rook(shared_from_this(), WHITE, pos);
+            break;
         case 'N':
             theBoard[r][c] = new Knight(shared_from_this(), WHITE, pos);
             break;
@@ -142,9 +142,9 @@ void ChessBoard::setupPiece() {
         case 'K':
             theBoard[r][c] = new King(shared_from_this(), WHITE, pos);
             break;
-        // case 'P':
-        // theBoard[r][c] = new Pawn(shared_from_this(), WHITE, pos);
-        // break;
+        case 'P':
+            theBoard[r][c] = new Pawn(shared_from_this(), WHITE, pos);
+            break;
         default:
             cout << Modifier(FG_RED) << "Invalid piece name"
                  << Modifier(FG_DEFAULT) << endl;

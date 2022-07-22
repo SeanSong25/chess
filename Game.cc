@@ -225,6 +225,8 @@ void Game::setupGame() {
         }
 
         else if (cmd == "done") {
+            // TODO: check the kings are not in checked
+
             cout << Modifier(FG_YELLOW) << "Finished board setup" << Modifier(FG_DEFAULT) << endl;
             return;
         }
