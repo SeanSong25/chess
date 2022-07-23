@@ -8,5 +8,7 @@ class HumanPlayer : public Player{
         HumanPlayer(Colour colour);
         ~HumanPlayer();
         PlayerType playerType() override;
+    private:
+        bool isKingCastling(Move m);
 };
 #endif
