@@ -56,3 +56,14 @@ bool HumanPlayer::makeMove(){
 
 HumanPlayer::~HumanPlayer(){}
 PlayerType HumanPlayer::playerType() { return PlayerType::HUMAN; }
+// int main(){
+//     ChessBoard ch{};
+//     shared_ptr<ChessBoard> board = make_shared<ChessBoard>(ch);
+//     HumanPlayer* hp = new HumanPlayer(WHITE);
+//     Position p{0,0};
+//     Knight* k = new Knight(board, WHITE, p);
+//     board.get()->setPiece(k,p);
+//     hp->setBoard(board);
+//     hp->makeMove();
+// }
+
