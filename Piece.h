@@ -36,7 +36,7 @@ class Piece{
         std::vector<Position> getPossibleCaptures();
         virtual void updatePossibleNextPos() = 0;
         virtual Piece *clone() = 0;
-        virtual void setEnPassant(bool, Piece *);
+        void setEnPassant(bool, Piece *, Position);
         bool putsKingInCheck(Position);
         bool isMoveValid(Position);
         virtual void checkEnPassant(Position);

@@ -66,10 +66,11 @@ std::vector<Position> Piece::getPossibleCaptures() {
     return possibleCaptures;
 }
 
-// setter for enPassant and enPassantPiece
-void Piece::setEnPassant(bool b, Piece *p) {
+// setter for enPassant, enPassantPiece, and enPassantPosition
+void Piece::setEnPassant(bool b, Piece *p, Position pos) {
     enPassant = b;
     enPassantPiece = p;
+    enPassantPosition = pos;
 }
 
 // check if the move will put king in check
@@ -154,9 +155,6 @@ void Piece::checkEnPassant(Position p) {}
 // update piece fields after move
 void Piece::afterMove() {
     firstMove = false;
-    enPassant = false;
-    enPassantPiece = nullptr;
-    enPassantPosition = Position{};
 }
 
 // destructor
