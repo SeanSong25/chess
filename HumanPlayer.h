@@ -1,12 +1,14 @@
 #ifndef HUMANPLAYER_H
 #define HUMANPLAYER_H
 #include "Player.h"
-#include "utils.h"
-
-class HumanPlayer : public Player {
-  public:
-    void makeMove() override;
-    PlayerType playerType() override;
+#include <iostream>
+class HumanPlayer : public Player{
+    public:
+        bool makeMove() override;
+        HumanPlayer(Colour colour);
+        ~HumanPlayer();
+        PlayerType playerType() override;
+    private:
+        struct Move decideNextMove() override;
 };
-
 #endif

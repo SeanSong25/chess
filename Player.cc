@@ -1,4 +1,14 @@
 #include "Player.h"
 using namespace std;
 
-Move Player::decideNextMove() {}
+void Player::setBoard(shared_ptr<ChessBoard> board){
+    this->board = board;
+}
+
+Colour Player::getColour() {
+    return colour;
+}
+
+Move Player::decideNextMove() {
+
+}

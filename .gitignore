@@ -2,4 +2,8 @@
 *.d
 vscode
 vscode/*
+.vscode
+.vscode/*
 chessProgram
+
+testCase.txt

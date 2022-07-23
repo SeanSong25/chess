@@ -1,23 +1,23 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "memory"
-#include "utils.h"
+#include <memory>
+#include <vector>
 
+#include "utils.h"
 class ChessBoard;
 class Player {
-  private:
-    std::shared_ptr<ChessBoard> board;
-    virtual Move decideNextMove();
-
   public:
-    Player() = default;
+    Colour getColour();
+    virtual bool makeMove() = 0;
+    void setBoard(std::shared_ptr<ChessBoard> board);
+    virtual PlayerType playerType() = 0;  // Return HUMAN or COMPUTER
     virtual ~Player() = default;
 
-    bool inCheck;
+  protected:
+    std::shared_ptr<ChessBoard> board;
     Colour colour;
-    virtual void makeMove() = 0;
 
-    virtual PlayerType playerType() = 0;  // Return HUMAN or COMPUTER
+  private:
+    virtual Move decideNextMove();
 };
-
 #endif
