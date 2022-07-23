@@ -8,7 +8,5 @@ class HumanPlayer : public Player{
         HumanPlayer(Colour colour);
         ~HumanPlayer();
         PlayerType playerType() override;
-    private:
-        struct Move decideNextMove() override;
 };
 #endif

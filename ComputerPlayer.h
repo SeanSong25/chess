@@ -8,6 +8,6 @@ class ComputerPlayer: public Player{
         virtual ~ComputerPlayer() = 0;
     private:
         virtual struct Move computeNextMove();
-        struct Move decideNextMove() override;
+        virtual struct Move decideNextMove();
 };
 #endif

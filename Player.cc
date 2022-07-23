@@ -8,7 +8,3 @@ void Player::setBoard(shared_ptr<ChessBoard> board){
 Colour Player::getColour() {
     return colour;
 }
-
-Move Player::decideNextMove() {
-
-}

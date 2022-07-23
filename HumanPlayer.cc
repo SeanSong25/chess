@@ -2,17 +2,12 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include "Knight.h"
 #include "ChessBoard.h"
 using namespace std;
 
 HumanPlayer::HumanPlayer(Colour colour){
     this->colour = colour;
-}
-
-struct Move HumanPlayer::decideNextMove(){
-    struct Position tempPosition{0,0};
-    struct Move m{tempPosition, tempPosition};
-    return m;
 }
 
 bool HumanPlayer::makeMove(){
@@ -29,6 +24,7 @@ bool HumanPlayer::makeMove(){
             tempPosition = stringToPosition(word);
             move.start = tempPosition;
         }else if (cnt == 2){
+            cout << stringToPosition(word).row << stringToPosition(word).col <<endl;
             tempPosition = stringToPosition(word);
             move.end = tempPosition;
         }else if(cnt == 3){
@@ -37,9 +33,11 @@ bool HumanPlayer::makeMove(){
         cnt++;
     }
 
-    if(cnt == 2){
+    if(cnt == 3){
         if(board.get()->checkMove(move)){
+            
             board.get()->makeMove(move);
+            
             return true;
         }else{
             return false;
@@ -56,6 +54,7 @@ bool HumanPlayer::makeMove(){
 
 HumanPlayer::~HumanPlayer(){}
 PlayerType HumanPlayer::playerType() { return PlayerType::HUMAN; }
+
 // int main(){
 //     ChessBoard ch{};
 //     shared_ptr<ChessBoard> board = make_shared<ChessBoard>(ch);
@@ -66,4 +65,3 @@ PlayerType HumanPlayer::playerType() { return PlayerType::HUMAN; }
 //     hp->setBoard(board);
 //     hp->makeMove();
 // }
-
