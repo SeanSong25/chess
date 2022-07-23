@@ -2,8 +2,7 @@
 
 // constructor
 Pawn::Pawn(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
-    Piece{board, colour, position, PieceType::PAWN}, enPassant{false},
-    enPassantPiece{nullptr}, enPassantPosition{Position{}} {}
+    Piece{board, colour, position, PieceType::PAWN} {}
 
 // copy constructor
 Pawn::Pawn(Pawn & p) {
@@ -16,22 +15,6 @@ Pawn::Pawn(Pawn & p) {
     possibleCaptures = p.getPossibleCaptures();
     enPassant = p.isEnPassant();
     enPassantPiece = p.getEnPassantPiece();
-}
-
-// getter for enPassant
-bool Pawn::isEnPassant() {
-    return enPassant;
-}
-
-// setter for enPassant and enPassantPiece
-void Pawn::setEnpassant(Piece *p) {
-    enPassant = true;
-    enPassantPiece = p;
-}
-
-// getter for enPassantPiece
-Piece *Pawn::getEnPassantPiece() {
-    return enPassantPiece;
 }
 
 // update possible next positions and possible next captures for Queen
@@ -123,7 +106,7 @@ void Pawn::checkEnPassant(Position p) {
         std::vector<Position> captures = pawn -> getPossibleCaptures();
         for (auto &capture: captures) {
             if (capture == p) {
-                pawn -> setEnpassant(this);
+                pawn -> setEnPassant(true, this);
                 return;
             }
         }
@@ -132,13 +115,6 @@ void Pawn::checkEnPassant(Position p) {
 
 Pawn *Pawn::clone() {
     return new Pawn(*this);
-}
-
-void Pawn::afterMove() {
-    firstMove = false;
-    enPassant = false;
-    enPassantPiece = nullptr;
-    enPassantPosition = Position {};
 }
 
 // destructor

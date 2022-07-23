@@ -8,6 +8,7 @@ Piece::Piece() {}
 // constructor
 Piece::Piece(std::shared_ptr<ChessBoard> board, Colour colour, Position position, PieceType pieceType):
     board{board}, colour{colour}, position{position}, pieceType{pieceType}, firstMove{true},
+    enPassant{false}, enPassantPiece{nullptr}, enPassantPosition{Position{}},
     possibleNextPos{std::vector<Position>()}, possibleCaptures{std::vector<Position>()} {}
 
 // getter for colour
@@ -40,6 +41,21 @@ void Piece::setFirstMove(bool b) {
     firstMove = b;
 }
 
+// getter for isEnPassant
+bool Piece::isEnPassant() {
+    return enPassant;
+}
+
+// getter for enPassantPiece
+Piece *Piece::getEnPassantPiece() {
+    return enPassantPiece;
+}
+
+// getter for enPassantPosition
+Position Piece::getEnPassantPosition() {
+    return enPassantPosition;
+}
+
 // getter for possible next position
 std::vector<Position> Piece::getPossibleNextPos() {
     return possibleNextPos;
@@ -50,7 +66,11 @@ std::vector<Position> Piece::getPossibleCaptures() {
     return possibleCaptures;
 }
 
-void Piece::setEnpassant(Piece *p) {}
+// setter for enPassant and enPassantPiece
+void Piece::setEnPassant(bool b, Piece *p) {
+    enPassant = b;
+    enPassantPiece = p;
+}
 
 // check if the move will put king in check
 bool Piece::putsKingInCheck(Position p) {
@@ -59,50 +79,40 @@ bool Piece::putsKingInCheck(Position p) {
     // then call Piece::updatePossibleNextPos
     // and check if king is in check in the new board
 
+    std::shared_ptr<ChessBoard> newBoard = std::make_shared<ChessBoard>(*board);
+    std::shared_ptr<ChessBoard> tempStoreBoard = board;
+    board = newBoard;
+    
+    // set up the new board
+    for (auto &i : board -> getBoard()) {
+        for (auto &j: i) {
+            j -> updatePossibleNextPos();
+        }
+    }
 
-    // // make temp board (board if the move is made)
-    // std::vector<std::vector<Piece *>> newBoard;
-    // for (int i = 0; i < 8; ++i) {
-    //     for (int j = 0; j < 8; ++j) {
-    //         // move peice to positin p
-    //         // and copy the rest of the board
-    //         if (i == p.row && j == p.col) {
-    //             newBoard[i][j] = this -> clone();
-    //             break;
-    //         }
-    //         if (i == position.row && j == position.col) {
-    //             newBoard[i][j] = nullptr;
-    //             break;
-    //         }
-    //         if (board -> getBoard()[i][j]) {
-    //             newBoard[i][j] = board -> getBoard()[i][j] -> clone(); 
-    //         } else {
-    //             newBoard[i][j] = nullptr;
-    //         }
-    //     }
-    // }
+    // make move
+    Move newMove{position, p};
+    board -> makeMove(newMove);
 
-    // bool isInCheck;
+    // check if king is in check in new board
+    Piece *king;
+    if (colour == Colour::BLACK) {
+        king = board -> getBlackKing();
+    } else {
+        king = board -> getWhiteKing();
+    }
 
-    // // check if king is in check in new board
-    // for (auto &i : newBoard) {
-    //     for (auto &j : i) {
-    //         if (j -> getPieceType() == PieceType::KING) {
-    //             isInCheck = canBeCaptured(j -> getPosition());
-    //         }
-    //     }
-    // }
+    bool isInCheck = canBeCaptured(king -> getPosition());
 
-    // // delete new board
-    // for (int i = 0; i < 8; ++i) {
-    //     for (int j = 0; j < 8; ++j) {
-    //         delete newBoard[i][j];
-    //     }
-    //     newBoard[i].clear();
-    // }
-    // newBoard.clear();
+    // revert fields back to original
+    board = tempStoreBoard;
+    for (auto &i : board -> getBoard()) {
+        for (auto &j: i) {
+            j -> updatePossibleNextPos();
+        }
+    }
 
-    // return isInCheck;
+    return isInCheck;
 }
 
 // check if input move is valid
@@ -141,9 +151,12 @@ bool Piece::canBeCaptured(Position p) {
 // check if opponent can en passant after this move
 void Piece::checkEnPassant(Position p) {}
 
-// update piece firstMove after move
+// update piece fields after move
 void Piece::afterMove() {
     firstMove = false;
+    enPassant = false;
+    enPassantPiece = nullptr;
+    enPassantPosition = Position{};
 }
 
 // destructor

@@ -14,6 +14,9 @@ class Piece{
         Position position;
         PieceType pieceType;
         bool firstMove;
+        bool enPassant;
+        Piece *enPassantPiece;
+        Position enPassantPosition;
         std::vector<Position> possibleNextPos;
         std::vector<Position> possibleCaptures;
         bool canBeCaptured(Position);
@@ -26,11 +29,14 @@ class Piece{
         PieceType getPieceType();
         bool isFirstMove();
         void setFirstMove(bool);
+        bool isEnPassant();
+        Piece *getEnPassantPiece();
+        Position getEnPassantPosition();
         std::vector<Position> getPossibleNextPos();
         std::vector<Position> getPossibleCaptures();
         virtual void updatePossibleNextPos() = 0;
         virtual Piece *clone() = 0;
-        virtual void setEnpassant(Piece *p);
+        virtual void setEnPassant(bool, Piece *);
         bool putsKingInCheck(Position);
         bool isMoveValid(Position);
         virtual void checkEnPassant(Position);
