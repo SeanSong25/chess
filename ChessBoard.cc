@@ -46,9 +46,12 @@ ChessBoard::ChessBoard(const ChessBoard &o) {
             Colour colour = o.theBoard[r][c]->getColour();
             PieceType pieceType = o.theBoard[r][c]->getPieceType();
             Position position = o.theBoard[r][c]->getPosition();
-            theBoard[r][c] = initPiece(colour, pieceType, position);
+            theBoard[r][c] = copyPiece(colour, pieceType, position);
         }
     }
+}
+
+void ChessBoard::promote(struct Move m, char pieceType){
 }
 
 Piece *ChessBoard::copyPiece(Colour col, PieceType type, Position pos) {
@@ -333,6 +336,11 @@ bool ChessBoard::checkPromotion(Move m, char pieceType) { return true; }
 void ChessBoard::undo() {}
 
 std::vector<Move> ChessBoard::getNextMoves() {
+    std::vector<Move> m;
+    return m;
+}
+
+std::vector<Move> ChessBoard::getCaptureMoves() {
     std::vector<Move> m;
     return m;
 }

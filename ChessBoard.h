@@ -40,5 +40,6 @@ class ChessBoard : public std::enable_shared_from_this<ChessBoard> {
     bool checkPromotion(Move, char pieceType);
     void undo();
     std::vector<Move> getNextMoves();
+    std::vector<Move> getCaptureMoves();
 };
 #endif
