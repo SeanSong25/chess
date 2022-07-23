@@ -339,3 +339,8 @@ std::vector<Move> ChessBoard::getNextMoves() {
     std::vector<Move> m;
     return m;
 }
+
+std::vector<Move> ChessBoard::getCaptureMoves() {
+    std::vector<Move> m;
+    return m;
+}
