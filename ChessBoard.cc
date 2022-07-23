@@ -327,13 +327,21 @@ void ChessBoard::updatePiecesPossibleMoves(){
         }
     }
 }
-
+ //make move according to the move passed in
 void ChessBoard::makeMove(Move m) {
     Position p1 = m.start;
     Position p2 = m.end;
     Piece* temp = theBoard[p1.row][p1.col];
     if(temp->getPieceType() == PAWN){
-        temp->checkEnPassant(p2);
+        if(temp->isEnpassant()){
+            if(p2 == temp->getEnpassantPosition()){
+                Piece* p = temp->getEnPassantPiece();
+                Position enPassantOrigin = p->getPosition();
+                theBoard[enPassantOrigin.row][enPassantOrigin.col] = nullptr;
+            }
+        }else {
+            temp->checkEnPassant(p2);
+        }
     }
     if(theBoard[p2.row][p2.col] == nullptr){
         theBoard[p2.row][p2.col] = temp;
@@ -344,15 +352,18 @@ void ChessBoard::makeMove(Move m) {
         //and place the new piece
     }
 
-    
+    temp->afterMove();
     updatePiecesPossibleMoves();
     cout<<theBoard[p2.row][p2.col]->getPieceType()<<endl;
     //testing the piecetype of that final psoition
 }
+
+//set the piece p at the position pos
 void ChessBoard::setPiece(Piece* p, Position pos){
     int row = pos.row;
     int col = pos.col;
     theBoard[row][col] = p;
+    p->setPosition(pos);
 }
 //after checking the promotion is valid, move our pawn to the position and convert to pieceType
 void ChessBoard::promote(Move m, char pieceType) {
