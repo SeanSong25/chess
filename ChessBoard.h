@@ -26,5 +26,6 @@ class ChessBoard {
     bool checkPromotion(struct Move, char pieceType);
     void undo();
     std::vector<struct Move> getNextMoves();
+    std::vector<Move> getCaptureMoves();
 };
 #endif

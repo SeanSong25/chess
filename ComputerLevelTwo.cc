@@ -1,30 +1,36 @@
-#include "ComputerLevelOne.h"
+#include "ComputerLevelTwo.h"
 #include "ChessBoard.h"
 using namespace std;
-ComputerLevelOne::ComputerLevelOne(Colour col){
+ComputerLevelTwo::ComputerLevelTwo(Colour col){
     colour = col;
 }
 
-void ComputerLevelOne::setBoard(shared_ptr<ChessBoard> board){
+void ComputerLevelTwo::setBoard(shared_ptr<ChessBoard> board){
     this->board = board;
 }
 
-struct Move ComputerLevelOne::decideNextMove(){
-    vector<struct Move> nextMoves;
+struct Move ComputerLevelTwo::decideNextMove(){
+    vector<Move> nextMoves;
+    vector< Move> captureMoves;
     nextMoves = board.get()->getNextMoves(); 
+    captureMoves = board.get()->getCaptureMoves();
     //get all possible moves from the possible moves of the board
     
     int moveIndex = 0;
     Position tempPosition{-1,-1};
     Move decisionMove{tempPosition, tempPosition};
-    //default decision Move to -1, -1 so when returned to makeMpve, it fails and return false
-
     if(nextMoves.size() == 0){
-        return decisionMove; //if there is no valid moves return -1, -1
+        if(captureMoves.size()>0){
+        //if there is capture move then pick a capture move randomly
+        int index = rand()%captureMoves.size();
+        decisionMove = captureMoves[index];
+        }
+        else{
+            int index = rand()%nextMoves.size();
+            decisionMove = nextMoves[index];
+        }
     }
-
-    moveIndex = rand()%nextMoves.size(); //find a random position in the valid moves array
-    decisionMove = nextMoves[moveIndex];
+    
     return decisionMove;
 }
 
