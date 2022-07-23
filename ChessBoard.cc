@@ -51,6 +51,9 @@ ChessBoard::ChessBoard(const ChessBoard &o) {
     }
 }
 
+void ChessBoard::promote(struct Move m, char pieceType){
+}
+
 Piece *ChessBoard::copyPiece(Colour col, PieceType type, Position pos) {
     if (type == KING) return new King(shared_from_this(), col, pos);
     if (type == QUEEN) return new Queen(shared_from_this(), col, pos);
