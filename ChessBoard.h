@@ -9,7 +9,7 @@ class Piece;
 class ChessBoard : public std::enable_shared_from_this<ChessBoard> {
   private:
     std::vector<std::vector<Piece *>> theBoard;  // 8 x 8 chessboard
-    Piece *initPiece(Colour, PieceType, Position);
+    Piece *copyPiece(Colour, PieceType, Position);
 
   public:
     ChessBoard();

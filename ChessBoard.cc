@@ -51,7 +51,7 @@ ChessBoard::ChessBoard(const ChessBoard &o) {
     }
 }
 
-Piece *ChessBoard::initPiece(Colour col, PieceType type, Position pos) {
+Piece *ChessBoard::copyPiece(Colour col, PieceType type, Position pos) {
     if (type == KING) return new King(shared_from_this(), col, pos);
     if (type == QUEEN) return new Queen(shared_from_this(), col, pos);
     if (type == BISHOP) return new Bishop(shared_from_this(), col, pos);
@@ -267,7 +267,6 @@ vector<Piece *> ChessBoard::getBlackPawns() {
     return blackPawns;
 }
 
-// Change this to return Piece* ?
 Piece * ChessBoard::getWhiteKing() {
     for (int r = 0; r < 8; ++r) {
         for (int c = 0; c < 8; ++c) {
