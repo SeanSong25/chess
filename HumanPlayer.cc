@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Knight.h"
 #include "ChessBoard.h"
+#include <algorithm>
 using namespace std;
 
 HumanPlayer::HumanPlayer(Colour colour){
@@ -24,7 +25,6 @@ bool HumanPlayer::makeMove(){
             tempPosition = stringToPosition(word);
             move.start = tempPosition;
         }else if (cnt == 2){
-            cout << stringToPosition(word).row << stringToPosition(word).col <<endl;
             tempPosition = stringToPosition(word);
             move.end = tempPosition;
         }else if(cnt == 3){
@@ -35,9 +35,7 @@ bool HumanPlayer::makeMove(){
 
     if(cnt == 3){
         if(board.get()->checkMove(move)){
-            
             board.get()->makeMove(move);
-            
             return true;
         }else{
             return false;

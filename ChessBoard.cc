@@ -320,24 +320,148 @@ vector<Piece *> ChessBoard::getBlackPieces() {
 // ----------------------------------------------------------------------------
 // Game Logic
 
+void ChessBoard::updatePiecesPossibleMoves(){
+    for(auto &i : theBoard){
+        for(auto &j : i){
+            j->updatePossibleNextPos();
+        }
+    }
+}
+ //make move according to the move passed in
 void ChessBoard::makeMove(Move m) {
+    Position p1 = m.start;
+    Position p2 = m.end;
+    Piece* temp = theBoard[p1.row][p1.col];
+    //if piece type is king and the move is 2 steps, then check castling
+    if(temp->getPieceType() == PAWN){
+        if(temp->isEnPassant()){
+            if(p2 == temp->getEnPassantPosition()){
+                Piece* p = temp->getEnPassantPiece();
+                Position enPassantOrigin = p->getPosition();
+                theBoard[enPassantOrigin.row][enPassantOrigin.col] = nullptr;
+            }
+        }else {
+            temp->checkEnPassant(p2);
+        }
+    }
+    if(theBoard[p2.row][p2.col] == nullptr){
+        theBoard[p2.row][p2.col] = temp;
+    }else{
+        delete theBoard[p2.row][p2.col];
+        theBoard[p2.row][p2.col] = temp;
+        //if the final position has a piece, delete the original piece
+        //and place the new piece
+    }
+    temp->afterMove();
+    updatePiecesPossibleMoves();
+    //if the moved piece is a king and moves 2 columns, then we can make a move
+    //using the rook in the castling
+    if(temp->getPieceType() == KING && abs(p2.col - p1.col)==2){
+        if(p2.col < p1.col){
+            Move rookMove{{p1.row, p1.col-4},p1};
+            makeMove(rookMove);
+        }
+        else{
+            Move rookMove{{p1.row, p1.col + 3},p1};
+            makeMove(rookMove);
+        }
+
+    }
+    //testing the piecetype of that final psoition
 }
 
+//set the piece p at the position pos
+void ChessBoard::setPiece(Piece* p, Position pos){
+    int row = pos.row;
+    int col = pos.col;
+    theBoard[row][col] = p;
+    p->setPosition(pos);
+}
+//after checking the promotion is valid, move our pawn to the position and convert to pieceType
 void ChessBoard::promote(Move m, char pieceType) {
+    Position startPos = m.start;
+    Position endPos = m.end;
+    Piece* p = theBoard[startPos.row][startPos.col];
+    Colour col = p->getColour();
+    if(theBoard[endPos.row][endPos.col] != nullptr){
+        delete theBoard[endPos.row][endPos.col];
+    }
+    if(pieceType == 'R'){
+        theBoard[endPos.row][endPos.col] = new Rook(shared_from_this(), col, endPos);
+    }
+    else if(pieceType == 'Q'){
+        theBoard[endPos.row][endPos.col] = new Queen(shared_from_this(), col, endPos);
+    }
+    else if(pieceType == 'K'){
+        theBoard[endPos.row][endPos.col] = new Knight(shared_from_this(), col, endPos);
+    }
+    else if(pieceType == 'B'){
+        theBoard[endPos.row][endPos.col] = new Bishop(shared_from_this(), col, endPos);
+    }
+    theBoard[startPos.row][startPos.col] = nullptr;
+    delete p;
 }
 
-bool ChessBoard::checkMove(Move m) { return true; }
+bool ChessBoard::checkMove(Move m) { 
+    Position startPos = m.start;
+    Position endPos = m.end;
+    Piece* p = theBoard[startPos.row][startPos.col];
+    if(p->isMoveValid(endPos)){
+        return true;
+    }
+    return false;
+}
 
-bool ChessBoard::checkPromotion(Move m, char pieceType) { return true; }
+
+//check if the promotion move is valid
+bool ChessBoard::checkPromotion(Move m, char pieceType) { 
+    Position startPos = m.start;
+    Position endPos = m.end;
+    Piece* p = theBoard[startPos.row][startPos.col];
+    if(!checkMove(m) || p->getPieceType() != PAWN){
+        //if invalid move or not a pawn return false
+        return false;
+    }
+    //if the end position is not on the end of the board(row 0 for black, row 7 for white)
+    if(p->getColour() == WHITE && endPos.row != 7){
+        return false;
+    }
+
+    if(p->getColour() == BLACK && endPos.row != 0){
+        return false;
+    }
+    return true;
+
+}
 
 void ChessBoard::undo() {}
 
 std::vector<Move> ChessBoard::getNextMoves() {
-    std::vector<Move> m;
-    return m;
+    std::vector<Move> nextMoves;
+    for(auto& i : theBoard){
+        for(auto& j : i){
+            std::vector<Position> tempPiecePosition = j->getPossibleNextPos();
+            Position startPos = j->getPosition();
+            for(auto &j : tempPiecePosition){
+                Move move{startPos, j};
+                nextMoves.emplace_back(move);
+            }
+        }
+    }
+    return nextMoves;
 }
 
 std::vector<Move> ChessBoard::getCaptureMoves() {
-    std::vector<Move> m;
-    return m;
+    std::vector<Move> nextCaptures;
+    for(auto& i : theBoard){
+        for(auto& j : i){
+            std::vector<Position> tempPiecePosition = j->getPossibleCaptures();
+            Position startPos = j->getPosition();
+            for(auto &j : tempPiecePosition){
+                Move move{startPos, j};
+                nextCaptures.emplace_back(move);
+            }
+        }
+    }
+    return nextCaptures;
 }
