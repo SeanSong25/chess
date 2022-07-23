@@ -159,6 +159,8 @@ bool King::canCastle(Piece *rook) {
     } else {
         return false;
     }
+
+    return true;
 }
 
 // getter for attacking pieces

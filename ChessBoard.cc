@@ -216,9 +216,56 @@ vector<Piece *> ChessBoard::getBlackRooks() {
     return blackRooks;
 }
 
+vector<Piece *> ChessBoard::getWhitePawns() {
+    vector<Piece *> whitePawns{};
+
+    for (int r = 0; r < 8; ++r) {
+        for (int c = 0; c < 8; ++c) {
+            Piece *p = theBoard[r][c];
+            if (p != nullptr && p->getPieceType() == PAWN && p->getColour() == WHITE) {
+                whitePawns.emplace_back(p);
+            }
+        }
+    }
+    return whitePawns;
+}
+
+vector<Piece *> ChessBoard::getBlackPawns() {
+    vector<Piece *> blackPawns{};
+
+    for (int r = 0; r < 8; ++r) {
+        for (int c = 0; c < 8; ++c) {
+            Piece *p = theBoard[r][c];
+            if (p != nullptr && p->getPieceType() == PAWN && p->getColour() == BLACK) {
+                blackPawns.emplace_back(p);
+            }
+        }
+    }
+    return blackPawns;
+}
+
 // Change this to return Piece* ?
-vector<Piece *> ChessBoard::getWhiteKing() {}
-vector<Piece *> ChessBoard::getBlackKing() {}
+Piece * ChessBoard::getWhiteKing() {
+    for (int r = 0; r < 8; ++r) {
+        for (int c = 0; c < 8; ++c) {
+            Piece *p = theBoard[r][c];
+            if (p != nullptr && p->getPieceType() == KING && p->getColour() == WHITE) {
+                return p;
+            }
+        }
+    }
+}
+
+Piece * ChessBoard::getBlackKing() {
+    for (int r = 0; r < 8; ++r) {
+        for (int c = 0; c < 8; ++c) {
+            Piece *p = theBoard[r][c];
+            if (p != nullptr && p->getPieceType() == KING && p->getColour() == BLACK) {
+                return p;
+            }
+        }
+    }
+}
 
 vector<Piece *> ChessBoard::getWhitePieces() {
     vector<Piece *> whitePieces{};
@@ -251,19 +298,19 @@ vector<Piece *> ChessBoard::getBlackPieces() {
 // ----------------------------------------------------------------------------
 // Game Logic
 
-void ChessBoard::makeMove(struct Move) {
+void ChessBoard::makeMove(Move m) {
 }
 
-void ChessBoard::promote(struct Move, char pieceType) {
+void ChessBoard::promote(Move m, char pieceType) {
 }
 
-bool ChessBoard::checkMove(struct Move) { return true; }
+bool ChessBoard::checkMove(Move m) { return true; }
 
-bool ChessBoard::checkPromotion(struct Move, char pieceType) { return true; }
+bool ChessBoard::checkPromotion(Move m, char pieceType) { return true; }
 
 void ChessBoard::undo() {}
 
-std::vector<struct Move> ChessBoard::getNextMoves() {
-    std::vector<struct Move> m;
+std::vector<Move> ChessBoard::getNextMoves() {
+    std::vector<Move> m;
     return m;
 }

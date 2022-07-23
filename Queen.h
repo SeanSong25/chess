@@ -8,6 +8,7 @@ class Queen : public Piece {
     public:
         Queen(std::shared_ptr<ChessBoard>, Colour, Position);
         Queen(Queen &);
+        Queen *clone() override;
         ~Queen();
 };
 

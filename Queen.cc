@@ -126,5 +126,9 @@ void Queen::updatePossibleNextPos() {
     }
 }
 
+Queen *Queen::clone() {
+    return new Queen(*this);
+}
+
 // destructor
 Queen::~Queen() {}

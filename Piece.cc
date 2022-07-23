@@ -119,7 +119,7 @@ bool Piece::isMoveValid(Position p) {
     }
 }
 
-// return true if king is in check
+// return true if piece can be captured by another piece
 bool Piece::canBeCaptured(Position p) {
     std::vector<Piece *> opponentPieces;
     if (colour == Colour::WHITE) {

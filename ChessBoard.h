@@ -25,15 +25,15 @@ class ChessBoard : public std::enable_shared_from_this<ChessBoard> {
     std::vector<Piece *> getBlackRooks();
     std::vector<Piece *> getWhitePawns();
     std::vector<Piece *> getBlackPawns();
-    std::vector<Piece *> getWhiteKing();
-    std::vector<Piece *> getBlackKing();
+    Piece * getWhiteKing();
+    Piece * getBlackKing();
     std::vector<Piece *> getWhitePieces();
     std::vector<Piece *> getBlackPieces();
-    void makeMove(struct Move);
-    void promote(struct Move, char pieceType);
-    bool checkMove(struct Move);
-    bool checkPromotion(struct Move, char pieceType);
+    void makeMove(Move);
+    void promote(Move, char pieceType);
+    bool checkMove(Move);
+    bool checkPromotion(Move, char pieceType);
     void undo();
-    std::vector<struct Move> getNextMoves();
+    std::vector<Move> getNextMoves();
 };
 #endif
