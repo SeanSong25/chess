@@ -34,6 +34,7 @@ class ChessBoard : public std::enable_shared_from_this<ChessBoard> {
     Piece * getBlackKing();
     std::vector<Piece *> getWhitePieces();
     std::vector<Piece *> getBlackPieces();
+    void setPiece(Piece* p, Position pos);
     void makeMove(Move);
     void promote(Move, char pieceType);
     bool checkMove(Move);
@@ -41,5 +42,7 @@ class ChessBoard : public std::enable_shared_from_this<ChessBoard> {
     void undo();
     std::vector<Move> getNextMoves();
     std::vector<Move> getCaptureMoves();
+
+    void updatePiecesPossibleMoves();
 };
 #endif

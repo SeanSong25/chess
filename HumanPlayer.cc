@@ -35,9 +35,7 @@ bool HumanPlayer::makeMove(){
 
     if(cnt == 3){
         if(board.get()->checkMove(move)){
-            
             board.get()->makeMove(move);
-            
             return true;
         }else{
             return false;
