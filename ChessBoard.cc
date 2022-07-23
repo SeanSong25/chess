@@ -263,7 +263,7 @@ vector<Piece *> ChessBoard::getBlackPawns() {
                 blackPawns.emplace_back(p);
             }
         }
-    }
+    } 
     return blackPawns;
 }
 
@@ -320,10 +320,12 @@ vector<Piece *> ChessBoard::getBlackPieces() {
 // ----------------------------------------------------------------------------
 // Game Logic
 
-void ChessBoard::updatePiecesPossibleMoves(){
+void ChessBoard::updatePiecesPossibleMoves(Colour col){
     for(auto &i : theBoard){
         for(auto &j : i){
-            j->updatePossibleNextPos();
+            if(j->getColour() == col){
+                j->updatePossibleNextPos();
+            }
         }
     }
 }
@@ -353,7 +355,15 @@ void ChessBoard::makeMove(Move m) {
         //and place the new piece
     }
     temp->afterMove();
-    updatePiecesPossibleMoves();
+    updatePiecesPossibleMoves(temp->getColour());
+    for(auto &i : theBoard){
+        for(auto  &j : i){
+            if(j->getColour() == temp->getColour()){
+                Position p{};
+                j->setEnPassant(false, nullptr, p);
+            }
+        }
+    }
     //if the moved piece is a king and moves 2 columns, then we can make a move
     //using the rook in the castling
     if(temp->getPieceType() == KING && abs(p2.col - p1.col)==2){
