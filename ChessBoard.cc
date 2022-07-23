@@ -46,7 +46,7 @@ ChessBoard::ChessBoard(const ChessBoard &o) {
             Colour colour = o.theBoard[r][c]->getColour();
             PieceType pieceType = o.theBoard[r][c]->getPieceType();
             Position position = o.theBoard[r][c]->getPosition();
-            theBoard[r][c] = initPiece(colour, pieceType, position);
+            theBoard[r][c] = copyPiece(colour, pieceType, position);
         }
     }
 }
