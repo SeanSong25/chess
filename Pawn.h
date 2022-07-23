@@ -8,7 +8,6 @@ class Pawn : public Piece{
     public:
         Pawn(std::shared_ptr<ChessBoard>, Colour, Position);
         Pawn(Pawn &);
-        Piece *getEnPassantPiece();
         void checkEnPassant(Position) override;
         Pawn *clone() override; 
         ~Pawn();
