@@ -332,9 +332,10 @@ void ChessBoard::makeMove(Move m) {
     Position p1 = m.start;
     Position p2 = m.end;
     Piece* temp = theBoard[p1.row][p1.col];
+    //if piece type is king and the move is 2 steps, then check castling
     if(temp->getPieceType() == PAWN){
-        if(temp->isEnpassant()){
-            if(p2 == temp->getEnpassantPosition()){
+        if(temp->isEnPassant()){
+            if(p2 == temp->getEnPassantPosition()){
                 Piece* p = temp->getEnPassantPiece();
                 Position enPassantOrigin = p->getPosition();
                 theBoard[enPassantOrigin.row][enPassantOrigin.col] = nullptr;
@@ -351,10 +352,21 @@ void ChessBoard::makeMove(Move m) {
         //if the final position has a piece, delete the original piece
         //and place the new piece
     }
-
     temp->afterMove();
     updatePiecesPossibleMoves();
-    cout<<theBoard[p2.row][p2.col]->getPieceType()<<endl;
+    //if the moved piece is a king and moves 2 columns, then we can make a move
+    //using the rook in the castling
+    if(temp->getPieceType() == KING && abs(p2.col - p1.col)==2){
+        if(p2.col < p1.col){
+            Move rookMove{{p1.row, p1.col-4},p1};
+            makeMove(rookMove);
+        }
+        else{
+            Move rookMove{{p1.row, p1.col + 3},p1};
+            makeMove(rookMove);
+        }
+
+    }
     //testing the piecetype of that final psoition
 }
 
