@@ -4,6 +4,7 @@
 #include <vector>
 #include "ChessBoard.h"
 #include "utils.h"
+#include <iostream>
 
 class ChessBoard;
 
