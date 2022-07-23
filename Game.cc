@@ -36,6 +36,8 @@ void Game::play() {
         }
     }
 
+    shared_ptr<ChessBoard> test = board;
+
     // Print final score
     cout << Modifier(FG_MAGENTA) << "Final Score:"
          << Modifier(FG_DEFAULT) << endl;

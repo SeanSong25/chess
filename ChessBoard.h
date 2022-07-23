@@ -9,6 +9,7 @@ class Piece;
 class ChessBoard : public std::enable_shared_from_this<ChessBoard> {
   private:
     std::vector<std::vector<Piece *>> theBoard;  // 8 x 8 chessboard
+    Piece *initPiece(Colour, PieceType, Position);
 
   public:
     ChessBoard();
@@ -19,6 +20,10 @@ class ChessBoard : public std::enable_shared_from_this<ChessBoard> {
     void defaultInit();  // Initialize standard 8 x 8 board pieces
     void setupPiece();   // Add a piece in board during setup mode
     void removePiece();  // Remove a piece in board during setup mode
+
+    // Copy Ctor
+    // Usage: shared_ptr<ChessBoard> temp = make_shared<ChessBoard>(*board);
+    ChessBoard(const ChessBoard &);
 
     std::vector<std::vector<Piece *>> getBoard();
     std::vector<Piece *> getWhiteRooks();

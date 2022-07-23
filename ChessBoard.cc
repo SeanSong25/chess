@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <utility>
 
 #include "Bishop.h"
 #include "King.h"
@@ -35,6 +36,28 @@ void ChessBoard::destroy() {
 }
 ChessBoard::~ChessBoard() {
     destroy();
+}
+
+ChessBoard::ChessBoard(const ChessBoard &o) {
+    theBoard = vector<vector<Piece *>>(8, vector<Piece *>(8, nullptr));
+    for (int r = 0; r < 8; ++r) {
+        for (int c = 0; c < 8; ++c) {
+            if (o.theBoard[r][c] == nullptr) continue;
+            Colour colour = o.theBoard[r][c]->getColour();
+            PieceType pieceType = o.theBoard[r][c]->getPieceType();
+            Position position = o.theBoard[r][c]->getPosition();
+            theBoard[r][c] = initPiece(colour, pieceType, position);
+        }
+    }
+}
+
+Piece *ChessBoard::initPiece(Colour col, PieceType type, Position pos) {
+    if (type == KING) return new King(shared_from_this(), col, pos);
+    if (type == QUEEN) return new Queen(shared_from_this(), col, pos);
+    if (type == BISHOP) return new Bishop(shared_from_this(), col, pos);
+    if (type == KNIGHT) return new Knight(shared_from_this(), col, pos);
+    if (type == PAWN) return new Pawn(shared_from_this(), col, pos);
+    if (type == ROOK) return new Rook(shared_from_this(), col, pos);
 }
 
 // ----------------------------------------------------------------------------
