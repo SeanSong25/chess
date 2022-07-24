@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include "ChessBoard.h"
+#include <iostream>
 #include "utils.h"
 
 class ChessBoard;
