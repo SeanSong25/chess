@@ -18,14 +18,12 @@ struct Move ComputerLevelOne::computeNextMove(){
     Move decisionMove{tempPosition, tempPosition};
     if(nextMoves.size() == 1){
         decisionMove = nextMoves[0];
-        board.get()->makeMove(decisionMove);
     }
     else{
         moveIndex = rand()%nextMoves.size();
-        decisionMove = nextMoves[moveIndex];
-        board.get()->makeMove(decisionMove);
-        
+        decisionMove = nextMoves[moveIndex];   
     }
+    return decisionMove;
 }
 
 // ----- Unit test ------

@@ -90,23 +90,23 @@ Rook *Rook::clone() {
 Rook::~Rook() {}
 
 // ----- Unit test ------
-void test_function(Piece *test_Piece, Position test_Pos, std::shared_ptr<ChessBoard> test_board) {
-    test_Piece -> updatePossibleNextPos();
-    std::vector<Position> nextMoves = test_Piece->getPossibleNextPos();
-    std::vector<Position> captureMoves = test_Piece->getPossibleCaptures();
-    // validate moves
+// void test_function(Piece *test_Piece, Position test_Pos, std::shared_ptr<ChessBoard> test_board) {
+//     test_Piece -> updatePossibleNextPos();
+//     std::vector<Position> nextMoves = test_Piece->getPossibleNextPos();
+//     std::vector<Position> captureMoves = test_Piece->getPossibleCaptures();
+//     // validate moves
 
-    // Print result
-    std::cerr << "Test valid moves for piece position at " << test_Pos.row << " " << test_Pos.col << ":" << std::endl;
-    for (const auto &[row, col] : nextMoves) {
-        std::cerr << "row: " << row << "  col: " << col << std::endl;
-    }
+//     // Print result
+//     std::cerr << "Test valid moves for piece position at " << test_Pos.row << " " << test_Pos.col << ":" << std::endl;
+//     for (const auto &[row, col] : nextMoves) {
+//         std::cerr << "row: " << row << "  col: " << col << std::endl;
+//     }
 
-    std::cerr << "Test valid captures for piece position at " << test_Pos.row << " " << test_Pos.col << ":" << std::endl;
-    for (const auto &[row, col] : captureMoves) {
-        std::cerr << "row: " << row << "  col: " << col << std::endl;
-    }
-}
+//     std::cerr << "Test valid captures for piece position at " << test_Pos.row << " " << test_Pos.col << ":" << std::endl;
+//     for (const auto &[row, col] : captureMoves) {
+//         std::cerr << "row: " << row << "  col: " << col << std::endl;
+//     }
+// }
 
 // int main(void) {
 //     // Change here

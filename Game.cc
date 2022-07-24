@@ -78,6 +78,8 @@ void Game::startGame() {
     if (!hasCustomSetup) {
         board->defaultInit();
     }
+
+    //possible moves update
     board->updatePiecesPossibleMoves(BLACK);
     board->updatePiecesPossibleMoves(WHITE);
 
