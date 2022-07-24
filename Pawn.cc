@@ -81,7 +81,6 @@ void Pawn::updatePossibleNextPos() {
         } else {
             ++p.row;
         }
-        enPassantPosition = p;
         possibleNextPos.emplace_back(p);
     }
 }
@@ -106,7 +105,7 @@ void Pawn::checkEnPassant(Position p) {
         std::vector<Position> captures = pawn -> getPossibleCaptures();
         for (auto &capture: captures) {
             if (capture == p) {
-                pawn -> setEnPassant(true, this);
+                pawn -> setEnPassant(true, this, capture);
                 return;
             }
         }

@@ -43,6 +43,6 @@ class ChessBoard : public std::enable_shared_from_this<ChessBoard> {
     std::vector<Move> getNextMoves();
     std::vector<Move> getCaptureMoves();
 
-    void updatePiecesPossibleMoves();
+    void updatePiecesPossibleMoves(Colour col);
 };
 #endif
