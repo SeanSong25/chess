@@ -36,8 +36,6 @@ void Game::play() {
         }
     }
 
-    shared_ptr<ChessBoard> test = board;
-
     // Print final score
     cout << Modifier(FG_MAGENTA) << "Final Score:"
          << Modifier(FG_DEFAULT) << endl;
@@ -267,7 +265,7 @@ void Game::setupColour() {
 
 void Game::notifyDisplays() {
     textDisplay->notifyTextDisplay(board->getBoard());
-    // graphicDisplay->notifyGraphicDisplay(board->getBoard());
+    graphicDisplay->notifyGraphicDisplay(board->getBoard());
 }
 
 void Game::endGame() {

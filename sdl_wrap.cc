@@ -74,14 +74,27 @@ void Screen::add_img(string key, string path) {
 
 void Screen::draw_img(std::string key, int x, int y) {
     int w, h;
-    int width = 100;
-    int height = 100;
     SDL_QueryTexture(imgs[key], NULL, NULL, &w, &h);
-    msgs.emplace_back(Text{x, y, width, height, imgs[key]});
+    msgs.emplace_back(Text{x, y, w, h, imgs[key]});
+}
+
+void Screen::draw_square(string key, int x, int y, int s_width, int s_height) {
+    int o, p;
+    SDL_QueryTexture(imgs[key], NULL, NULL, &o, &p);
+    msgs.emplace_back(Text{x, y, s_width, s_height, imgs[key]});
+}
+
+void Screen::draw_piece(string key, int x, int y, int s_width, int s_height) {
+    int o, p;
+    int width = s_width * 0.7;
+    int height = s_height * 0.7;
+    int offset = s_width * 0.15;
+    SDL_QueryTexture(imgs[key], NULL, NULL, &o, &p);
+    msgs.emplace_back(Text{x + offset, y + offset, width, height, imgs[key]});
 }
 
 void Screen::update() {
-    // SDL_RenderClear(render);
+    SDL_RenderClear(render);
     for (auto &r : rects) {
         SDL_SetRenderDrawColor(render, r.c.r, r.c.g, r.c.b, SDL_ALPHA_OPAQUE);
         SDL_RenderFillRect(render, &r.rect);
@@ -92,13 +105,13 @@ void Screen::update() {
     }
     SDL_RenderPresent(render);
 
-    for (auto &m : msgs) {
-        SDL_DestroyTexture(m.texture);
-    }
-    msgs.clear();
-    rects.clear();
+    // for (auto &m : msgs) {
+    //     SDL_DestroyTexture(m.texture);
+    // }
+    // msgs.clear();
+    // rects.clear();
 
-    // All rects are erased each update.
+    // All rects and images are erased each update.
 }
 
 void Clock::start() {
@@ -132,4 +145,4 @@ SDL_Runner::~SDL_Runner() {
     IMG_Quit();
     SDL_Quit();
 }
-}  // namespace
+}  // namespace SDL

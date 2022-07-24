@@ -5,13 +5,18 @@
 
 class GraphicDisplay {
     SDL::Screen* s;
-    int square_width = 100;
-    int square_height = 100;
+    int screen_height = 758;
+    int screen_width = 758;
+    int padding = 40;
+    int square_width;
+    int square_height;
+    void drawPiece(Piece*);
+    void drawBoard();
 
   public:
     GraphicDisplay();
     ~GraphicDisplay();
-    void notifyGraphicDiplay(const std::vector<std::vector<Piece*>>& theBoard);
+    void notifyGraphicDisplay(const std::vector<std::vector<Piece*>>& theBoard);
 };
 
 #endif
