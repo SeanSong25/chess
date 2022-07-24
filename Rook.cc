@@ -15,7 +15,7 @@ Rook::Rook(Rook &r) {
     possibleCaptures = r.getPossibleCaptures();
 }
 
-// update possible next positions and possible next captures for Queen
+// update possible next positions and possible next captures for Rook
 void Rook::updatePossibleNextPos() {
     // clear all previous data
     possibleNextPos.clear();
@@ -25,12 +25,14 @@ void Rook::updatePossibleNextPos() {
     int currRow = position.row;
     int currCol = position.col;
     while(currRow >= 1) {
-        possibleNextPos.emplace_back(--currRow, currCol);
-        if (board -> getBoard()[currRow][currCol]) {
+        if (board -> getBoard()[--currRow][currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
-               possibleCaptures.emplace_back(currRow, currCol); 
-            }
+                possibleNextPos.emplace_back(currRow, currCol);
+                possibleCaptures.emplace_back(currRow, currCol); 
+            } 
             break;
+        } else {
+           possibleNextPos.emplace_back(currRow, currCol); 
         }
     }
 
@@ -38,12 +40,14 @@ void Rook::updatePossibleNextPos() {
     currRow = position.row;
     currCol = position.col;
     while(currRow <= 6) {
-        possibleNextPos.emplace_back(++currRow, currCol);
-        if (board -> getBoard()[currRow][currCol]) {
+        if (board -> getBoard()[++currRow][currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
-               possibleCaptures.emplace_back(currRow, currCol); 
-            }
+                possibleNextPos.emplace_back(currRow, currCol);
+                possibleCaptures.emplace_back(currRow, currCol); 
+            } 
             break;
+        } else {
+           possibleNextPos.emplace_back(currRow, currCol); 
         }
     }
 
@@ -51,25 +55,29 @@ void Rook::updatePossibleNextPos() {
     currRow = position.row;
     currCol = position.col;
     while(currCol >= 1) {
-        possibleNextPos.emplace_back(currRow, --currCol);
-        if (board -> getBoard()[currRow][currCol]) {
+        if (board -> getBoard()[currRow][--currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
-               possibleCaptures.emplace_back(currRow, currCol); 
-            }
+                possibleNextPos.emplace_back(currRow, currCol);
+                possibleCaptures.emplace_back(currRow, currCol); 
+            } 
             break;
+        } else {
+           possibleNextPos.emplace_back(currRow, currCol); 
         }
     }
 
     // right
     currRow = position.row;
     currCol = position.col;
-    while(currCol <= 6) {
-        possibleNextPos.emplace_back(currRow, ++currCol);
-        if (board -> getBoard()[currRow][currCol]) {
+    while(currCol <= 6) {  
+        if (board -> getBoard()[currRow][++currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
-               possibleCaptures.emplace_back(currRow, currCol); 
-            }
+                possibleNextPos.emplace_back(currRow, currCol);
+                possibleCaptures.emplace_back(currRow, currCol); 
+            } 
             break;
+        } else {
+           possibleNextPos.emplace_back(currRow, currCol); 
         }
     }
 }
@@ -81,7 +89,7 @@ Rook *Rook::clone() {
 // destructor
 Rook::~Rook() {}
 
------ Unit test ------
+// ----- Unit test ------
 void test_function(Piece *test_Piece, Position test_Pos, std::shared_ptr<ChessBoard> test_board) {
     test_Piece -> updatePossibleNextPos();
     std::vector<Position> nextMoves = test_Piece->getPossibleNextPos();
@@ -100,44 +108,44 @@ void test_function(Piece *test_Piece, Position test_Pos, std::shared_ptr<ChessBo
     }
 }
 
-int main(void) {
-    // Change here
-    Position test_Pos{0, 0};
-    ChessBoard ch{};
-    std::shared_ptr<ChessBoard> board = std::make_shared<ChessBoard>(ch);
-    //test 1:
-    Piece *test_piece = new Queen(board, WHITE, test_Pos);
-    board -> setPiece(test_piece,test_Pos);
+// int main(void) {
+//     // Change here
+//     Position test_Pos{0, 0};
+//     ChessBoard ch{};
+//     std::shared_ptr<ChessBoard> board = std::make_shared<ChessBoard>(ch);
+//     //test 1:
+//     Piece *test_piece = new Rook(board, WHITE, test_Pos);
+//     board -> setPiece(test_piece,test_Pos);
 
-    //test 2:
-    Position test_Pos_Two{3,3};
-    Piece *test_piece_Two = new Queen(board, BLACK, test_Pos_Two);
-    board -> setPiece(test_piece_Two,test_Pos_Two);
+//     //test 2:
+//     Position test_Pos_Two{3,3};
+//     Piece *test_piece_Two = new Rook(board, BLACK, test_Pos_Two);
+//     board -> setPiece(test_piece_Two,test_Pos_Two);
 
-    //test 3:
-    Position test_Pos_Three{2,2};
-    Piece *test_piece_Three =new Queen(board, WHITE, test_Pos_Three);
-    board -> setPiece(test_piece_Three,test_Pos_Three);
+//     //test 3:
+//     Position test_Pos_Three{2,2};
+//     Piece *test_piece_Three =new Rook(board, WHITE, test_Pos_Three);
+//     board -> setPiece(test_piece_Three,test_Pos_Three);
 
-    //test 4:
-    Position test_Pos_Four{3,4};
-    Piece *test_piece_Four =new Queen(board, WHITE, test_Pos_Four);
-    board -> setPiece(test_piece_Four,test_Pos_Four);
+//     //test 4:
+//     Position test_Pos_Four{3,4};
+//     Piece *test_piece_Four =new Rook(board, WHITE, test_Pos_Four);
+//     board -> setPiece(test_piece_Four,test_Pos_Four);
 
-    //test 5:
-    Position test_Pos_Five{4,2};
-    Piece *test_piece_Five =new Queen(board, BLACK, test_Pos_Five);
-    board -> setPiece(test_piece_Five,test_Pos_Five);
+//     //test 5:
+//     Position test_Pos_Five{4,2};
+//     Piece *test_piece_Five =new Rook(board, BLACK, test_Pos_Five);
+//     board -> setPiece(test_piece_Five,test_Pos_Five);
 
-    //test 6:
-    Position test_Pos_Six{5,1};
-    Piece *test_piece_Six =new Queen(board, WHITE, test_Pos_Six);
-    board -> setPiece(test_piece_Six,test_Pos_Six);
+//     //test 6:
+//     Position test_Pos_Six{5,1};
+//     Piece *test_piece_Six =new Rook(board, WHITE, test_Pos_Six);
+//     board -> setPiece(test_piece_Six,test_Pos_Six);
 
-    test_function(test_piece, test_Pos, board);
-    test_function(test_piece_Two, test_Pos_Two, board);
-    test_function(test_piece_Three, test_Pos_Three, board);
-    test_function(test_piece_Four, test_Pos_Four, board);
-    test_function(test_piece_Five, test_Pos_Five, board);
-    test_function(test_piece_Six, test_Pos_Six, board);
-}
+//     test_function(test_piece, test_Pos, board);
+//     test_function(test_piece_Two, test_Pos_Two, board);
+//     test_function(test_piece_Three, test_Pos_Three, board);
+//     test_function(test_piece_Four, test_Pos_Four, board);
+//     test_function(test_piece_Five, test_Pos_Five, board);
+//     test_function(test_piece_Six, test_Pos_Six, board);
+// }

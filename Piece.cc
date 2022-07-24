@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "Piece.h"
 #include <algorithm>
+#include <iostream>
 
 // default constructor
 Piece::Piece() {}
@@ -79,15 +80,18 @@ bool Piece::putsKingInCheck(Position p) {
     // to the new board, and update the position
     // then call Piece::updatePossibleNextPos
     // and check if king is in check in the new board
-
-    std::shared_ptr<ChessBoard> newBoard = std::make_shared<ChessBoard>(*board);
+    std::cout << "in putsKingInCheck" << std::endl;
+    std::shared_ptr<ChessBoard> newBoard = std::make_shared<ChessBoard>(*board.get());
+    std::cout << "make_shared in putsKingInCheck" <<std::endl;
     std::shared_ptr<ChessBoard> tempStoreBoard = board;
     board = newBoard;
     
     // set up the new board
     for (auto &i : board -> getBoard()) {
         for (auto &j: i) {
-            j -> updatePossibleNextPos();
+            if(j){
+                j -> updatePossibleNextPos();
+            }
         }
     }
 
@@ -109,7 +113,9 @@ bool Piece::putsKingInCheck(Position p) {
     board = tempStoreBoard;
     for (auto &i : board -> getBoard()) {
         for (auto &j: i) {
-            j -> updatePossibleNextPos();
+            if(j){
+                j -> updatePossibleNextPos();
+            }
         }
     }
 
@@ -118,9 +124,12 @@ bool Piece::putsKingInCheck(Position p) {
 
 // check if input move is valid
 bool Piece::isMoveValid(Position p) {
+    std::cout << "in isMoveValid" <<std::endl;
     // check if physcially possible
+    std::cout << possibleNextPos.size() <<std::endl;
     if (std::find(possibleNextPos.begin(), possibleNextPos.end(), p) != possibleNextPos.end()) {
         // check if this move puts player's king in check
+        std::cout << "here in first if" <<std::endl;
         if (putsKingInCheck(p)) {
             return false;
         }
@@ -158,4 +167,6 @@ void Piece::afterMove() {
 }
 
 // destructor
-Piece::~Piece() {}
+Piece::~Piece() {
+    
+}

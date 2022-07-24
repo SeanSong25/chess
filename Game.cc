@@ -61,7 +61,6 @@ void Game::startGame() {
     // Initialize white and black players
     whitePlayer = initPlayer(x, WHITE);
     blackPlayer = initPlayer(y, BLACK);
-
     // Return if the game is not successfully initialized
     if (whitePlayer == nullptr || blackPlayer == nullptr) {
         cout << Modifier(FG_RED);
@@ -74,11 +73,13 @@ void Game::startGame() {
     // Pass in the board to the players
     whitePlayer->setBoard(board);
     blackPlayer->setBoard(board);
-
+    
     // Default initialize pieces if no custom setup
     if (!hasCustomSetup) {
         board->defaultInit();
     }
+    board->updatePiecesPossibleMoves(BLACK);
+    board->updatePiecesPossibleMoves(WHITE);
 
     // Successfully initialized the game
     cout << Modifier(FG_GREEN);

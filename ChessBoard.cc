@@ -39,6 +39,7 @@ ChessBoard::~ChessBoard() {
 }
 
 ChessBoard::ChessBoard(const ChessBoard &o) {
+    cout << "entered chessboard copy constructor" <<endl;
     theBoard = vector<vector<Piece *>>(8, vector<Piece *>(8, nullptr));
     for (int r = 0; r < 8; ++r) {
         for (int c = 0; c < 8; ++c) {
@@ -52,12 +53,14 @@ ChessBoard::ChessBoard(const ChessBoard &o) {
 }
 
 Piece *ChessBoard::copyPiece(Colour col, PieceType type, Position pos) {
+    cout << "in copy piece" <<endl;
     if (type == KING) return new King(shared_from_this(), col, pos);
     if (type == QUEEN) return new Queen(shared_from_this(), col, pos);
     if (type == BISHOP) return new Bishop(shared_from_this(), col, pos);
     if (type == KNIGHT) return new Knight(shared_from_this(), col, pos);
     if (type == PAWN) return new Pawn(shared_from_this(), col, pos);
     if (type == ROOK) return new Rook(shared_from_this(), col, pos);
+    cout << "after copy piece" <<endl;
 }
 
 // ----------------------------------------------------------------------------
@@ -323,8 +326,8 @@ vector<Piece *> ChessBoard::getBlackPieces() {
 void ChessBoard::updatePiecesPossibleMoves(Colour col){
     for(auto &i : theBoard){
         for(auto &j : i){
-            if(j->getColour() == col){
-                j->updatePossibleNextPos();
+            if(j && j->getColour() == col){
+                 j->updatePossibleNextPos();
             }
         }
     }
@@ -336,7 +339,9 @@ void ChessBoard::makeMove(Move m) {
     Piece* temp = theBoard[p1.row][p1.col];
     //if piece type is king and the move is 2 steps, then check castling
     if(temp->getPieceType() == PAWN){
+        cout << "before checking enpassant"<<endl;
         if(temp->isEnPassant()){
+            cout << "after checking enpassant"<<endl;
             if(p2 == temp->getEnPassantPosition()){
                 Piece* p = temp->getEnPassantPiece();
                 Position enPassantOrigin = p->getPosition();
@@ -346,14 +351,16 @@ void ChessBoard::makeMove(Move m) {
             temp->checkEnPassant(p2);
         }
     }
-    if(theBoard[p2.row][p2.col] == nullptr){
-        theBoard[p2.row][p2.col] = temp;
-    }else{
-        delete theBoard[p2.row][p2.col];
-        theBoard[p2.row][p2.col] = temp;
+    // if(theBoard[p2.row][p2.col] == nullptr){
+    //     theBoard[p2.row][p2.col] = temp;
+    // }else{
+    //     theBoard[p2.row][p2.col];
+    cout << "before move" <<endl;
+    theBoard[p2.row][p2.col] = temp;
+     cout << "after move" <<endl;
         //if the final position has a piece, delete the original piece
         //and place the new piece
-    }
+    //}
     temp->afterMove();
     updatePiecesPossibleMoves(temp->getColour());
     for(auto &i : theBoard){
@@ -377,7 +384,7 @@ void ChessBoard::makeMove(Move m) {
         }
 
     }
-    //testing the piecetype of that final psoition
+    
 }
 
 //set the piece p at the position pos
