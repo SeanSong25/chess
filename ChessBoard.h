@@ -6,7 +6,7 @@
 #include "Piece.h"
 #include "Player.h"
 class Piece;
-class ChessBoard : public std::enable_shared_from_this<ChessBoard> {
+class ChessBoard{
   private:
     std::vector<std::vector<Piece *>> theBoard;  // 8 x 8 chessboard
     Piece *copyPiece(Colour, PieceType, Position);

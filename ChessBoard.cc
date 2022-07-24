@@ -54,12 +54,12 @@ ChessBoard::ChessBoard(const ChessBoard &o) {
 
 Piece *ChessBoard::copyPiece(Colour col, PieceType type, Position pos) {
     cout << "in copy piece" <<endl;
-    if (type == KING) return new King(shared_from_this(), col, pos);
-    if (type == QUEEN) return new Queen(shared_from_this(), col, pos);
-    if (type == BISHOP) return new Bishop(shared_from_this(), col, pos);
-    if (type == KNIGHT) return new Knight(shared_from_this(), col, pos);
-    if (type == PAWN) return new Pawn(shared_from_this(), col, pos);
-    if (type == ROOK) return new Rook(shared_from_this(), col, pos);
+    if (type == KING) return new King(this, col, pos);
+    if (type == QUEEN) return new Queen(this, col, pos);
+    if (type == BISHOP) return new Bishop(this, col, pos);
+    if (type == KNIGHT) return new Knight(this, col, pos);
+    if (type == PAWN) return new Pawn(this, col, pos);
+    if (type == ROOK) return new Rook(this, col, pos);
     cout << "after copy piece" <<endl;
 }
 
@@ -70,40 +70,40 @@ void ChessBoard::defaultInit() {
     // Initialize black pawns
     int row = 1;
     for (int col = 0; col < 8; col++) {
-        theBoard[row][col] = new Pawn(shared_from_this(), BLACK, {row, col});
+        theBoard[row][col] = new Pawn(this, BLACK, {row, col});
     }
 
     // Initialize black pawns
     row = 6;
     for (int col = 0; col < 8; col++) {
-        theBoard[row][col] = new Pawn(shared_from_this(), WHITE, {row, col});
+        theBoard[row][col] = new Pawn(this, WHITE, {row, col});
     }
 
     // Initialize Rooks
-    theBoard[0][0] = new Rook(shared_from_this(), BLACK, {0, 0});
-    theBoard[0][7] = new Rook(shared_from_this(), BLACK, {0, 7});
-    theBoard[7][0] = new Rook(shared_from_this(), WHITE, {7, 0});
-    theBoard[7][7] = new Rook(shared_from_this(), WHITE, {7, 7});
+    theBoard[0][0] = new Rook(this, BLACK, {0, 0});
+    theBoard[0][7] = new Rook(this, BLACK, {0, 7});
+    theBoard[7][0] = new Rook(this, WHITE, {7, 0});
+    theBoard[7][7] = new Rook(this, WHITE, {7, 7});
 
     // Initialize Knights
-    theBoard[0][1] = new Knight(shared_from_this(), BLACK, {0, 1});
-    theBoard[0][6] = new Knight(shared_from_this(), BLACK, {0, 6});
-    theBoard[7][1] = new Knight(shared_from_this(), WHITE, {7, 1});
-    theBoard[7][6] = new Knight(shared_from_this(), WHITE, {7, 6});
+    theBoard[0][1] = new Knight(this, BLACK, {0, 1});
+    theBoard[0][6] = new Knight(this, BLACK, {0, 6});
+    theBoard[7][1] = new Knight(this, WHITE, {7, 1});
+    theBoard[7][6] = new Knight(this, WHITE, {7, 6});
 
     // Initialize Bishops
-    theBoard[0][2] = new Bishop(shared_from_this(), BLACK, {0, 2});
-    theBoard[7][2] = new Bishop(shared_from_this(), WHITE, {7, 2});
-    theBoard[0][5] = new Bishop(shared_from_this(), BLACK, {0, 5});
-    theBoard[7][5] = new Bishop(shared_from_this(), WHITE, {7, 5});
+    theBoard[0][2] = new Bishop(this, BLACK, {0, 2});
+    theBoard[7][2] = new Bishop(this, WHITE, {7, 2});
+    theBoard[0][5] = new Bishop(this, BLACK, {0, 5});
+    theBoard[7][5] = new Bishop(this, WHITE, {7, 5});
 
     // Initialize Queens
-    theBoard[0][3] = new Queen(shared_from_this(), BLACK, {0, 3});
-    theBoard[7][3] = new Queen(shared_from_this(), WHITE, {7, 3});
+    theBoard[0][3] = new Queen(this, BLACK, {0, 3});
+    theBoard[7][3] = new Queen(this, WHITE, {7, 3});
 
     // Initialize Kings
-    theBoard[0][4] = new King(shared_from_this(), BLACK, {0, 4});
-    theBoard[7][4] = new King(shared_from_this(), WHITE, {7, 4});
+    theBoard[0][4] = new King(this, BLACK, {0, 4});
+    theBoard[7][4] = new King(this, WHITE, {7, 4});
 }
 
 void ChessBoard::setupPiece() {
@@ -136,40 +136,40 @@ void ChessBoard::setupPiece() {
     // Create piece
     switch (p) {
         case 'r':
-            theBoard[r][c] = new Rook(shared_from_this(), BLACK, pos);
+            theBoard[r][c] = new Rook(this, BLACK, pos);
             break;
         case 'n':
-            theBoard[r][c] = new Knight(shared_from_this(), BLACK, pos);
+            theBoard[r][c] = new Knight(this, BLACK, pos);
             break;
         case 'b':
-            theBoard[r][c] = new Bishop(shared_from_this(), BLACK, pos);
+            theBoard[r][c] = new Bishop(this, BLACK, pos);
             break;
         case 'q':
-            theBoard[r][c] = new Queen(shared_from_this(), BLACK, pos);
+            theBoard[r][c] = new Queen(this, BLACK, pos);
             break;
         case 'k':
-            theBoard[r][c] = new King(shared_from_this(), BLACK, pos);
+            theBoard[r][c] = new King(this, BLACK, pos);
             break;
         case 'p':
-            theBoard[r][c] = new Pawn(shared_from_this(), BLACK, pos);
+            theBoard[r][c] = new Pawn(this, BLACK, pos);
             break;
         case 'R':
-            theBoard[r][c] = new Rook(shared_from_this(), WHITE, pos);
+            theBoard[r][c] = new Rook(this, WHITE, pos);
             break;
         case 'N':
-            theBoard[r][c] = new Knight(shared_from_this(), WHITE, pos);
+            theBoard[r][c] = new Knight(this, WHITE, pos);
             break;
         case 'B':
-            theBoard[r][c] = new Bishop(shared_from_this(), WHITE, pos);
+            theBoard[r][c] = new Bishop(this, WHITE, pos);
             break;
         case 'Q':
-            theBoard[r][c] = new Queen(shared_from_this(), WHITE, pos);
+            theBoard[r][c] = new Queen(this, WHITE, pos);
             break;
         case 'K':
-            theBoard[r][c] = new King(shared_from_this(), WHITE, pos);
+            theBoard[r][c] = new King(this, WHITE, pos);
             break;
         case 'P':
-            theBoard[r][c] = new Pawn(shared_from_this(), WHITE, pos);
+            theBoard[r][c] = new Pawn(this, WHITE, pos);
             break;
         default:
             cout << Modifier(FG_RED) << "Invalid piece name"
@@ -355,9 +355,7 @@ void ChessBoard::makeMove(Move m) {
     //     theBoard[p2.row][p2.col] = temp;
     // }else{
     //     theBoard[p2.row][p2.col];
-    cout << "before move" <<endl;
     theBoard[p2.row][p2.col] = temp;
-     cout << "after move" <<endl;
         //if the final position has a piece, delete the original piece
         //and place the new piece
     //}
@@ -365,7 +363,7 @@ void ChessBoard::makeMove(Move m) {
     updatePiecesPossibleMoves(temp->getColour());
     for(auto &i : theBoard){
         for(auto  &j : i){
-            if(j->getColour() == temp->getColour()){
+            if(j!=nullptr && j->getColour() == temp->getColour()){
                 Position p{};
                 j->setEnPassant(false, nullptr, p);
             }
@@ -384,6 +382,7 @@ void ChessBoard::makeMove(Move m) {
         }
 
     }
+    theBoard[p1.row][p1.col] = nullptr;
     
 }
 
@@ -404,16 +403,16 @@ void ChessBoard::promote(Move m, char pieceType) {
         delete theBoard[endPos.row][endPos.col];
     }
     if(pieceType == 'R'){
-        theBoard[endPos.row][endPos.col] = new Rook(shared_from_this(), col, endPos);
+        theBoard[endPos.row][endPos.col] = new Rook(this, col, endPos);
     }
     else if(pieceType == 'Q'){
-        theBoard[endPos.row][endPos.col] = new Queen(shared_from_this(), col, endPos);
+        theBoard[endPos.row][endPos.col] = new Queen(this, col, endPos);
     }
     else if(pieceType == 'K'){
-        theBoard[endPos.row][endPos.col] = new Knight(shared_from_this(), col, endPos);
+        theBoard[endPos.row][endPos.col] = new Knight(this, col, endPos);
     }
     else if(pieceType == 'B'){
-        theBoard[endPos.row][endPos.col] = new Bishop(shared_from_this(), col, endPos);
+        theBoard[endPos.row][endPos.col] = new Bishop(this, col, endPos);
     }
     theBoard[startPos.row][startPos.col] = nullptr;
     delete p;

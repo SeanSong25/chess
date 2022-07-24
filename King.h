@@ -8,7 +8,7 @@ class King : public Piece{
         void updatePossibleNextPos() override;
         bool canCastle(Piece *);
     public:
-        King(std::shared_ptr<ChessBoard>, Colour, Position);
+        King(ChessBoard*, Colour, Position);
         King(King &k);
         std::vector<Piece *> getAttackingPieces();
         void updateAttackingPieces();

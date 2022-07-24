@@ -1,7 +1,7 @@
 #include "Player.h"
 using namespace std;
 
-void Player::setBoard(shared_ptr<ChessBoard> board){
+void Player::setBoard(ChessBoard* board){
     this->board = board;
 }
 

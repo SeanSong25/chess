@@ -6,7 +6,7 @@ class Rook : public Piece {
   private:
     void updatePossibleNextPos() override;
   public:
-    Rook(std::shared_ptr<ChessBoard>, Colour, Position);
+    Rook(ChessBoard*, Colour, Position);
     Rook(Rook &r);
     Rook *clone() override;
     ~Rook();

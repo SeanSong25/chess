@@ -4,8 +4,8 @@
 bool ComputerPlayer::makeMove(){
     
     Move move = decideNextMove();
-    if(board.get()->checkMove(move)){
-        board.get()->makeMove(move);
+    if(board->checkMove(move)){
+        board->makeMove(move);
         return true;
     }
     return true;

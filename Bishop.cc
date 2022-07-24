@@ -1,7 +1,7 @@
 #include "Bishop.h"
 #include <iostream>
 // constructor
-Bishop::Bishop(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
+Bishop::Bishop(ChessBoard* board, Colour colour, Position position): 
     Piece{board, colour, position, PieceType::BISHOP} {}
 
 // copy constructor

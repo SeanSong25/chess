@@ -11,7 +11,7 @@ class ChessBoard;
 
 class Piece{
     protected: 
-        std::shared_ptr<ChessBoard> board;
+        ChessBoard* board;
         Colour colour;
         Position position;
         PieceType pieceType;
@@ -24,7 +24,7 @@ class Piece{
         bool canBeCaptured(Position);
     public:
         Piece();
-        Piece(std::shared_ptr<ChessBoard>, Colour, Position, PieceType);
+        Piece(ChessBoard*, Colour, Position, PieceType);
         Colour getColour();
         Position getPosition();
         void setPosition(Position);

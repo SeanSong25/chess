@@ -1,6 +1,6 @@
 #include "Queen.h"
 // constructor
-Queen::Queen(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
+Queen::Queen(ChessBoard* board, Colour colour, Position position): 
     Piece{board, colour, position, PieceType::QUEEN} {}
 
 // copy constructor

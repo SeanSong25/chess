@@ -1,7 +1,7 @@
 #include "Knight.h"
 
 // constructor
-Knight::Knight(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
+Knight::Knight(ChessBoard* board, Colour colour, Position position): 
     Piece{board, colour, position, PieceType::KNIGHT} {}
 
 // copy constructor

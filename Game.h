@@ -9,7 +9,7 @@
 #include "TextDisplay.h"
 
 class Game {
-    std::shared_ptr<ChessBoard> board;
+    ChessBoard* board;
     Player* whitePlayer;
     Player* blackPlayer;
     Player* currentPlayer;

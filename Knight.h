@@ -6,7 +6,7 @@ class Knight : public Piece {
     private:
         void updatePossibleNextPos() override;
     public:
-        Knight(std::shared_ptr<ChessBoard>, Colour, Position); 
+        Knight(ChessBoard*, Colour, Position); 
         Knight(Knight &k);
         Knight *clone() override;  
         ~Knight();

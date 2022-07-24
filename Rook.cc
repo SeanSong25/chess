@@ -1,7 +1,7 @@
 #include "Rook.h"
 
 // constructor
-Rook::Rook(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
+Rook::Rook(ChessBoard* board, Colour colour, Position position): 
     Piece{board, colour, position, PieceType::ROOK} {}
 
 // copy constructor

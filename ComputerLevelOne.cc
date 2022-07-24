@@ -5,13 +5,13 @@ ComputerLevelOne::ComputerLevelOne(Colour col){
     colour = col;
 }
 
-void ComputerLevelOne::setBoard(shared_ptr<ChessBoard> board){
+void ComputerLevelOne::setBoard(ChessBoard* board){
     this->board = board;
 }
 
 struct Move ComputerLevelOne::computeNextMove(){
     vector<struct Move> nextMoves;
-    nextMoves = board.get()->getNextMoves();
+    nextMoves = board->getNextMoves();
     
     int moveIndex = 0;
     Position tempPosition{0,0};

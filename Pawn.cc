@@ -1,7 +1,7 @@
 #include "Pawn.h"
 
 // constructor
-Pawn::Pawn(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
+Pawn::Pawn(ChessBoard* board, Colour colour, Position position): 
     Piece{board, colour, position, PieceType::PAWN} {}
 
 // copy constructor

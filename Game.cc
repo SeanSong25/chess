@@ -12,7 +12,7 @@ using namespace std;
 using namespace TextColour;
 
 Game::Game() {
-    board = make_shared<ChessBoard>();
+    board = new ChessBoard();
     textDisplay = make_unique<TextDisplay>();
     scoreBoard = make_unique<ScoreBoard>();
     graphicDisplay = make_unique<GraphicDisplay>();
@@ -36,7 +36,7 @@ void Game::play() {
         }
     }
 
-    shared_ptr<ChessBoard> test = board;
+    ChessBoard* test = board;
 
     // Print final score
     cout << Modifier(FG_MAGENTA) << "Final Score:"

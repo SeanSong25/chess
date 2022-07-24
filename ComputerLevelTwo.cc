@@ -5,15 +5,15 @@ ComputerLevelTwo::ComputerLevelTwo(Colour col){
     colour = col;
 }
 
-void ComputerLevelTwo::setBoard(shared_ptr<ChessBoard> board){
+void ComputerLevelTwo::setBoard(ChessBoard* board){
     this->board = board;
 }
 
 struct Move ComputerLevelTwo::decideNextMove(){
     vector<Move> nextMoves;
     vector< Move> captureMoves;
-    nextMoves = board.get()->getNextMoves(); 
-    captureMoves = board.get()->getCaptureMoves();
+    nextMoves = board->getNextMoves(); 
+    captureMoves = board->getCaptureMoves();
     //get all possible moves from the possible moves of the board
     
     int moveIndex = 0;

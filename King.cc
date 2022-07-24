@@ -1,7 +1,7 @@
 #include "King.h"
 
 // constructor
-King::King(std::shared_ptr<ChessBoard> board, Colour colour, Position position): 
+King::King(ChessBoard* board, Colour colour, Position position): 
     Piece{board, colour, position, PieceType::KING}, 
     attackingPieces{std::vector<Piece *> ()} {}
 

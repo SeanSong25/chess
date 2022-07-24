@@ -39,15 +39,15 @@ bool HumanPlayer::makeMove(){
     }
 
     if(cnt == 2){
-        if(board.get()->checkMove(move)){
-            board.get()->makeMove(move);
+        if(board->checkMove(move)){
+            board->makeMove(move);
             return true;
         }else{
             return false;
         }
     }else{
-        if(board.get()->checkPromotion(move, pieceType)){
-            board.get()->promote(move, pieceType);
+        if(board->checkPromotion(move, pieceType)){
+            board->promote(move, pieceType);
             return true;
         }else{
             return false;
@@ -58,23 +58,23 @@ bool HumanPlayer::makeMove(){
 HumanPlayer::~HumanPlayer(){}
 PlayerType HumanPlayer::playerType() { return PlayerType::HUMAN; }
 
-void placePiece(shared_ptr<ChessBoard> board, PieceType type, Position pos, Colour col){
+void placePiece(ChessBoard* board, PieceType type, Position pos, Colour col){
     if(type == KNIGHT){
-        board.get()->setPiece(new Knight(board,col,pos),pos);
+        board->setPiece(new Knight(board,col,pos),pos);
     }else if(type == ROOK){
-        board.get()->setPiece(new Rook(board,col,pos),pos);
+        board->setPiece(new Rook(board,col,pos),pos);
     }
     else if(type == PAWN){
-        board.get()->setPiece(new Pawn(board,col,pos),pos);
+        board->setPiece(new Pawn(board,col,pos),pos);
     }
     else if(type == QUEEN){
-        board.get()->setPiece(new Queen(board,col,pos),pos);
+        board->setPiece(new Queen(board,col,pos),pos);
     }
     else if(type == BISHOP){
-        board.get()->setPiece(new Bishop(board,col,pos),pos);
+        board->setPiece(new Bishop(board,col,pos),pos);
     }
     else if(type == KING){
-        board.get()->setPiece(new King(board,col,pos),pos);
+        board->setPiece(new King(board,col,pos),pos);
     }
 
 }
@@ -84,7 +84,7 @@ void placePiece(shared_ptr<ChessBoard> board, PieceType type, Position pos, Colo
 //     HumanPlayer* hp = new HumanPlayer(WHITE);
 //     Position p{0,0};
     // Knight* k = new Knight(board, WHITE, p);
-    // board.get()->setPiece(k,p);
+    // board->setPiece(k,p);
     // hp->setBoard(board);
 //     placePiece(board,PAWN,p,BLACK);
 //     p = {1,1};

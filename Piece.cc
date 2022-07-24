@@ -7,7 +7,7 @@
 Piece::Piece() {}
 
 // constructor
-Piece::Piece(std::shared_ptr<ChessBoard> board, Colour colour, Position position, PieceType pieceType):
+Piece::Piece(ChessBoard* board, Colour colour, Position position, PieceType pieceType):
     board{board}, colour{colour}, position{position}, pieceType{pieceType}, firstMove{true},
     enPassant{false}, enPassantPiece{nullptr}, enPassantPosition{Position{}},
     possibleNextPos{std::vector<Position>()}, possibleCaptures{std::vector<Position>()} {}
@@ -81,9 +81,9 @@ bool Piece::putsKingInCheck(Position p) {
     // then call Piece::updatePossibleNextPos
     // and check if king is in check in the new board
     std::cout << "in putsKingInCheck" << std::endl;
-    std::shared_ptr<ChessBoard> newBoard = std::make_shared<ChessBoard>(*board.get());
-    std::cout << "make_shared in putsKingInCheck" <<std::endl;
-    std::shared_ptr<ChessBoard> tempStoreBoard = board;
+    ChessBoard* newBoard = new ChessBoard(*board);
+    std::cout << "after copt ctor in putsKingInCheck" <<std::endl;
+    ChessBoard* tempStoreBoard = new ChessBoard(*board);
     board = newBoard;
     
     // set up the new board
