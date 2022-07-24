@@ -80,9 +80,7 @@ bool Piece::putsKingInCheck(Position p) {
     // to the new board, and update the position
     // then call Piece::updatePossibleNextPos
     // and check if king is in check in the new board
-    std::cout << "in putsKingInCheck" << std::endl;
     ChessBoard* newBoard = new ChessBoard(*board);
-    std::cout << "after copt ctor in putsKingInCheck" <<std::endl;
     ChessBoard* tempStoreBoard = new ChessBoard(*board);
     board = newBoard;
     
@@ -95,9 +93,13 @@ bool Piece::putsKingInCheck(Position p) {
         }
     }
 
+    std::cout << "after updating move" << std::endl;
+
     // make move
     Move newMove{position, p};
+    std::cout << "before making new move" << std::endl;
     board -> makeMove(newMove);
+    std::cout << "after making new move" << std::endl;
 
     // check if king is in check in new board
     Piece *king;
@@ -124,12 +126,9 @@ bool Piece::putsKingInCheck(Position p) {
 
 // check if input move is valid
 bool Piece::isMoveValid(Position p) {
-    std::cout << "in isMoveValid" <<std::endl;
     // check if physcially possible
-    std::cout << possibleNextPos.size() <<std::endl;
     if (std::find(possibleNextPos.begin(), possibleNextPos.end(), p) != possibleNextPos.end()) {
         // check if this move puts player's king in check
-        std::cout << "here in first if" <<std::endl;
         if (putsKingInCheck(p)) {
             return false;
         }

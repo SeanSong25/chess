@@ -39,7 +39,6 @@ ChessBoard::~ChessBoard() {
 }
 
 ChessBoard::ChessBoard(const ChessBoard &o) {
-    cout << "entered chessboard copy constructor" <<endl;
     theBoard = vector<vector<Piece *>>(8, vector<Piece *>(8, nullptr));
     for (int r = 0; r < 8; ++r) {
         for (int c = 0; c < 8; ++c) {
@@ -53,14 +52,12 @@ ChessBoard::ChessBoard(const ChessBoard &o) {
 }
 
 Piece *ChessBoard::copyPiece(Colour col, PieceType type, Position pos) {
-    cout << "in copy piece" <<endl;
     if (type == KING) return new King(this, col, pos);
     if (type == QUEEN) return new Queen(this, col, pos);
     if (type == BISHOP) return new Bishop(this, col, pos);
     if (type == KNIGHT) return new Knight(this, col, pos);
     if (type == PAWN) return new Pawn(this, col, pos);
     if (type == ROOK) return new Rook(this, col, pos);
-    cout << "after copy piece" <<endl;
 }
 
 // ----------------------------------------------------------------------------
@@ -326,7 +323,8 @@ vector<Piece *> ChessBoard::getBlackPieces() {
 void ChessBoard::updatePiecesPossibleMoves(Colour col){
     for(auto &i : theBoard){
         for(auto &j : i){
-            if(j && j->getColour() == col){
+            if(j && j->getColour() != col){
+                std::cout << j -> getPosition().row  << " " << j -> getPosition().col<< std::endl;
                  j->updatePossibleNextPos();
             }
         }
@@ -341,13 +339,14 @@ void ChessBoard::makeMove(Move m) {
     if(temp->getPieceType() == PAWN){
         cout << "before checking enpassant"<<endl;
         if(temp->isEnPassant()){
-            cout << "after checking enpassant"<<endl;
+            cout << "is enpassant"<<endl;
             if(p2 == temp->getEnPassantPosition()){
                 Piece* p = temp->getEnPassantPiece();
                 Position enPassantOrigin = p->getPosition();
                 theBoard[enPassantOrigin.row][enPassantOrigin.col] = nullptr;
             }
         }else {
+            cout << "not enpassant"<<endl;
             temp->checkEnPassant(p2);
         }
     }
@@ -360,9 +359,10 @@ void ChessBoard::makeMove(Move m) {
         //and place the new piece
     //}
     temp->afterMove();
+    std::cout << "updating "<< m.start.row << " " << m.start.col << std::endl;
     updatePiecesPossibleMoves(temp->getColour());
     for(auto &i : theBoard){
-        for(auto  &j : i){
+        for(auto &j : i){
             if(j!=nullptr && j->getColour() == temp->getColour()){
                 Position p{};
                 j->setEnPassant(false, nullptr, p);
