@@ -30,9 +30,7 @@ void Pawn::updatePossibleNextPos() {
 
     if (colour == Colour::BLACK) {
         if (currRow <= 6) {
-            std::cout << "pawn: " <<currRow << " " <<currCol << " started basic" << std::endl;
             if (!board -> getBoard()[currRow + 1][currCol]) {
-                std::cout << "pawn: " <<currRow << " " <<currCol << " forward 1 added" << std::endl;
                 possibleNextPos.emplace_back(currRow + 1, currCol);
             }
             if (firstMove && currRow <= 5 && !board -> getBoard()[currRow + 1][currCol] &&
@@ -55,6 +53,7 @@ void Pawn::updatePossibleNextPos() {
     } else {
         if (currRow >= 1) {
             if (!board -> getBoard()[currRow - 1][currCol]) {
+                std::cout << "pawn "<<currRow << " "<<currCol << "in forward 1" << std::endl;
                 possibleNextPos.emplace_back(currRow - 1, currCol);
             }
             if (firstMove && currRow >= 2 && !board -> getBoard()[currRow - 1][currCol] &&
