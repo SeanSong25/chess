@@ -321,10 +321,10 @@ vector<Piece *> ChessBoard::getBlackPieces() {
 // Game Logic
 
 void ChessBoard::updatePiecesPossibleMoves(Colour col){
-    for(auto &i : theBoard){
-        for(auto &j : i){
-            if(j && j->getColour() == col){
-                j->updatePossibleNextPos();
+    for(int i = 0; i<8; i++){
+        for(int j = 0; j<8; j++){
+            if(theBoard[i][j] && theBoard[i][j]->getColour() == col){
+                theBoard[i][j]->updatePossibleNextPos();
             }
         }
     }
@@ -472,12 +472,14 @@ std::vector<Move> ChessBoard::getNextMoves() {
     std::vector<Move> nextMoves;
     for(auto& i : theBoard){
         for(auto& j : i){
-            std::vector<Position> tempPiecePosition = j->getPossibleNextPos();
-            Position startPos = j->getPosition();
-            for(auto &j : tempPiecePosition){
-                Move move{startPos, j};
-                nextMoves.emplace_back(move);
-            }
+            if(j){
+                std::vector<Position> tempPiecePosition = j->getPossibleNextPos();
+                Position startPos = j->getPosition();
+                for(auto &j : tempPiecePosition){
+                    Move move{startPos, j};
+                    nextMoves.emplace_back(move);
+                }
+            } 
         }
     }
     return nextMoves;
@@ -487,11 +489,13 @@ std::vector<Move> ChessBoard::getCaptureMoves() {
     std::vector<Move> nextCaptures;
     for(auto& i : theBoard){
         for(auto& j : i){
-            std::vector<Position> tempPiecePosition = j->getPossibleCaptures();
-            Position startPos = j->getPosition();
-            for(auto &j : tempPiecePosition){
-                Move move{startPos, j};
-                nextCaptures.emplace_back(move);
+            if(j){
+                std::vector<Position> tempPiecePosition = j->getPossibleCaptures();
+                Position startPos = j->getPosition();
+                for(auto &j : tempPiecePosition){
+                    Move move{startPos, j};
+                    nextCaptures.emplace_back(move);
+                }
             }
         }
     }

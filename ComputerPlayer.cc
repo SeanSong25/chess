@@ -2,13 +2,12 @@
 #include "ChessBoard.h"
 
 bool ComputerPlayer::makeMove(){
-    
     Move move = decideNextMove();
-    if(board->checkMove(move, getColour())){
+    if(move.start.row != -1){
         board->makeMove(move);
         return true;
     }
-    return true;
+    return false;
 }
 
 struct Move ComputerPlayer::computeNextMove(){

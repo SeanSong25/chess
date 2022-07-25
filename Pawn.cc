@@ -27,6 +27,7 @@ void Pawn::updatePossibleNextPos() {
     int currRow = position.row;
     int currCol = position.col;
 
+
     if (colour == Colour::BLACK) {
         if (currRow <= 6) {
             if (!board -> getBoard()[currRow + 1][currCol]) {
@@ -41,6 +42,7 @@ void Pawn::updatePossibleNextPos() {
                 board -> getBoard()[currRow + 1][currCol + 1] -> getColour() != colour) {
                     possibleCaptures.emplace_back(currRow + 1, currCol + 1);
                     possibleNextPos.emplace_back(currRow + 1, currCol + 1);
+                    
             } 
             if (currCol > 0 && board -> getBoard()[currRow + 1][currCol - 1] && 
                 board -> getBoard()[currRow + 1][currCol - 1] -> getColour() != colour) {
@@ -70,6 +72,7 @@ void Pawn::updatePossibleNextPos() {
             } 
         }
     }
+
 
     // en passant
     // can capture pawn
