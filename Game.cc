@@ -82,12 +82,6 @@ void Game::startGame() {
     board->updatePiecesPossibleMoves(BLACK);
     board->updatePiecesPossibleMoves(WHITE);
 
-//testing e8 capture h8
-    Piece* p = board->getBoard()[0][4];
-    for(auto &i : p->getPossibleNextPos()){
-        cout << i.row << " " <<i.col <<endl;
-    }
-
     // Successfully initialized the game
     cout << Modifier(FG_GREEN);
     cout << "Game initialized" << endl;

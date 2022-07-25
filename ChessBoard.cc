@@ -276,6 +276,7 @@ Piece * ChessBoard::getWhiteKing() {
             }
         }
     }
+    return nullptr;
 }
 
 Piece * ChessBoard::getBlackKing() {
@@ -287,6 +288,7 @@ Piece * ChessBoard::getBlackKing() {
             }
         }
     }
+    return nullptr;
 }
 
 vector<Piece *> ChessBoard::getWhitePieces() {

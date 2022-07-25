@@ -1,6 +1,9 @@
 setup
-+ R e8
-+ r h8
++ r e8
++ R c7
++ K a2
++ k c3
++ R h8
 done
 game human human
-move e8 h8
+move h8 e8
