@@ -26,73 +26,113 @@ void Knight::updatePossibleNextPos() {
 
     // (x + 2, y + 1)
     if (row <= 6 && col <= 5) {
-        possibleNextPos.emplace_back(row + 1, col + 2);
-        if (board -> getBoard()[row + 1][col + 2] 
-            && board -> getBoard()[row + 1][col + 2] -> getColour() != colour) {
+        if(board->getBoard()[row + 1][col + 2]){
+            if(board -> getBoard()[row + 1][col + 2] -> getColour() != colour)
+            {
+                possibleNextPos.emplace_back(row + 1, col + 2);
                 possibleCaptures.emplace_back(row + 1, col + 2);
+            }
+        }
+        else{
+            possibleNextPos.emplace_back(row + 1, col + 2);
         }
     }
 
     // (x - 2, y + 1)
     if (row <= 6 && col >= 2) {
-        possibleNextPos.emplace_back(row + 1, col - 2);
-        if (board -> getBoard()[row + 1][col - 2] 
-            && board -> getBoard()[row + 1][col - 2] -> getColour() != colour) {
+        if(board->getBoard()[row + 1][col - 2]){
+            if(board -> getBoard()[row + 1][col - 2] -> getColour() != colour)
+            {
+                possibleNextPos.emplace_back(row + 1, col - 2);
                 possibleCaptures.emplace_back(row + 1, col - 2);
+            }
+        }
+        else{
+            possibleNextPos.emplace_back(row + 1, col - 2);
         }
     }
 
     // (x + 2, y - 1)
     if (row >= 1 && col <= 5) {
-        possibleNextPos.emplace_back(row - 1, col + 2);
-        if (board -> getBoard()[row - 1][col + 2] 
-            && board -> getBoard()[row - 1][col + 2] -> getColour() != colour) {
+        if(board->getBoard()[row - 1][col + 2]){
+            if(board -> getBoard()[row - 1][col + 2] -> getColour() != colour)
+            {
+                possibleNextPos.emplace_back(row - 1, col + 2);
                 possibleCaptures.emplace_back(row - 1, col + 2);
+            }
+        }
+        else{
+            possibleNextPos.emplace_back(row - 1, col + 2);
         }
     } 
 
     // (x - 2, y - 1)
     if (row >= 1 && col >= 2) {
-        possibleNextPos.emplace_back(row - 1, col - 2);
-        if (board -> getBoard()[row - 1][col - 2] 
-            && board -> getBoard()[row - 1][col - 2] -> getColour() != colour) {
+        if(board->getBoard()[row - 1][col - 2]){
+            if(board -> getBoard()[row - 1][col - 2] -> getColour() != colour)
+            {
+                possibleNextPos.emplace_back(row - 1, col - 2);
                 possibleCaptures.emplace_back(row - 1, col - 2);
+            }
+        }
+        else{
+            possibleNextPos.emplace_back(row - 1, col - 2);
         }
     }  
 
     // (x + 1, y + 2)
     if (row <= 5 && col <= 6) {
-        possibleNextPos.emplace_back(row + 2, col + 1);
-        if (board -> getBoard()[row + 2][col + 1] 
-            && board -> getBoard()[row + 2][col + 1] -> getColour() != colour) {
+        if(board->getBoard()[row + 2][col + 1]){
+            if(board -> getBoard()[row + 2][col + 1] -> getColour() != colour)
+            {
+                possibleNextPos.emplace_back(row + 2, col + 1);
                 possibleCaptures.emplace_back(row + 2, col + 1);
+            }
+        }
+        else{
+            possibleNextPos.emplace_back(row + 2, col + 1);
         }
     }
 
     // (x - 1, y + 2)
     if (row <= 5 && col >= 1) {
-        possibleNextPos.emplace_back(row + 2, col - 1);
-        if (board -> getBoard()[row + 2][col - 1] 
-            && board -> getBoard()[row + 2][col - 1] -> getColour() != colour) {
+        if(board->getBoard()[row + 2][col - 1]){
+            if(board -> getBoard()[row + 2][col - 1] -> getColour() != colour)
+            {
+                possibleNextPos.emplace_back(row + 2, col - 1);
                 possibleCaptures.emplace_back(row + 2, col - 1);
+            }
+        }
+        else{
+            possibleNextPos.emplace_back(row + 2, col - 1);
         }
     }
 
     // (x + 1, y - 2)
     if (row >= 2 && col <= 6) {
-        possibleNextPos.emplace_back(row - 2, col + 1);
-        if (board -> getBoard()[row - 2][col + 1] 
-            && board -> getBoard()[row - 2][col + 1] -> getColour() != colour) {
+        if(board->getBoard()[row - 2][col + 1]){
+            if(board -> getBoard()[row - 2][col + 1] -> getColour() != colour)
+            {
+                possibleNextPos.emplace_back(row - 2, col + 1);
                 possibleCaptures.emplace_back(row - 2, col + 1);
+            }
+        }
+        else{
+            possibleNextPos.emplace_back(row - 2, col + 1);
         }
     }
 
     // (x - 1, y - 2)
     if (row >= 2 && col >= 1) {
-        possibleNextPos.emplace_back(row - 2, col - 1);
-        if (board -> getBoard()[row - 2][col - 1] 
-            && board -> getBoard()[row - 2][col - 1] -> getColour() != colour) {
+        if(board->getBoard()[row - 2][col - 1]){
+            if(board -> getBoard()[row - 2][col - 1] -> getColour() != colour)
+            {
+                possibleNextPos.emplace_back(row - 2, col - 1);
                 possibleCaptures.emplace_back(row - 2, col - 1);
+            }
+        }
+        else{
+            possibleNextPos.emplace_back(row - 2, col - 1);
         }
     }
 }
