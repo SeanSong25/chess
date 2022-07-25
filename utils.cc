@@ -9,7 +9,7 @@ Position::Position(const Position &p) {
     col = p.col;
 }
 
-Position &Position::operator=(const Position &p) {
+Position& Position::operator=(const Position &p) {
     Position newPos{p};
     row = newPos.row;
     col = newPos.col;
