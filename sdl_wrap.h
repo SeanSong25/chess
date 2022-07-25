@@ -80,6 +80,10 @@ class Screen {
     void draw_img(std::string key, int x, int y);
     // Loads an image from the file designated at path, and associates it with key.
     void add_img(std::string key, std::string path);
+    // Draw a chess square tile on the board
+    void draw_square(std::string key, int x, int y, int s_width, int s_height);
+    // Draw a chess piece onto the board
+    void draw_piece(std::string key, int x, int y, int s_width, int s_height);
     // Loads a font from the TTF file at path, and associates it with key, also sets
     // its point to point. The default loaded FUTURAM is point 28,
     void add_font(std::string key, std::string path, unsigned int point);
