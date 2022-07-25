@@ -29,73 +29,105 @@ void King::updatePossibleNextPos() {
 
     // top
     if (row >= 1) {
-        possibleNextPos.emplace_back(row - 1, col);
-        if (board -> getBoard()[row - 1][col] 
-            && board -> getBoard()[row - 1][col] -> getColour() != colour) {
+        if (board -> getBoard()[row - 1][col])
+        {       
+            if(board -> getBoard()[row - 1][col] -> getColour() != colour) {
                 possibleCaptures.emplace_back(row - 1, col);
+                possibleNextPos.emplace_back(row - 1, col);
+            }
+        }else{
+            possibleNextPos.emplace_back(row - 1, col);
         }
     }
 
     // bottom
     if (row <= 6) {
-        possibleNextPos.emplace_back(row + 1, col);
-        if (board -> getBoard()[row + 1][col] 
-            && board -> getBoard()[row + 1][col] -> getColour() != colour) {
+        if (board -> getBoard()[row + 1][col])
+        {       
+            if(board -> getBoard()[row + 1][col] -> getColour() != colour) {
                 possibleCaptures.emplace_back(row + 1, col);
+                possibleNextPos.emplace_back(row + 1, col);
+            }
+        }else{
+            possibleNextPos.emplace_back(row + 1, col);
         }
     }
 
     // left
     if (col >= 1) {
-        possibleNextPos.emplace_back(row, col - 1);
-        if (board -> getBoard()[row][col - 1] 
-            && board -> getBoard()[row][col - 1] -> getColour() != colour) {
+        if (board -> getBoard()[row][col - 1])
+        {       
+            if(board -> getBoard()[row][col - 1] -> getColour() != colour) {
                 possibleCaptures.emplace_back(row, col - 1);
+                possibleNextPos.emplace_back(row, col - 1);
+            }
+        }else{
+            possibleNextPos.emplace_back(row, col - 1);
         }
     }
 
     // right
     if (col <= 6) {
-        possibleNextPos.emplace_back(row, col + 1);
-        if (board -> getBoard()[row][col + 1] 
-            && board -> getBoard()[row][col + 1] -> getColour() != colour) {
+        if (board -> getBoard()[row][col + 1])
+        {       
+            if(board -> getBoard()[row][col + 1] -> getColour() != colour) {
                 possibleCaptures.emplace_back(row, col + 1);
+                possibleNextPos.emplace_back(row, col + 1);
+            }
+        }else{
+            possibleNextPos.emplace_back(row, col + 1);
         }
     }
 
     // top right
     if (row >= 1 && col <= 6) {
-        possibleNextPos.emplace_back(row - 1, col + 1);
-        if (board -> getBoard()[row - 1][col + 1] 
-            && board -> getBoard()[row - 1][col + 1] -> getColour() != colour) {
+        if (board -> getBoard()[row - 1][col + 1])
+        {       
+            if(board -> getBoard()[row - 1][col + 1] -> getColour() != colour) {
                 possibleCaptures.emplace_back(row - 1, col + 1);
+                possibleNextPos.emplace_back(row - 1, col + 1);
+            }
+        }else{
+            possibleNextPos.emplace_back(row - 1, col + 1);
         }
     }
 
     // bottom right
     if (row <= 6 && col <= 6) {
-        possibleNextPos.emplace_back(row + 1, col + 1);
-        if (board -> getBoard()[row + 1][col + 1] 
-            && board -> getBoard()[row + 1][col + 1] -> getColour() != colour) {
+        if (board -> getBoard()[row + 1][col + 1])
+        {       
+            if(board -> getBoard()[row + 1][col + 1] -> getColour() != colour) {
                 possibleCaptures.emplace_back(row + 1, col + 1);
+                possibleNextPos.emplace_back(row + 1, col + 1);
+            }
+        }else{
+            possibleNextPos.emplace_back(row + 1, col + 1);
         }
     }
 
     // top left
     if (row >= 1 && col >= 1) {
-        possibleNextPos.emplace_back(row - 1, col - 1);
-        if (board -> getBoard()[row - 1][col - 1] 
-            && board -> getBoard()[row - 1][col - 1] -> getColour() != colour) {
+        if (board -> getBoard()[row - 1][col - 1])
+        {       
+            if(board -> getBoard()[row - 1][col - 1] -> getColour() != colour) {
                 possibleCaptures.emplace_back(row - 1, col - 1);
+                possibleNextPos.emplace_back(row - 1, col - 1);
+            }
+        }else{
+            possibleNextPos.emplace_back(row - 1, col - 1);
         }
     }
 
     // bottom left
     if (row <= 6 && col >= 1) {
-        possibleNextPos.emplace_back(row + 1, col - 1);
-        if (board -> getBoard()[row + 1][col - 1] 
-            && board -> getBoard()[row + 1][col - 1] -> getColour() != colour) {
+        if (board -> getBoard()[row + 1][col - 1])
+        {       
+            if(board -> getBoard()[row + 1][col - 1] -> getColour() != colour) {
                 possibleCaptures.emplace_back(row + 1, col - 1);
+                possibleNextPos.emplace_back(row + 1, col - 1);
+            }
+        }else{
+            possibleNextPos.emplace_back(row + 1, col - 1);
         }
     }
 
@@ -106,22 +138,16 @@ void King::updatePossibleNextPos() {
     } else {
         rooks = board -> getWhiteRooks();
     }
-
-    if (canCastle(rooks[0])) {
-        if (rooks[0] -> getPosition().col == 0) {
-           possibleNextPos.emplace_back(row, col - 2); 
-        } else {
-           possibleNextPos.emplace_back(row, col + 2); 
+    for(auto &i : rooks){
+        if (canCastle(i)) {
+            if (i -> getPosition().col == 0) {
+            possibleNextPos.emplace_back(row, col - 2); 
+            } else {
+            possibleNextPos.emplace_back(row, col + 2); 
+            }
         }
     }
-
-    if (canCastle(rooks[1])) {
-        if (rooks[1] -> getPosition().col == 0) {
-           possibleNextPos.emplace_back(row, col - 2); 
-        } else {
-           possibleNextPos.emplace_back(row, col + 2); 
-        }
-    }
+    
 }
 
 // return true if player can castle

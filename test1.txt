@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 game
 human human
 move e2 e4
@@ -39,18 +38,3 @@ move g5 h5
 move g7 g6
 move h5 h8
 move g8 g7
-move a2 a3
-move e8 h8
-
-
-=======
-setup
-+ r e8
-+ R c7
-+ K a2
-+ k c3
-+ R h8
-done
-game human human
-move h8 e8
->>>>>>> checkmate

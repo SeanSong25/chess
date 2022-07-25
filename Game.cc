@@ -73,17 +73,14 @@ void Game::startGame() {
     // Pass in the board to the players
     whitePlayer->setBoard(board);
     blackPlayer->setBoard(board);
-
     // Default initialize pieces if no custom setup
     if (!hasCustomSetup) {
         board->defaultInit();
     }
 
     // possible moves update
-    cout<<"before updating moves" <<endl;
     board->updatePiecesPossibleMoves(BLACK);
     board->updatePiecesPossibleMoves(WHITE);
-    cout<<"after updating moves" <<endl;
 
     // Successfully initialized the game
     cout << Modifier(FG_GREEN);
@@ -233,7 +230,7 @@ void Game::setupGame() {
 
         else if (cmd == "done") {
             // TODO: check the kings are not in checked
-
+            hasCustomSetup = true;
             cout << Modifier(FG_YELLOW) << "Finished board setup" << Modifier(FG_DEFAULT) << endl;
             return;
         }
@@ -243,7 +240,7 @@ void Game::setupGame() {
         }
     }
 
-    hasCustomSetup = true;
+    
 }
 
 void Game::setupColour() {

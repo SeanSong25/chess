@@ -29,7 +29,7 @@ ostream& operator<<(ostream& out, const TextDisplay& td) {
         out << 8 - r << ' ';
         for (int c = 0; c < 8; ++c) {
             if (islower(td.textBoard[r][c])) {
-                out << Modifier(FG_BLACK) << td.textBoard[r][c]
+                out << Modifier(FG_BLUE) << td.textBoard[r][c]
                     << Modifier(FG_DEFAULT);
             } else {
                 out << Modifier(FG_WHITE) << td.textBoard[r][c]
