@@ -87,27 +87,42 @@ void Pawn::updatePossibleNextPos() {
 
 // check if opponent can en passant after this move
 void Pawn::checkEnPassant(Position p) {
+
     if (abs(p.row - position.row) != 2) {
         return;
     }
+
+    Position newPos = p;
 
     // find opponent pawns and supposed position of the pawn
     std::vector<Piece *> opponentPawns;
     if (colour == Colour::WHITE) {
         opponentPawns = board -> getBlackPawns();
-        ++p.row;
+        ++newPos.row;
     } else {
         opponentPawns = board -> getWhitePawns();
-        --p.row;
+        --newPos.row;
     }
 
+    // check if it could have been captured by another pawn
+    Position captureOne;
+    Position captureTwo;
     for (auto &pawn : opponentPawns) {
-        std::vector<Position> captures = pawn -> getPossibleCaptures();
-        for (auto &capture: captures) {
-            if (capture == p) {
-                pawn -> setEnPassant(true, this, capture);
-                return;
-            }
+        if (colour == Colour::WHITE) {
+            captureOne.row = pawn -> getPosition().row + 1;
+            captureOne.col = pawn -> getPosition().col + 1;
+            captureTwo.row = pawn -> getPosition().row + 1;
+            captureTwo.row = pawn -> getPosition().col - 1;
+        } else {
+            captureOne.row = pawn -> getPosition().row - 1;
+            captureOne.col = pawn -> getPosition().col + 1;
+            captureTwo.row = pawn -> getPosition().row - 1;
+            captureTwo.row = pawn -> getPosition().col - 1;
+        }
+        if (captureOne.row >= 0 && captureOne.col >= 0 && captureOne == newPos) {
+            pawn -> setEnPassant(true, this, captureOne);
+        } else if (captureTwo.row >= 0 && captureTwo.col >= 0 && captureTwo == newPos) {
+            pawn -> setEnPassant(true, this, captureTwo);
         }
     }
 }

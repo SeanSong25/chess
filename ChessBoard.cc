@@ -334,16 +334,15 @@ void ChessBoard::makeMove(Move m) {
     Position p1 = m.start;
     Position p2 = m.end;
     Piece* temp = theBoard[p1.row][p1.col];
-    //if piece type is king and the move is 2 steps, then check castling
+
     if(temp->getPieceType() == PAWN){
         if(temp->isEnPassant()){
-            cout << "is enpassant"<<endl;
             if(p2 == temp->getEnPassantPosition()){
                 Piece* p = temp->getEnPassantPiece();
                 Position enPassantOrigin = p->getPosition();
                 theBoard[enPassantOrigin.row][enPassantOrigin.col] = nullptr;
             }
-        }else {
+        } else {
             temp->checkEnPassant(p2);
         }
     }
