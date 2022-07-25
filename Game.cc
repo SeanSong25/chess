@@ -36,8 +36,6 @@ void Game::play() {
         }
     }
 
-    ChessBoard* test = board;
-
     // Print final score
     cout << Modifier(FG_MAGENTA) << "Final Score:"
          << Modifier(FG_DEFAULT) << endl;
@@ -73,13 +71,13 @@ void Game::startGame() {
     // Pass in the board to the players
     whitePlayer->setBoard(board);
     blackPlayer->setBoard(board);
-    
+
     // Default initialize pieces if no custom setup
     if (!hasCustomSetup) {
         board->defaultInit();
     }
 
-    //possible moves update
+    // possible moves update
     board->updatePiecesPossibleMoves(BLACK);
     board->updatePiecesPossibleMoves(WHITE);
 
@@ -270,7 +268,7 @@ void Game::setupColour() {
 
 void Game::notifyDisplays() {
     textDisplay->notifyTextDisplay(board->getBoard());
-    // graphicDisplay->notifyGraphicDisplay(board->getBoard());
+    graphicDisplay->notifyGraphicDisplay(board->getBoard());
 }
 
 void Game::endGame() {
