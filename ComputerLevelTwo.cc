@@ -14,7 +14,7 @@ struct Move ComputerLevelTwo::decideNextMove(){
     vector<Move> validNextMoves;
     vector<Move> captureMoves;
     vector<Move> validCaptureMoves;
-    nextMoves = board->getNextMoves();
+    nextMoves = board->getNextMoves(getColour());
     //loop through next moves to find valid next moves
     for(int i = 0; i<nextMoves.size();i++){
         if(board->checkMove(nextMoves[i], getColour())){
@@ -22,7 +22,7 @@ struct Move ComputerLevelTwo::decideNextMove(){
         }
     }
 
-    captureMoves = board->getCaptureMoves();
+    captureMoves = board->getCaptureMoves(getColour());
     //loop through capture moves to find valid capture moves
     for(int i = 0; i<captureMoves.size();i++){
         if(board->checkMove(captureMoves[i], getColour())){

@@ -12,7 +12,7 @@ void ComputerLevelOne::setBoard(ChessBoard* board){
 struct Move ComputerLevelOne::computeNextMove(){
     vector<struct Move> nextMoves;
     vector<Move> validMoves;
-    nextMoves = board->getNextMoves();
+    nextMoves = board->getNextMoves(getColour());
     //filter out the validmoves of nextmoves into validMoves vector;
     for(int i = 0; i<nextMoves.size();i++){
         if(board->checkMove(nextMoves[i], getColour())){
