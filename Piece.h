@@ -31,6 +31,7 @@ class Piece{
         bool isFirstMove();
         void setFirstMove(bool);
         bool isEnPassant();
+        virtual bool isCheckMate();
         Piece *getEnPassantPiece();
         Position getEnPassantPosition();
         std::vector<Position> getPossibleNextPos();

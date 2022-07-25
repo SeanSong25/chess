@@ -10,6 +10,8 @@ class ChessBoard{
   private:
     std::vector<std::vector<Piece *>> theBoard;  // 8 x 8 chessboard
     Piece *copyPiece(Colour, PieceType, Position);
+    bool whiteisCheckMated;
+    bool blackisCheckMated;
 
   public:
     ChessBoard();
@@ -42,7 +44,9 @@ class ChessBoard{
     void undo();
     std::vector<Move> getNextMoves();
     std::vector<Move> getCaptureMoves();
+    bool isWhiteCheckMated();
+    bool isBlackCheckMated();
 
-    void updatePiecesPossibleMoves(Colour col);
+    void updatePiecesPossibleMoves();
 };
 #endif

@@ -19,7 +19,7 @@ using namespace std;
 // ----------------------------------------------------------------------------
 // Constructor and destructor
 
-ChessBoard::ChessBoard() {
+ChessBoard::ChessBoard(): whiteisCheckMated{false}, blackisCheckMated{false} {
     // Construct 8 x 8 chessboard
     theBoard = vector<vector<Piece *>>(8, vector<Piece *>(8, nullptr));
 }
@@ -38,7 +38,7 @@ ChessBoard::~ChessBoard() {
     destroy();
 }
 
-ChessBoard::ChessBoard(const ChessBoard &o) {
+ChessBoard::ChessBoard(const ChessBoard &o): whiteisCheckMated{false}, blackisCheckMated{false} {
     theBoard = vector<vector<Piece *>>(8, vector<Piece *>(8, nullptr));
     for (int r = 0; r < 8; ++r) {
         for (int c = 0; c < 8; ++c) {
@@ -320,16 +320,17 @@ vector<Piece *> ChessBoard::getBlackPieces() {
 // ----------------------------------------------------------------------------
 // Game Logic
 
-void ChessBoard::updatePiecesPossibleMoves(Colour col){
+void ChessBoard::updatePiecesPossibleMoves(){
     for(int i = 0; i<8; i++){
         for(int j = 0; j<8; j++){
-            if(theBoard[i][j] && theBoard[i][j]->getColour() == col){
+            if(theBoard[i][j]){
                 theBoard[i][j]->updatePossibleNextPos();
             }
         }
     }
 }
- //make move according to the move passed in
+
+//make move according to the move passed in
 void ChessBoard::makeMove(Move m) {
     Position p1 = m.start;
     Position p2 = m.end;
@@ -357,20 +358,7 @@ void ChessBoard::makeMove(Move m) {
     temp -> setPosition(p2);
 
     temp->afterMove();
-    if(temp->getColour() == WHITE){
-        updatePiecesPossibleMoves(BLACK);
-    } else{
-        // for (int i = 0; i < 8; ++i) {
-        //     for(int j = 0; j < 8; ++j) {
-        //         if (theBoard[i][j] && theBoard[i][j]->getColour() == WHITE) {
-        //             std::cout << *theBoard[i][j] << std::endl;
-        //         } else {
-        //             std::cout << "null" << std::endl;
-        //         }
-        //     }
-        // }
-        updatePiecesPossibleMoves(WHITE);
-    }
+    updatePiecesPossibleMoves();
     
     for(auto &i : theBoard){
         for(auto &j : i){
@@ -393,6 +381,22 @@ void ChessBoard::makeMove(Move m) {
             makeMove(rookMove);
         }
 
+    } else {
+        // check for checkMate
+        if (temp -> getColour() == WHITE) {
+            Piece *king = getBlackKing();
+            std::cout << temp ->getPosition().row << " " << temp -> getPosition().col << "checking checkm " << std::endl;
+            if (king -> isCheckMate()) { 
+                std::cout << "black is checkmated" << std::endl;
+                blackisCheckMated = true;
+            }
+        } else {
+            Piece *king = getWhiteKing();
+            if (king -> isCheckMate()) {
+                std::cout << "white is checkmated" << std::endl;
+                whiteisCheckMated = true;
+            }
+        }
     }
 }
 
@@ -500,4 +504,12 @@ std::vector<Move> ChessBoard::getCaptureMoves() {
         }
     }
     return nextCaptures;
+}
+
+bool ChessBoard::isBlackCheckMated() {
+    return blackisCheckMated;
+}
+
+bool ChessBoard::isWhiteCheckMated() {
+    return whiteisCheckMated;
 }

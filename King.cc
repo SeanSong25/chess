@@ -194,23 +194,16 @@ void King::updateAttackingPieces() {
 // called after each opponent move (possible next moves should be updated)
 bool King::isCheckMate() {
     // check if it is in check
+    std::cout << "checking if this move is checkmate";
     if (!canBeCaptured(position)) {
+        std::cout << "cannot be captured "<< position.row << position.col << std::endl;
         return false;
     }
 
+    std::cout << "can be captured " << std::endl;
+
     // if it is in check, update attacking pieces
     updateAttackingPieces();
-
-    // check if king can move to escape
-    if (possibleNextPos.size() == 0) {
-        return true;
-    }
-
-    for (auto &pos : possibleNextPos) {
-        if (!canBeCaptured(pos)) {
-            return false;
-        }
-    }
 
     // check if there is more than one attacking piece
     // it is impossible to escape when there is more than one attacking piece
@@ -218,16 +211,7 @@ bool King::isCheckMate() {
         return true;
     }
 
-    // check if the attacking piece can be captured
-    if (canBeCaptured(attackingPieces[0] -> getPosition())) {
-        return false;
-    }
-
-    // check if the attacking piece is a King
-    // (King can jump over any block)
-    if (attackingPieces[0] -> getPieceType() == PieceType::KING) {
-        return true;
-    }
+    std::cout << "only one attacking piece " << std::endl;
 
     // check if a piece can be moved between the attacking piece and king to avoid the attack
     std::vector<Piece *> playerPieces;
@@ -241,6 +225,19 @@ bool King::isCheckMate() {
             if (!piece -> putsKingInCheck(pos)) {
                 return false;
             }
+        }
+    }
+
+    // check if king can move to escape
+    if (possibleNextPos.size() == 0) {
+        return true;
+    }
+
+    std::cout << "can move ";
+
+    for (auto &pos : possibleNextPos) {
+        if (!canBeCaptured(pos)) {
+            return false;
         }
     }
 

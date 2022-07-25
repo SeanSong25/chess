@@ -74,6 +74,9 @@ void Piece::setEnPassant(bool b, Piece *p, Position pos) {
     enPassantPosition = pos;
 }
 
+// check checkmate (king implements this)
+bool Piece::isCheckMate() {}
+
 // check if the move will put king in check
 bool Piece::putsKingInCheck(Position p) {
     // idea: copy construct a new board, set shared_ptr board in piece
@@ -146,9 +149,13 @@ bool Piece::canBeCaptured(Position p) {
     } else {
         opponentPieces = board -> getWhitePieces();
     }
-
+ std::cout << "possible captures " << std::endl;
     for (auto &piece : opponentPieces) {
-        std::vector<Position> captures = piece -> getPossibleCaptures();
+        std::vector<Position> captures = piece -> getPossibleCaptures() ;
+        std::cout << piece->getPosition().row << " " << piece -> getPosition().col  << " num" << captures.size() << std::endl;
+        for (auto &capture : captures) {
+            // std::cout << piece->getPosition().row << " " << piece -> getPosition().col << " captures" << capture.row << " " << capture.col << std::endl;
+        } 
         if (std::find(captures.begin(), captures.end(), p) != captures.end()) {
             return true;
         }

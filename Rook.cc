@@ -80,6 +80,13 @@ void Rook::updatePossibleNextPos() {
            possibleNextPos.emplace_back(currRow, currCol); 
         }
     }
+
+    if (position.row == 1 && position.col == 7) {
+        std::cout << "this is in rook ";
+        for (auto &i : possibleCaptures) {
+            std::cout << i.row << " " << i.col << std::endl;
+        }
+    }
 }
 
 Rook *Rook::clone() {

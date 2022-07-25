@@ -80,8 +80,7 @@ void Game::startGame() {
 
     // possible moves update
     cout<<"before updating moves" <<endl;
-    board->updatePiecesPossibleMoves(BLACK);
-    board->updatePiecesPossibleMoves(WHITE);
+    board->updatePiecesPossibleMoves();
     cout<<"after updating moves" <<endl;
 
     // Successfully initialized the game
