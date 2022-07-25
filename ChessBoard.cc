@@ -468,11 +468,11 @@ bool ChessBoard::checkPromotion(Move m, char pieceType, Colour colour) {
 
 void ChessBoard::undo() {}
 
-std::vector<Move> ChessBoard::getNextMoves() {
+std::vector<Move> ChessBoard::getNextMoves(Colour clr) {
     std::vector<Move> nextMoves;
     for(auto& i : theBoard){
         for(auto& j : i){
-            if(j){
+            if(j && j->getColour() == clr){
                 std::vector<Position> tempPiecePosition = j->getPossibleNextPos();
                 Position startPos = j->getPosition();
                 for(auto &j : tempPiecePosition){
@@ -485,11 +485,11 @@ std::vector<Move> ChessBoard::getNextMoves() {
     return nextMoves;
 }
 
-std::vector<Move> ChessBoard::getCaptureMoves() {
+std::vector<Move> ChessBoard::getCaptureMoves(Colour clr) {
     std::vector<Move> nextCaptures;
     for(auto& i : theBoard){
         for(auto& j : i){
-            if(j){
+            if(j && j->getColour() == clr){
                 std::vector<Position> tempPiecePosition = j->getPossibleCaptures();
                 Position startPos = j->getPosition();
                 for(auto &j : tempPiecePosition){

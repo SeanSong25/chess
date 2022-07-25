@@ -40,8 +40,8 @@ class ChessBoard{
     bool checkMove(Move, Colour);
     bool checkPromotion(Move, char pieceType, Colour);
     void undo();
-    std::vector<Move> getNextMoves();
-    std::vector<Move> getCaptureMoves();
+    std::vector<Move> getNextMoves(Colour clr);
+    std::vector<Move> getCaptureMoves(Colour clr);
 
     void updatePiecesPossibleMoves(Colour col);
 };
