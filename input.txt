@@ -1,6 +1,11 @@
 game
 human human
 move a2 a3
-move a7 a6
-move b2 b3
+move h7 h6
+move a3 a4
 move b7 b6
+move h2 h3
+move b6 b5
+move a4 a6
+move b6 a5
+

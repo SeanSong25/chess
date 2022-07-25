@@ -40,7 +40,7 @@ class Piece{
         virtual Piece *clone() = 0;
         void setEnPassant(bool, Piece *, Position);
         bool putsKingInCheck(Position);
-        bool isMoveValid(Position);
+        bool isMoveValid(Position, Colour);
         virtual void checkEnPassant(Position);
         virtual void afterMove();
         virtual ~Piece() = 0;

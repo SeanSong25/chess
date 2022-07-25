@@ -39,14 +39,14 @@ bool HumanPlayer::makeMove(){
     }
 
     if(cnt == 2){
-        if(board->checkMove(move)){
+        if(board->checkMove(move, getColour())){
             board->makeMove(move);
             return true;
         }else{
             return false;
         }
     }else{
-        if(board->checkPromotion(move, pieceType)){
+        if(board->checkPromotion(move, pieceType, getColour())){
             board->promote(move, pieceType);
             return true;
         }else{

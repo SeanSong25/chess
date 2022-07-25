@@ -4,7 +4,7 @@
 bool ComputerPlayer::makeMove(){
     
     Move move = decideNextMove();
-    if(board->checkMove(move)){
+    if(board->checkMove(move, getColour())){
         board->makeMove(move);
         return true;
     }

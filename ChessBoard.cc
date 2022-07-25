@@ -323,9 +323,8 @@ vector<Piece *> ChessBoard::getBlackPieces() {
 void ChessBoard::updatePiecesPossibleMoves(Colour col){
     for(auto &i : theBoard){
         for(auto &j : i){
-            if(j && j->getColour() != col){
-                std::cout << j -> getPosition().row  << " " << j -> getPosition().col<< std::endl;
-                 j->updatePossibleNextPos();
+            if(j && j->getColour() == col){
+                j->updatePossibleNextPos();
             }
         }
     }
@@ -337,7 +336,6 @@ void ChessBoard::makeMove(Move m) {
     Piece* temp = theBoard[p1.row][p1.col];
     //if piece type is king and the move is 2 steps, then check castling
     if(temp->getPieceType() == PAWN){
-        cout << "before checking enpassant"<<endl;
         if(temp->isEnPassant()){
             cout << "is enpassant"<<endl;
             if(p2 == temp->getEnPassantPosition()){
@@ -346,21 +344,23 @@ void ChessBoard::makeMove(Move m) {
                 theBoard[enPassantOrigin.row][enPassantOrigin.col] = nullptr;
             }
         }else {
-            cout << "not enpassant"<<endl;
             temp->checkEnPassant(p2);
         }
     }
-    // if(theBoard[p2.row][p2.col] == nullptr){
-    //     theBoard[p2.row][p2.col] = temp;
-    // }else{
-    //     theBoard[p2.row][p2.col];
+
     theBoard[p2.row][p2.col] = temp;
-        //if the final position has a piece, delete the original piece
-        //and place the new piece
-    //}
+    theBoard[p1.row][p1.col] = nullptr;
+
+    // update piece position
+    temp -> setPosition(p2);
+
     temp->afterMove();
-    std::cout << "updating "<< m.start.row << " " << m.start.col << std::endl;
-    updatePiecesPossibleMoves(temp->getColour());
+    if(temp->getColour() == WHITE){
+        updatePiecesPossibleMoves(BLACK);
+    }else{
+        updatePiecesPossibleMoves(WHITE);
+    }
+    
     for(auto &i : theBoard){
         for(auto &j : i){
             if(j!=nullptr && j->getColour() == temp->getColour()){
@@ -382,8 +382,6 @@ void ChessBoard::makeMove(Move m) {
         }
 
     }
-    theBoard[p1.row][p1.col] = nullptr;
-    
 }
 
 //set the piece p at the position pos
@@ -418,11 +416,11 @@ void ChessBoard::promote(Move m, char pieceType) {
     delete p;
 }
 
-bool ChessBoard::checkMove(Move m) { 
+bool ChessBoard::checkMove(Move m, Colour colour) { 
     Position startPos = m.start;
     Position endPos = m.end;
     Piece* p = theBoard[startPos.row][startPos.col];
-    if(p->isMoveValid(endPos)){
+    if(p && p->isMoveValid(endPos, colour)){
         return true;
     }
     return false;
@@ -430,11 +428,11 @@ bool ChessBoard::checkMove(Move m) {
 
 
 //check if the promotion move is valid
-bool ChessBoard::checkPromotion(Move m, char pieceType) { 
+bool ChessBoard::checkPromotion(Move m, char pieceType, Colour colour) { 
     Position startPos = m.start;
     Position endPos = m.end;
     Piece* p = theBoard[startPos.row][startPos.col];
-    if(!checkMove(m) || p->getPieceType() != PAWN){
+    if(!checkMove(m, colour) || p->getPieceType() != PAWN){
         //if invalid move or not a pawn return false
         return false;
     }

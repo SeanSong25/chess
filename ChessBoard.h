@@ -37,8 +37,8 @@ class ChessBoard{
     void setPiece(Piece* p, Position pos);
     void makeMove(Move);
     void promote(Move, char pieceType);
-    bool checkMove(Move);
-    bool checkPromotion(Move, char pieceType);
+    bool checkMove(Move, Colour);
+    bool checkPromotion(Move, char pieceType, Colour);
     void undo();
     std::vector<Move> getNextMoves();
     std::vector<Move> getCaptureMoves();
