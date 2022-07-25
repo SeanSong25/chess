@@ -17,6 +17,7 @@ HumanPlayer::HumanPlayer(Colour colour){
 }
 
 bool HumanPlayer::makeMove(){
+    cout << "entered here" <<endl;
     int cnt = 0;
     string line;
     getline (cin, line);
@@ -37,15 +38,19 @@ bool HumanPlayer::makeMove(){
         }
         cnt++;
     }
+    cout << "here1" <<endl;
 
     if(cnt == 2){
+        cout << "here2" <<endl;
         if(board->checkMove(move, getColour())){
+            cout << move.end.row << "," <<move.end.col <<endl;
             board->makeMove(move);
             return true;
         }else{
             return false;
         }
     }else{
+        
         if(board->checkPromotion(move, pieceType, getColour())){
             board->promote(move, pieceType);
             return true;
