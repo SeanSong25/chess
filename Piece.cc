@@ -167,5 +167,14 @@ void Piece::afterMove() {
 
 // destructor
 Piece::~Piece() {
-    
+    board = nullptr;
+}
+
+// output operator
+std::ostream &operator<< (std::ostream& os, const Piece& p) {
+    std::cout << "Positoin: " << p.position.row << " " << p.position.col << std::endl;
+    std::cout << "Colour: " << (p.colour == WHITE? "White" : "Black") << std::endl;
+    std::cout << "PieceType: " << (p.pieceType == KING? "King" :
+         (p.pieceType == QUEEN ? "Queen" : (p.pieceType == KNIGHT? "Knight" : 
+         (p.pieceType == PAWN? "Pawn" : p.pieceType == BISHOP? "Bishop" : "Rook"))));
 }

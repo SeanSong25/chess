@@ -347,6 +347,9 @@ void ChessBoard::makeMove(Move m) {
         }
     }
 
+    if (theBoard[p2.row][p2.col]) {
+        delete theBoard[p2.row][p2.col];
+    }
     theBoard[p2.row][p2.col] = temp;
     theBoard[p1.row][p1.col] = nullptr;
 
@@ -356,7 +359,16 @@ void ChessBoard::makeMove(Move m) {
     temp->afterMove();
     if(temp->getColour() == WHITE){
         updatePiecesPossibleMoves(BLACK);
-    }else{
+    } else{
+        // for (int i = 0; i < 8; ++i) {
+        //     for(int j = 0; j < 8; ++j) {
+        //         if (theBoard[i][j] && theBoard[i][j]->getColour() == WHITE) {
+        //             std::cout << *theBoard[i][j] << std::endl;
+        //         } else {
+        //             std::cout << "null" << std::endl;
+        //         }
+        //     }
+        // }
         updatePiecesPossibleMoves(WHITE);
     }
     
@@ -368,15 +380,16 @@ void ChessBoard::makeMove(Move m) {
             }
         }
     }
+
     //if the moved piece is a king and moves 2 columns, then we can make a move
     //using the rook in the castling
     if(temp->getPieceType() == KING && abs(p2.col - p1.col)==2){
         if(p2.col < p1.col){
-            Move rookMove{{p1.row, p1.col-4},p1};
+            Move rookMove{{p1.row, p1.col-4},{p1.row, p1.col - 1}};
             makeMove(rookMove);
         }
         else{
-            Move rookMove{{p1.row, p1.col + 3},p1};
+            Move rookMove{{p1.row, p1.col + 3}, {p1.row, p1.col + 1}};
             makeMove(rookMove);
         }
 
@@ -390,6 +403,7 @@ void ChessBoard::setPiece(Piece* p, Position pos){
     theBoard[row][col] = p;
     p->setPosition(pos);
 }
+
 //after checking the promotion is valid, move our pawn to the position and convert to pieceType
 void ChessBoard::promote(Move m, char pieceType) {
     Position startPos = m.start;
@@ -418,9 +432,14 @@ void ChessBoard::promote(Move m, char pieceType) {
 bool ChessBoard::checkMove(Move m, Colour colour) { 
     Position startPos = m.start;
     Position endPos = m.end;
-    Piece* p = theBoard[startPos.row][startPos.col];
-    if(p && p->isMoveValid(endPos, colour)){
-        return true;
+    if(startPos.row >= 0 && startPos.row <= 7 && endPos.row >= 0 && endPos.row <= 7
+    && startPos.col >= 0 && startPos.col <= 7 && endPos.col >= 0 && endPos.col <= 7 ){
+        if(theBoard[startPos.row][startPos.col]){
+            Piece* p = theBoard[startPos.row][startPos.col];
+            if(p && p->isMoveValid(endPos, colour)){
+                return true;
+            }
+        }
     }
     return false;
 }

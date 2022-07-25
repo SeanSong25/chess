@@ -44,6 +44,7 @@ class Piece{
         virtual void checkEnPassant(Position);
         virtual void afterMove();
         virtual ~Piece() = 0;
+        friend std::ostream &operator<<(std::ostream&, const Piece&);
 };
 
 #endif
