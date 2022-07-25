@@ -11,18 +11,22 @@ void ComputerLevelOne::setBoard(ChessBoard* board){
 
 struct Move ComputerLevelOne::computeNextMove(){
     vector<struct Move> nextMoves;
+    vector<Move> validMoves;
     nextMoves = board->getNextMoves();
+    //filter out the validmoves of nextmoves into validMoves vector;
+    for(int i = 0; i<nextMoves.size();i++){
+        if(board->checkMove(nextMoves[i], getColour())){
+            validMoves.emplace_back(nextMoves[i]);
+        }
+    }
     
     int moveIndex = 0;
-    Position tempPosition{0,0};
+    Position tempPosition{-1,-1};
     Move decisionMove{tempPosition, tempPosition};
-    if(nextMoves.size() == 1){
-        decisionMove = nextMoves[0];
-    }
-    else{
-        moveIndex = rand()%nextMoves.size();
-        decisionMove = nextMoves[moveIndex];   
-    }
+    //find a random index for validMove
+    moveIndex = rand()%validMoves.size();
+    //return a valid decision move
+    decisionMove = validMoves[moveIndex];   
     return decisionMove;
 }
 

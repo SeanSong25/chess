@@ -70,6 +70,13 @@
         "queue": "cpp",
         "random": "cpp",
         "semaphore": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "*.tcc": "cpp",
+        "memory_resource": "cpp",
+        "ranges": "cpp",
+        "cinttypes": "cpp",
+        "numbers": "cpp",
+        "map": "cpp",
+        "set": "cpp"
     }
 }

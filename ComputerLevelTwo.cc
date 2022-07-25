@@ -11,23 +11,39 @@ void ComputerLevelTwo::setBoard(ChessBoard* board){
 
 struct Move ComputerLevelTwo::decideNextMove(){
     vector<Move> nextMoves;
-    vector< Move> captureMoves;
-    nextMoves = board->getNextMoves(); 
+    vector<Move> validNextMoves;
+    vector<Move> captureMoves;
+    vector<Move> validCaptureMoves;
+    nextMoves = board->getNextMoves();
+    //loop through next moves to find valid next moves
+    for(int i = 0; i<nextMoves.size();i++){
+        if(board->checkMove(nextMoves[i], getColour())){
+            validNextMoves.emplace_back(nextMoves[i]);
+        }
+    }
+
     captureMoves = board->getCaptureMoves();
-    //get all possible moves from the possible moves of the board
+    //loop through capture moves to find valid capture moves
+    for(int i = 0; i<captureMoves.size();i++){
+        if(board->checkMove(captureMoves[i], getColour())){
+            validCaptureMoves.emplace_back(captureMoves[i]);
+        }
+    }
+    
     
     int moveIndex = 0;
     Position tempPosition{-1,-1};
     Move decisionMove{tempPosition, tempPosition};
-    if(nextMoves.size() == 0){
-        if(captureMoves.size()>0){
+    //if there is next moves
+    if(validNextMoves.size() > 0){
+        if(validCaptureMoves.size()>0){
         //if there is capture move then pick a capture move randomly
-        int index = rand()%captureMoves.size();
-        decisionMove = captureMoves[index];
+            int index = rand()%validCaptureMoves.size();
+            decisionMove = validCaptureMoves[index];
         }
         else{
-            int index = rand()%nextMoves.size();
-            decisionMove = nextMoves[index];
+            int index = rand()%validNextMoves.size();
+            decisionMove = validNextMoves[index];
         }
     }
     

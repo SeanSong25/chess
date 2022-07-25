@@ -321,10 +321,10 @@ vector<Piece *> ChessBoard::getBlackPieces() {
 // Game Logic
 
 void ChessBoard::updatePiecesPossibleMoves(Colour col){
-    for(auto &i : theBoard){
-        for(auto &j : i){
-            if(j && j->getColour() == col){
-                j->updatePossibleNextPos();
+    for(int i = 0; i<8; i++){
+        for(int j = 0; j<8; j++){
+            if(theBoard[i][j] && theBoard[i][j]->getColour() == col){
+                theBoard[i][j]->updatePossibleNextPos();
             }
         }
     }
@@ -418,9 +418,14 @@ void ChessBoard::promote(Move m, char pieceType) {
 bool ChessBoard::checkMove(Move m, Colour colour) { 
     Position startPos = m.start;
     Position endPos = m.end;
-    Piece* p = theBoard[startPos.row][startPos.col];
-    if(p && p->isMoveValid(endPos, colour)){
-        return true;
+    if(startPos.row > 0 && startPos.row < 7 && endPos.row > 0 && endPos.row < 7
+    && startPos.col > 0 && startPos.col < 7 && endPos.col > 0 && endPos.col < 7 ){
+        if(theBoard[startPos.row][startPos.col]){
+            Piece* p = theBoard[startPos.row][startPos.col];
+            if(p && p->isMoveValid(endPos, colour)){
+                return true;
+            }
+        }
     }
     return false;
 }
@@ -453,12 +458,14 @@ std::vector<Move> ChessBoard::getNextMoves() {
     std::vector<Move> nextMoves;
     for(auto& i : theBoard){
         for(auto& j : i){
-            std::vector<Position> tempPiecePosition = j->getPossibleNextPos();
-            Position startPos = j->getPosition();
-            for(auto &j : tempPiecePosition){
-                Move move{startPos, j};
-                nextMoves.emplace_back(move);
-            }
+            if(j){
+                std::vector<Position> tempPiecePosition = j->getPossibleNextPos();
+                Position startPos = j->getPosition();
+                for(auto &j : tempPiecePosition){
+                    Move move{startPos, j};
+                    nextMoves.emplace_back(move);
+                }
+            } 
         }
     }
     return nextMoves;
@@ -468,11 +475,13 @@ std::vector<Move> ChessBoard::getCaptureMoves() {
     std::vector<Move> nextCaptures;
     for(auto& i : theBoard){
         for(auto& j : i){
-            std::vector<Position> tempPiecePosition = j->getPossibleCaptures();
-            Position startPos = j->getPosition();
-            for(auto &j : tempPiecePosition){
-                Move move{startPos, j};
-                nextCaptures.emplace_back(move);
+            if(j){
+                std::vector<Position> tempPiecePosition = j->getPossibleCaptures();
+                Position startPos = j->getPosition();
+                for(auto &j : tempPiecePosition){
+                    Move move{startPos, j};
+                    nextCaptures.emplace_back(move);
+                }
             }
         }
     }

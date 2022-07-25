@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "ComputerLevelOne.h"
+#include "ComputerLevelTwo.h"
 #include "ComputerPlayer.h"
 #include "HumanPlayer.h"
 #include "TextModifier.h"
@@ -78,8 +79,10 @@ void Game::startGame() {
     }
 
     // possible moves update
+    cout<<"before updating moves" <<endl;
     board->updatePiecesPossibleMoves(BLACK);
     board->updatePiecesPossibleMoves(WHITE);
+    cout<<"after updating moves" <<endl;
 
     // Successfully initialized the game
     cout << Modifier(FG_GREEN);
@@ -123,7 +126,7 @@ Player* Game::initPlayer(string player, Colour colour) {
     } else if (player == "computer1") {
         retPtr = new ComputerLevelOne(colour);
     } else if (player == "computer2") {
-        retPtr = new ComputerLevelOne(colour);
+        retPtr = new ComputerLevelTwo(colour);
     } else if (player == "computer3") {
         retPtr = new ComputerLevelOne(colour);
     } else if (player == "computer4") {
