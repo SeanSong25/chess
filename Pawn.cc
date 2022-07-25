@@ -53,7 +53,6 @@ void Pawn::updatePossibleNextPos() {
     } else {
         if (currRow >= 1) {
             if (!board -> getBoard()[currRow - 1][currCol]) {
-                std::cout << "pawn "<<currRow << " "<<currCol << "in forward 1" << std::endl;
                 possibleNextPos.emplace_back(currRow - 1, currCol);
             }
             if (firstMove && currRow >= 2 && !board -> getBoard()[currRow - 1][currCol] &&

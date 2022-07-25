@@ -418,12 +418,10 @@ void ChessBoard::promote(Move m, char pieceType) {
 bool ChessBoard::checkMove(Move m, Colour colour) { 
     Position startPos = m.start;
     Position endPos = m.end;
-    cout << startPos.row << " " << startPos.col <<endl;
     if(startPos.row >= 0 && startPos.row <= 7 && endPos.row >= 0 && endPos.row <= 7
     && startPos.col >= 0 && startPos.col <= 7 && endPos.col >= 0 && endPos.col <= 7 ){
         if(theBoard[startPos.row][startPos.col]){
             Piece* p = theBoard[startPos.row][startPos.col];
-             cout << startPos.row << " " << startPos.col <<endl;
             if(p && p->isMoveValid(endPos, colour)){
                 return true;
             }
