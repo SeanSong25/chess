@@ -37,12 +37,12 @@ void Pawn::updatePossibleNextPos() {
                 possibleNextPos.emplace_back(currRow + 2, currCol);
             }
             // check diagonally for captures
-            if (board -> getBoard()[currRow + 1][currCol + 1] && 
+            if (currCol < 7 && board -> getBoard()[currRow + 1][currCol + 1] && 
                 board -> getBoard()[currRow + 1][currCol + 1] -> getColour() != colour) {
                     possibleCaptures.emplace_back(currRow + 1, currCol + 1);
                     possibleNextPos.emplace_back(currRow + 1, currCol + 1);
             } 
-            if (board -> getBoard()[currRow + 1][currCol - 1] && 
+            if (currCol > 0 && board -> getBoard()[currRow + 1][currCol - 1] && 
                 board -> getBoard()[currRow + 1][currCol - 1] -> getColour() != colour) {
                     possibleCaptures.emplace_back(currRow + 1, currCol - 1);
                     possibleNextPos.emplace_back(currRow + 1, currCol - 1);
@@ -58,12 +58,12 @@ void Pawn::updatePossibleNextPos() {
                 possibleNextPos.emplace_back(currRow - 2, currCol);
             }  
             // check for captures
-            if (board -> getBoard()[currRow - 1][currCol + 1] && 
+            if (currCol < 7 && board -> getBoard()[currRow - 1][currCol + 1] && 
                 board -> getBoard()[currRow - 1][currCol + 1] -> getColour() != colour) {
                     possibleCaptures.emplace_back(currRow - 1, currCol + 1);
                     possibleNextPos.emplace_back(currRow - 1, currCol + 1);
             } 
-            if (board -> getBoard()[currRow - 1][currCol - 1] && 
+            if (currCol > 0 && board -> getBoard()[currRow - 1][currCol - 1] && 
                 board -> getBoard()[currRow - 1][currCol - 1] -> getColour() != colour) {
                     possibleCaptures.emplace_back(currRow - 1, currCol - 1);
                     possibleNextPos.emplace_back(currRow - 1, currCol - 1);
