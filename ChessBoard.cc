@@ -19,7 +19,7 @@ using namespace std;
 // ----------------------------------------------------------------------------
 // Constructor and destructor
 
-ChessBoard::ChessBoard(): whiteisCheckMated{false}, blackisCheckMated{false}, stalemate{false} {
+ChessBoard::ChessBoard() {
     // Construct 8 x 8 chessboard
     theBoard = vector<vector<Piece *>>(8, vector<Piece *>(8, nullptr));
 }
@@ -38,7 +38,7 @@ ChessBoard::~ChessBoard() {
     destroy();
 }
 
-ChessBoard::ChessBoard(const ChessBoard &o): whiteisCheckMated{false}, blackisCheckMated{false}, stalemate{false} {
+ChessBoard::ChessBoard(const ChessBoard &o) {
     theBoard = vector<vector<Piece *>>(8, vector<Piece *>(8, nullptr));
     for (int r = 0; r < 8; ++r) {
         for (int c = 0; c < 8; ++c) {
@@ -490,16 +490,4 @@ std::vector<Move> ChessBoard::getCaptureMoves(Colour clr) {
         }
     }
     return nextCaptures;
-}
-
-bool ChessBoard::isBlackCheckMated() {
-    return blackisCheckMated;
-}
-
-bool ChessBoard::isWhiteCheckMated() {
-    return whiteisCheckMated;
-}
-
-bool ChessBoard::isStalemate() {
-    return stalemate;
 }

@@ -45,7 +45,7 @@ class Piece{
         bool isMoveValid(Position, Colour);
         virtual bool isInCheck();
         virtual void checkEnPassant(Position);
-        virtual void afterMove();
+        void afterMove();
         virtual ~Piece() = 0;
         friend std::ostream &operator<<(std::ostream&, const Piece&);
 };
