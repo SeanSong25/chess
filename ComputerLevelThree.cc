@@ -35,7 +35,6 @@ struct Move ComputerLevelThree::decideNextMove(){
             validCaptureMoves.emplace_back(captureMoves[i]);
         }
     }
-
     //update opponent possible moves, then find all opponent capture moves and possible moves
     
     if(getColour() == WHITE){
@@ -83,6 +82,15 @@ struct Move ComputerLevelThree::decideNextMove(){
 
             Position endPos = opponentValidCaptureMoves[j].end;
             if(endPos == p){
+                Position opponentStart = opponentValidCaptureMoves[j].start;
+                //find if there is any of our capture moves that capture this attacking piece
+                //if there is, capture it
+                for(int m = 0; m<validCaptureMoves.size(); m++){
+                    if(validCaptureMoves[m].end.row == opponentStart.row && validCaptureMoves[m].end.col == opponentStart.col){
+                        return validCaptureMoves[m];
+                    }
+                }
+
                 //find the next positions our to-be captured piece can go to
                 //if there are such positions, find if there exists one that we can go to
                 // and there are no possible captures by opponent pieces on that new position
@@ -92,6 +100,7 @@ struct Move ComputerLevelThree::decideNextMove(){
                         Position myNextPosition = nextPositions[k];
                         bool flag = true;
                         for(int l = 0; l<opponentValidPossibleMoves.size(); l++){
+
                             if(opponentValidPossibleMoves[l].end == myNextPosition){
                                 flag = false;
                                 break;

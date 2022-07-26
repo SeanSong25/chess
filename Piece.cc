@@ -92,7 +92,6 @@ bool Piece::putsKingInCheck(Position p) {
     ChessBoard* newBoard = new ChessBoard(*board);
     ChessBoard* tempStoreBoard = board;
     board = newBoard;
-
     // set up the new board
     for (auto &i : board -> getBoard()) {
         for (auto &j: i) {
