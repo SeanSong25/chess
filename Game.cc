@@ -102,7 +102,7 @@ void Game::startGame() {
     // Game is now running
     gameRunning = true;
 
-    // TODO: add checkmate and stalemate handles
+    // TODO: add checkmate and stalemate handles AND valgrind (memory leak from ~Game???)
     // check for checkmate and stalemate
     if (currentPlayer == blackPlayer) {
         Piece *king = board -> getBlackKing();
