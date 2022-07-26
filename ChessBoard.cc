@@ -416,6 +416,7 @@ void ChessBoard::promote(Move m, char pieceType) {
         theBoard[endPos.row][endPos.col] = new Bishop(this, col, endPos);
     }
     theBoard[startPos.row][startPos.col] = nullptr;
+    theBoard[endPos.row][endPos.col] -> updatePossibleNextPos();
     delete p;
 }
 
@@ -445,15 +446,14 @@ bool ChessBoard::checkPromotion(Move m, char pieceType, Colour colour) {
         return false;
     }
     //if the end position is not on the end of the board(row 0 for black, row 7 for white)
-    if(p->getColour() == WHITE && endPos.row != 7){
+    if(p->getColour() == WHITE && endPos.row != 0){
         return false;
     }
 
-    if(p->getColour() == BLACK && endPos.row != 0){
+    if(p->getColour() == BLACK && endPos.row != 7){
         return false;
     }
     return true;
-
 }
 
 void ChessBoard::undo() {}
