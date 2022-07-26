@@ -28,15 +28,16 @@ class Game {
     void setupColour();
     void resignGame();
     void moveGame();
-    void endGame();       // TODO: handle the reset after each game
-    void announceTurn();  // announce black's move / white's move
+    void endGame();             // TODO: handle the reset after each game
+    void announceTurn();        // announce black's move / white's move
+    bool validateChessBoard();  // Check if the board is valid after setup mode
 
     // Notify text display and graphic display after change
     void notifyDisplays();
 
   public:
     Game();
-    ~Game() = default;
+    ~Game();
     void play();
 };
 
