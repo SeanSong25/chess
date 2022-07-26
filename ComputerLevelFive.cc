@@ -142,6 +142,26 @@ struct Move ComputerLevelFive::decideNextMove(){
                 //if there are such positions, find if there exists one that we can go to
                 // and there are no possible captures by opponent pieces on that new position
                 vector<Position> nextPositions = ourPieces[i] -> getPossibleNextPos();
+                vector<Position> nextCaptures = ourPieces[i] -> getPossibleCaptures();
+                if(nextCaptures.size() > 0){
+                    for(int k = 0; k<nextCaptures.size(); k++){
+                        Position myNextPosition = nextCaptures[k];
+                        bool flag = true;
+                        for(int l = 0; l<opponentValidPossibleMoves.size(); l++){
+
+                            if(opponentValidPossibleMoves[l].end == myNextPosition){
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if(flag){
+                            decisionMove = Move{p, myNextPosition};
+                            if(board->checkMove(decisionMove, getColour())){
+                                return decisionMove;
+                            }
+                        }
+                    }
+                }
                 if(nextPositions.size() > 0){
                     for(int k = 0; k<nextPositions.size(); k++){
                         Position myNextPosition = nextPositions[k];
