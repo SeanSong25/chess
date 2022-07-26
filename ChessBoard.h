@@ -12,6 +12,7 @@ class ChessBoard{
     Piece *copyPiece(Colour, PieceType, Position);
     bool whiteisCheckMated;
     bool blackisCheckMated;
+    bool stalemate;
 
   public:
     ChessBoard();
@@ -42,10 +43,11 @@ class ChessBoard{
     bool checkMove(Move, Colour);
     bool checkPromotion(Move, char pieceType, Colour);
     void undo();
-    std::vector<Move> getNextMoves();
-    std::vector<Move> getCaptureMoves();
     bool isWhiteCheckMated();
     bool isBlackCheckMated();
+    bool isStalemate();
+    std::vector<Move> getNextMoves(Colour clr);
+    std::vector<Move> getCaptureMoves(Colour clr);
 
     void updatePiecesPossibleMoves();
 };

@@ -19,11 +19,13 @@ void Queen::updatePossibleNextPos() {
     // clear all previous data
     possibleNextPos.clear();
     possibleCaptures.clear();
+    canPhysicallyCapture.clear();
 
     // top left
     int currRow = position.row;
     int currCol = position.col;
     while(currRow >= 1 && currCol >= 1) {
+        canPhysicallyCapture.emplace_back(currRow - 1, currCol - 1);
         if (board -> getBoard()[--currRow][--currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
                 possibleNextPos.emplace_back(currRow, currCol);
@@ -39,6 +41,7 @@ void Queen::updatePossibleNextPos() {
     currRow = position.row;
     currCol = position.col;
     while(currRow >= 1 && currCol <= 6) {
+        canPhysicallyCapture.emplace_back(currRow - 1, currCol + 1);
         if (board -> getBoard()[--currRow][++currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
                 possibleNextPos.emplace_back(currRow, currCol);
@@ -54,6 +57,7 @@ void Queen::updatePossibleNextPos() {
     currRow = position.row;
     currCol = position.col;
     while(currRow <= 6 && currCol >= 1) { 
+        canPhysicallyCapture.emplace_back(currRow + 1, currCol - 1);
         if (board -> getBoard()[++currRow][--currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
                 possibleNextPos.emplace_back(currRow, currCol);
@@ -69,6 +73,7 @@ void Queen::updatePossibleNextPos() {
     currRow = position.row;
     currCol = position.col;
     while(currRow <= 6 && currCol <= 6) {
+        canPhysicallyCapture.emplace_back(currRow + 1, currCol + 1);
         if (board -> getBoard()[++currRow][++currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
                 possibleNextPos.emplace_back(currRow, currCol);
@@ -84,6 +89,7 @@ void Queen::updatePossibleNextPos() {
     currRow = position.row;
     currCol = position.col;
     while(currRow >= 1) {
+        canPhysicallyCapture.emplace_back(currRow - 1, currCol);
         if (board -> getBoard()[--currRow][currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
                 possibleNextPos.emplace_back(currRow, currCol);
@@ -99,6 +105,7 @@ void Queen::updatePossibleNextPos() {
     currRow = position.row;
     currCol = position.col;
     while(currRow <= 6) {
+        canPhysicallyCapture.emplace_back(currRow + 1, currCol);
         if (board -> getBoard()[++currRow][currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
                 possibleNextPos.emplace_back(currRow, currCol);
@@ -114,6 +121,7 @@ void Queen::updatePossibleNextPos() {
     currRow = position.row;
     currCol = position.col;
     while(currCol >= 1) {
+        canPhysicallyCapture.emplace_back(currRow, currCol - 1);
         if (board -> getBoard()[currRow][--currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
                 possibleNextPos.emplace_back(currRow, currCol);
@@ -129,6 +137,7 @@ void Queen::updatePossibleNextPos() {
     currRow = position.row;
     currCol = position.col;
     while(currCol <= 6) {
+        canPhysicallyCapture.emplace_back(currRow, currCol + 1);
         if (board -> getBoard()[currRow][++currCol]) {
             if (board -> getBoard()[currRow][currCol] -> getColour() != colour) {
                 possibleNextPos.emplace_back(currRow, currCol);

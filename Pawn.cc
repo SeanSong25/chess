@@ -22,6 +22,7 @@ void Pawn::updatePossibleNextPos() {
     // clear all previous data
     possibleNextPos.clear();
     possibleCaptures.clear();
+    canPhysicallyCapture.clear();
 
     // basic: one square forward
     int currRow = position.row;
@@ -49,6 +50,13 @@ void Pawn::updatePossibleNextPos() {
                     possibleCaptures.emplace_back(currRow + 1, currCol - 1);
                     possibleNextPos.emplace_back(currRow + 1, currCol - 1);
             } 
+            // can physically capture
+            if (currCol < 7) {
+                canPhysicallyCapture.emplace_back(currRow + 1, currCol + 1);
+            }
+            if (currCol > 0) {
+                canPhysicallyCapture.emplace_back(currRow + 1, currCol - 1);
+            }
         }
     } else {
         if (currRow >= 1) {
@@ -70,6 +78,13 @@ void Pawn::updatePossibleNextPos() {
                     possibleCaptures.emplace_back(currRow - 1, currCol - 1);
                     possibleNextPos.emplace_back(currRow - 1, currCol - 1);
             } 
+            // can physically capture
+            if (currCol < 7) {
+                canPhysicallyCapture.emplace_back(currRow - 1, currCol + 1);
+            }
+            if (currCol > 0) {
+                canPhysicallyCapture.emplace_back(currRow - 1, currCol - 1);
+            }
         }
     }
 

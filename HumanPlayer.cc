@@ -46,6 +46,7 @@ bool HumanPlayer::makeMove(){
             return false;
         }
     }else{
+        
         if(board->checkPromotion(move, pieceType, getColour())){
             board->promote(move, pieceType);
             return true;

@@ -13,6 +13,7 @@ class King : public Piece{
         std::vector<Piece *> getAttackingPieces();
         void updateAttackingPieces();
         bool isCheckMate() override;
+        bool isInCheck() override;
         King *clone() override;
         ~King();
 };

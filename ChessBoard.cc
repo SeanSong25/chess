@@ -19,7 +19,7 @@ using namespace std;
 // ----------------------------------------------------------------------------
 // Constructor and destructor
 
-ChessBoard::ChessBoard(): whiteisCheckMated{false}, blackisCheckMated{false} {
+ChessBoard::ChessBoard(): whiteisCheckMated{false}, blackisCheckMated{false}, stalemate{false} {
     // Construct 8 x 8 chessboard
     theBoard = vector<vector<Piece *>>(8, vector<Piece *>(8, nullptr));
 }
@@ -38,7 +38,7 @@ ChessBoard::~ChessBoard() {
     destroy();
 }
 
-ChessBoard::ChessBoard(const ChessBoard &o): whiteisCheckMated{false}, blackisCheckMated{false} {
+ChessBoard::ChessBoard(const ChessBoard &o): whiteisCheckMated{false}, blackisCheckMated{false}, stalemate{false} {
     theBoard = vector<vector<Piece *>>(8, vector<Piece *>(8, nullptr));
     for (int r = 0; r < 8; ++r) {
         for (int c = 0; c < 8; ++c) {
@@ -276,6 +276,7 @@ Piece * ChessBoard::getWhiteKing() {
             }
         }
     }
+    return nullptr;
 }
 
 Piece * ChessBoard::getBlackKing() {
@@ -287,6 +288,7 @@ Piece * ChessBoard::getBlackKing() {
             }
         }
     }
+    return nullptr;
 }
 
 vector<Piece *> ChessBoard::getWhitePieces() {
@@ -382,19 +384,40 @@ void ChessBoard::makeMove(Move m) {
         }
 
     } else {
-        // check for checkMate
+        // check for checkMate and stalemate
         if (temp -> getColour() == WHITE) {
             Piece *king = getBlackKing();
-            std::cout << temp ->getPosition().row << " " << temp -> getPosition().col << "checking checkm " << std::endl;
+            int blackAvailableMoves = 0;
             if (king -> isCheckMate()) { 
-                std::cout << "black is checkmated" << std::endl;
                 blackisCheckMated = true;
+            }
+            for (auto &piece : getBlackPieces()) {
+                for (auto &move: piece -> getPossibleNextPos()) {
+                    if (!piece -> putsKingInCheck(move)) {
+                        ++blackAvailableMoves;
+                    }
+                }
+            }
+            if (blackAvailableMoves == 0 && !king -> isInCheck()) {
+                std::cout << "black has no moves left, stalemate";
+                stalemate = true;
             }
         } else {
             Piece *king = getWhiteKing();
+            int whiteAvailableMoves = 0;
             if (king -> isCheckMate()) {
-                std::cout << "white is checkmated" << std::endl;
                 whiteisCheckMated = true;
+            }
+            for (auto &piece : getWhitePieces()) {
+                for (auto &move: piece -> getPossibleNextPos()) {
+                    if (!piece -> putsKingInCheck(move)) {
+                        ++whiteAvailableMoves;
+                    }
+                }
+            }
+            if (whiteAvailableMoves == 0 && !king -> isInCheck()) {
+                std::cout << "white has no moves left, stalemate";
+                stalemate = true;
             }
         }
     }
@@ -472,11 +495,11 @@ bool ChessBoard::checkPromotion(Move m, char pieceType, Colour colour) {
 
 void ChessBoard::undo() {}
 
-std::vector<Move> ChessBoard::getNextMoves() {
+std::vector<Move> ChessBoard::getNextMoves(Colour clr) {
     std::vector<Move> nextMoves;
     for(auto& i : theBoard){
         for(auto& j : i){
-            if(j){
+            if(j && j->getColour() == clr){
                 std::vector<Position> tempPiecePosition = j->getPossibleNextPos();
                 Position startPos = j->getPosition();
                 for(auto &j : tempPiecePosition){
@@ -489,11 +512,11 @@ std::vector<Move> ChessBoard::getNextMoves() {
     return nextMoves;
 }
 
-std::vector<Move> ChessBoard::getCaptureMoves() {
+std::vector<Move> ChessBoard::getCaptureMoves(Colour clr) {
     std::vector<Move> nextCaptures;
     for(auto& i : theBoard){
         for(auto& j : i){
-            if(j){
+            if(j && j->getColour() == clr){
                 std::vector<Position> tempPiecePosition = j->getPossibleCaptures();
                 Position startPos = j->getPosition();
                 for(auto &j : tempPiecePosition){
@@ -512,4 +535,8 @@ bool ChessBoard::isBlackCheckMated() {
 
 bool ChessBoard::isWhiteCheckMated() {
     return whiteisCheckMated;
+}
+
+bool ChessBoard::isStalemate() {
+    return stalemate;
 }

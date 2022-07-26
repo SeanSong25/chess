@@ -20,6 +20,7 @@ class Piece{
         Position enPassantPosition;
         std::vector<Position> possibleNextPos;
         std::vector<Position> possibleCaptures;
+        std::vector<Position> canPhysicallyCapture;
         bool canBeCaptured(Position);
     public:
         Piece();
@@ -36,11 +37,13 @@ class Piece{
         Position getEnPassantPosition();
         std::vector<Position> getPossibleNextPos();
         std::vector<Position> getPossibleCaptures();
+        std::vector<Position> getPhysicallyPossibleCaptures();
         virtual void updatePossibleNextPos() = 0;
         virtual Piece *clone() = 0;
         void setEnPassant(bool, Piece *, Position);
         bool putsKingInCheck(Position);
         bool isMoveValid(Position, Colour);
+        virtual bool isInCheck();
         virtual void checkEnPassant(Position);
         virtual void afterMove();
         virtual ~Piece() = 0;

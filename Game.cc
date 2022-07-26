@@ -5,6 +5,7 @@
 
 #include "ComputerLevelOne.h"
 #include "ComputerLevelTwo.h"
+#include "ComputerLevelThree.h"
 #include "ComputerPlayer.h"
 #include "HumanPlayer.h"
 #include "TextModifier.h"
@@ -72,16 +73,13 @@ void Game::startGame() {
     // Pass in the board to the players
     whitePlayer->setBoard(board);
     blackPlayer->setBoard(board);
-
     // Default initialize pieces if no custom setup
     if (!hasCustomSetup) {
         board->defaultInit();
     }
 
     // possible moves update
-    cout<<"before updating moves" <<endl;
     board->updatePiecesPossibleMoves();
-    cout<<"after updating moves" <<endl;
 
     // Successfully initialized the game
     cout << Modifier(FG_GREEN);
@@ -103,6 +101,41 @@ void Game::startGame() {
 
     // Game is now running
     gameRunning = true;
+
+    // check for checkMate and stalemate
+    if (currentPlayer == blackPlayer) {
+        Piece *king = board -> getBlackKing();
+        int blackAvailableMoves = 0;
+        if (king -> isCheckMate()) {
+            // black is checkmated
+        }
+        for (auto &piece : board -> getBlackPieces()) {
+            for (auto &move: piece -> getPossibleNextPos()) {
+                if (!piece -> putsKingInCheck(move)) {
+                    ++blackAvailableMoves;
+                }
+            }
+        }
+        if (blackAvailableMoves == 0 && !king -> isInCheck()) {
+            std::cout << "black has no moves left, stalemate";
+        }
+    } else {
+        Piece *king = board -> getWhiteKing();
+        int whiteAvailableMoves = 0;
+        if (king->isCheckMate()) {
+            // white is checkmated
+        }
+        for (auto &piece : board -> getWhitePieces()) {
+            for (auto &move: piece -> getPossibleNextPos()) {
+                if (!piece -> putsKingInCheck(move)) {
+                    ++whiteAvailableMoves;
+                }
+            }
+        }
+        if (whiteAvailableMoves == 0 && !king -> isInCheck()) {
+            std::cout << "white has no moves left, stalemate";
+        }
+    }
 }
 
 void Game::announceTurn() {
@@ -127,7 +160,7 @@ Player* Game::initPlayer(string player, Colour colour) {
     } else if (player == "computer2") {
         retPtr = new ComputerLevelTwo(colour);
     } else if (player == "computer3") {
-        retPtr = new ComputerLevelOne(colour);
+        retPtr = new ComputerLevelThree(colour);
     } else if (player == "computer4") {
         retPtr = new ComputerLevelOne(colour);
     }
@@ -231,7 +264,7 @@ void Game::setupGame() {
 
         else if (cmd == "done") {
             // TODO: check the kings are not in checked
-
+            hasCustomSetup = true;
             cout << Modifier(FG_YELLOW) << "Finished board setup" << Modifier(FG_DEFAULT) << endl;
             return;
         }
@@ -241,7 +274,7 @@ void Game::setupGame() {
         }
     }
 
-    hasCustomSetup = true;
+    
 }
 
 void Game::setupColour() {

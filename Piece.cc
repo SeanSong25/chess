@@ -10,7 +10,8 @@ Piece::Piece() {}
 Piece::Piece(ChessBoard* board, Colour colour, Position position, PieceType pieceType):
     board{board}, colour{colour}, position{position}, pieceType{pieceType}, firstMove{true},
     enPassant{false}, enPassantPiece{nullptr}, enPassantPosition{Position{}},
-    possibleNextPos{std::vector<Position>()}, possibleCaptures{std::vector<Position>()} {}
+    possibleNextPos{std::vector<Position>()}, possibleCaptures{std::vector<Position>()}, 
+    canPhysicallyCapture{std::vector<Position>()} {}
 
 // getter for colour
 Colour Piece::getColour() {
@@ -65,6 +66,11 @@ std::vector<Position> Piece::getPossibleNextPos() {
 // getter for possible captures
 std::vector<Position> Piece::getPossibleCaptures() {
     return possibleCaptures;
+}
+
+// getter for physcially possible captures
+std::vector<Position> Piece::getPhysicallyPossibleCaptures() {
+    return canPhysicallyCapture;
 }
 
 // setter for enPassant, enPassantPiece, and enPassantPosition
@@ -141,7 +147,10 @@ bool Piece::isMoveValid(Position p, Colour c) {
     }
 }
 
-// return true if piece can be captured by another piece
+// check if king is currently in check
+bool Piece::isInCheck() {}
+
+// return true if a piece at a position can be captured by another piece
 bool Piece::canBeCaptured(Position p) {
     std::vector<Piece *> opponentPieces;
     if (colour == Colour::WHITE) {
@@ -149,13 +158,8 @@ bool Piece::canBeCaptured(Position p) {
     } else {
         opponentPieces = board -> getWhitePieces();
     }
- std::cout << "possible captures " << std::endl;
     for (auto &piece : opponentPieces) {
-        std::vector<Position> captures = piece -> getPossibleCaptures() ;
-        std::cout << piece->getPosition().row << " " << piece -> getPosition().col  << " num" << captures.size() << std::endl;
-        for (auto &capture : captures) {
-            // std::cout << piece->getPosition().row << " " << piece -> getPosition().col << " captures" << capture.row << " " << capture.col << std::endl;
-        } 
+        std::vector<Position> captures = piece -> getPhysicallyPossibleCaptures();
         if (std::find(captures.begin(), captures.end(), p) != captures.end()) {
             return true;
         }

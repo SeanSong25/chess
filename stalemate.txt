@@ -1,0 +1,6 @@
+setup
++ k a1
++ R b2
++ K c3
+= BLACK
+done
