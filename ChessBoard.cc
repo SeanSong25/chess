@@ -383,43 +383,6 @@ void ChessBoard::makeMove(Move m) {
             makeMove(rookMove);
         }
 
-    } else {
-        // check for checkMate and stalemate
-        if (temp -> getColour() == WHITE) {
-            Piece *king = getBlackKing();
-            int blackAvailableMoves = 0;
-            if (king -> isCheckMate()) { 
-                blackisCheckMated = true;
-            }
-            for (auto &piece : getBlackPieces()) {
-                for (auto &move: piece -> getPossibleNextPos()) {
-                    if (!piece -> putsKingInCheck(move)) {
-                        ++blackAvailableMoves;
-                    }
-                }
-            }
-            if (blackAvailableMoves == 0 && !king -> isInCheck()) {
-                std::cout << "black has no moves left, stalemate";
-                stalemate = true;
-            }
-        } else {
-            Piece *king = getWhiteKing();
-            int whiteAvailableMoves = 0;
-            if (king -> isCheckMate()) {
-                whiteisCheckMated = true;
-            }
-            for (auto &piece : getWhitePieces()) {
-                for (auto &move: piece -> getPossibleNextPos()) {
-                    if (!piece -> putsKingInCheck(move)) {
-                        ++whiteAvailableMoves;
-                    }
-                }
-            }
-            if (whiteAvailableMoves == 0 && !king -> isInCheck()) {
-                std::cout << "white has no moves left, stalemate";
-                stalemate = true;
-            }
-        }
     }
 }
 
