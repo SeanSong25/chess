@@ -102,14 +102,25 @@ void Game::startGame() {
     // Game is now running
     gameRunning = true;
 
-    // check for checkMate and stalemate
+    // TODO: add checkmate and stalemate handles
+    // check for checkmate and stalemate
     if (currentPlayer == blackPlayer) {
         Piece *king = board -> getBlackKing();
         int blackAvailableMoves = 0;
+        bool isKingInCheck = king -> isInCheck();
+
+        // black is check mated
         if (king -> isCheckMate()) {
-            // black is checkmated
-            std::cout << "black is checkmated";
+            std::cout << "black is checkmated" << std::endl;
+            return;
         }
+
+        // black is in check
+        if (isKingInCheck) {
+            std::cout << "black is in check" << std::endl;
+            return;
+        }
+
         for (auto &piece : board -> getBlackPieces()) {
             for (auto &move: piece -> getPossibleNextPos()) {
                  if (!piece -> putsKingInCheck(move)) {
@@ -117,17 +128,27 @@ void Game::startGame() {
                 }
             }
         }
-        if (blackAvailableMoves == 0 && !king -> isInCheck()) {
-            // stalemate
-            std::cout << "black has no moves left, stalemate";
+        // stalemate
+        if (blackAvailableMoves == 0 && !isKingInCheck) {
+            std::cout << "black has no moves left, stalemate" << std::endl;
         }
     } else {
         Piece *king = board -> getWhiteKing();
         int whiteAvailableMoves = 0;
+        bool isKingInCheck = king -> isInCheck();
+
+        // white is checkmated 
         if (king->isCheckMate()) {
             std::cout << "white is checkmated" << std::endl;
-            // white is checkmated
+            return;
         }
+
+        // white is in check
+        if (isKingInCheck) {
+            std::cout << "white is in check" << std::endl;
+            return;
+        }
+
         for (auto &piece : board -> getWhitePieces()) {
             for (auto &move: piece -> getPossibleNextPos()) {
                  if (!piece -> putsKingInCheck(move)) {
@@ -135,9 +156,9 @@ void Game::startGame() {
                  }
             }
         }
-        if (whiteAvailableMoves == 0 && !king -> isInCheck()) {
-            // stalemate
-            std::cout << "white has no moves left, stalemate";
+        // stalemate
+        if (whiteAvailableMoves == 0 && !isKingInCheck) {
+            std::cout << "white has no moves left, stalemate" << std::endl;
         }
     }
 }
@@ -225,14 +246,24 @@ void Game::moveGame() {
 
     // TODO: need to check whether the move is successful
     bool successMove = currentPlayer->makeMove();
-    // check for stalemate and checkmate
+
+    // TODO: add checkmate and stalemate handles
+    // check for checkmate and stalemate
     if (currentPlayer -> getColour() == WHITE) {
         Piece *king = board -> getBlackKing();
         int blackAvailableMoves = 0;
+        bool isKingInCheck = king -> isInCheck();
+
+        // black is checkmated 
         if (king -> isCheckMate()) { 
-            // black is check mated
-            std::cout << "black is checkmated";
+            std::cout << "black is checkmated" << std::endl;
         }
+
+        // black is in check
+        if (isKingInCheck) {
+            std::cout << "black is in check" << std::endl;
+        }
+
         for (auto &piece : board->getBlackPieces()) {
             for (auto &move: piece -> getPossibleNextPos()) {
                 if (!piece -> putsKingInCheck(move)) {
@@ -240,18 +271,26 @@ void Game::moveGame() {
                 }
             }
         }
-
-        if (blackAvailableMoves == 0 && !king -> isInCheck()) {
-            // stalemate
-            std::cout << "black has no moves left, stalemate";
+        // stalemate
+        if (blackAvailableMoves == 0 && !isKingInCheck) {
+            std::cout << "black has no moves left, stalemate" << std::endl;
         }
     } else {
         Piece *king = board->getWhiteKing();
         int whiteAvailableMoves = 0;
+        bool isKingInCheck = king -> isInCheck();
+
+        // white is checkmated
         if (king -> isCheckMate()) {
-            // white is checkmated
-            std::cout << "white is checkmated";
+            std::cout << "white is checkmated" << std::endl;
+
         }
+
+        // white is in check
+        if (isKingInCheck) {
+            std::cout << "white is in check" << std::endl;
+        }
+
         for (auto &piece : board->getWhitePieces()) {
             for (auto &move: piece -> getPossibleNextPos()) {
                 if (!piece -> putsKingInCheck(move)) {
@@ -259,9 +298,9 @@ void Game::moveGame() {
                 }
             }
         }
+        // stalemate
         if (whiteAvailableMoves == 0 && !king -> isInCheck()) {
-            // stalement
-            std::cout << "white has no moves left, stalemate";
+            std::cout << "white has no moves left, stalemate" << std::endl;
         }
     }
 
