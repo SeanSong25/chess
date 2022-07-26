@@ -30,7 +30,7 @@ void Game::play() {
     cout << Modifier(FG_BLUE) << "Welcome to the chess game"
          << Modifier(FG_DEFAULT) << endl;
 
-    while (cin >> cmd) {
+    while (cin >> cmd && cmd != "quit") {
         if (cmd == "game") {
             this->startGame();
         } else if (cmd == "resign") {
@@ -40,6 +40,8 @@ void Game::play() {
         } else if (cmd == "setup") {
             this->setupGame();
         } else if (cmd == "undo") {
+        } else {
+            cout << "Command not found." << endl;
         }
     }
 
@@ -168,10 +170,6 @@ void Game::resignGame() {
         scoreBoard->updateScore(BLACK);
     }
 
-    cout << Modifier(FG_MAGENTA) << "Print current scoreboard:"
-         << Modifier(FG_DEFAULT) << endl;
-    scoreBoard->printScore();
-
     endGame();
 }
 
@@ -190,11 +188,9 @@ void Game::moveGame() {
         return;
     }
 
-    // TODO: need to check whether the move is successful
     bool successMove = currentPlayer->makeMove();
 
-    // TODO: add checkmate and stalemate handles
-    // check for checkmate and stalemate
+    // Check check/checkmate/stalemate after white player move
     if (currentPlayer->getColour() == WHITE) {
         Piece *king = board->getBlackKing();
         int blackAvailableMoves = 0;
@@ -202,14 +198,20 @@ void Game::moveGame() {
 
         // black is checkmated
         if (king->isCheckMate()) {
-            std::cout << "black is checkmated" << std::endl;
+            std::cout << Modifier(FG_CYAN) << "Checkmate! White wins!" << Modifier(FG_DEFAULT) << std::endl;
+
+            // Game ended after checkmate
+            scoreBoard->updateScore(WHITE);
+            endGame();
+            return;
         }
 
         // black is in check
         if (isKingInCheck) {
-            std::cout << "black is in check" << std::endl;
+            std::cout << Modifier(FG_YELLOW) << "Black is in check." << Modifier(FG_DEFAULT) << std::endl;
         }
 
+        // Stalemate
         for (auto &piece : board->getBlackPieces()) {
             for (auto &move : piece->getPossibleNextPos()) {
                 if (!piece->putsKingInCheck(move)) {
@@ -217,25 +219,34 @@ void Game::moveGame() {
                 }
             }
         }
-        // stalemate
         if (blackAvailableMoves == 0 && !isKingInCheck) {
-            std::cout << "black has no moves left, stalemate" << std::endl;
+            std::cout << Modifier(FG_CYAN) << "Stalemate!" << Modifier(FG_DEFAULT) << std::endl;
+            scoreBoard->updateTie();
+            endGame();
+            return;
         }
-    } else {
+    }
+
+    // Check check/checkmate/stalemate after black player move
+    else {
         Piece *king = board->getWhiteKing();
         int whiteAvailableMoves = 0;
         bool isKingInCheck = king->isInCheck();
 
         // white is checkmated
         if (king->isCheckMate()) {
-            std::cout << "white is checkmated" << std::endl;
+            std::cout << Modifier(FG_CYAN) << "Checkmate! Black wins!" << Modifier(FG_DEFAULT) << std::endl;
+            scoreBoard->updateScore(BLACK);
+            endGame();
+            return;
         }
 
         // white is in check
         if (isKingInCheck) {
-            std::cout << "white is in check" << std::endl;
+            std::cout << Modifier(FG_YELLOW) << "White is in check." << Modifier(FG_DEFAULT) << std::endl;
         }
 
+        // stalemate
         for (auto &piece : board->getWhitePieces()) {
             for (auto &move : piece->getPossibleNextPos()) {
                 if (!piece->putsKingInCheck(move)) {
@@ -243,12 +254,15 @@ void Game::moveGame() {
                 }
             }
         }
-        // stalemate
         if (whiteAvailableMoves == 0 && !king->isInCheck()) {
-            std::cout << "white has no moves left, stalemate" << std::endl;
+            std::cout << Modifier(FG_CYAN) << "Stalemate!" << Modifier(FG_DEFAULT) << std::endl;
+            scoreBoard->updateTie();
+            endGame();
+            return;
         }
     }
 
+    // Check if the move is valid
     if (successMove) {
         SwitchCurrentPlayer();
         announceTurn();
@@ -290,7 +304,7 @@ void Game::setupGame() {
         }
 
         else if (cmd == "done") {
-            // TODO: check the kings are not in checked
+            // User can only exit setup mode if the chessboard is at valid state
             bool validity = validateChessBoard();
             if (validity == true) {
                 cout << Modifier(FG_YELLOW) << "Finished board setup" << Modifier(FG_DEFAULT) << endl;
@@ -409,6 +423,31 @@ bool Game::validateChessBoard() {
         return false;
     }
 
+    // Board cannot be stalemate
+    int availableMoves = 0;
+    if (whitePlayerStart == true) {
+        for (auto &piece : board->getWhitePieces()) {
+            for (auto &move : piece->getPossibleNextPos()) {
+                if (!piece->putsKingInCheck(move)) {
+                    ++availableMoves;
+                }
+            }
+        }
+    } else {
+        for (auto &piece : board->getBlackPieces()) {
+            for (auto &move : piece->getPossibleNextPos()) {
+                if (!piece->putsKingInCheck(move)) {
+                    ++availableMoves;
+                }
+            }
+        }
+    }
+    if (availableMoves == 0) {
+        cout << Modifier(FG_RED) << "Setup error: this is a stalemate setup. Please fix."
+             << Modifier(FG_DEFAULT) << endl;
+        return false;
+    }
+
     return true;
 }
 
@@ -418,10 +457,19 @@ void Game::notifyDisplays() {
 }
 
 void Game::endGame() {
+    cout << Modifier(FG_BLUE) << "Current game ended" << Modifier(FG_DEFAULT) << endl;
+    cout << Modifier(FG_MAGENTA) << "Print current scoreboard:" << Modifier(FG_DEFAULT) << endl;
+    scoreBoard->printScore();
     gameRunning = false;
     hasCustomSetup = false;
     whitePlayerStart = true;
     if (whitePlayer) delete whitePlayer;
     if (blackPlayer) delete blackPlayer;
+    cout << "Enter anything to start next game" << endl;
+    string foo;
+    getline(cin, foo);
+    getline(cin, foo);
     board->destroy();
+    notifyDisplays();
+    cout << Modifier(FG_BLUE) << "Board cleared" << Modifier(FG_DEFAULT) << endl;
 }

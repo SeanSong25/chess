@@ -10,6 +10,7 @@ class ScoreBoard {
     ~ScoreBoard() = default;
     void printScore();
     void updateScore(Colour winner);
+    void updateTie();
 };
 
 #endif
