@@ -1,10 +1,10 @@
-#ifndef COMPUTERLEVELFIVE_H
-#define COMPUTERLEVELFIVE_H
+#ifndef COMPUTERLEVELFOUR_H
+#define COMPUTERLEVELFOUR_H
 #include "ComputerPlayer.h"
 #include <memory>
-class ComputerLevelFive : public ComputerPlayer{
+class ComputerLevelFour : public ComputerPlayer{
     public:
-        ComputerLevelFive(Colour colour);
+        ComputerLevelFour(Colour colour);
         void setBoard(ChessBoard* board);
     private:
         Move decideNextMove() override;

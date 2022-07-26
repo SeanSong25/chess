@@ -1,18 +1,18 @@
-#include "ComputerLevelFive.h"
+#include "ComputerLevelFour.h"
 #include "ChessBoard.h"
 #include <unordered_map>
 using namespace std;
-ComputerLevelFive::ComputerLevelFive(Colour col){
+ComputerLevelFour::ComputerLevelFour(Colour col){
     colour = col;
 }
 
-void ComputerLevelFive::setBoard(ChessBoard* board){
+void ComputerLevelFour::setBoard(ChessBoard* board){
     this->board = board;
 }
 
 //find out if after making this move, our piece can capture an opponent piece in
 //one move
-bool ComputerLevelFive::canCaptureEnemyPiece(Move m){
+bool ComputerLevelFour::canCaptureEnemyPiece(Move m){
     ChessBoard* newBoard = new ChessBoard(*board);
     Piece* ourPiece = newBoard->getBoard()[m.start.row][m.start.col];
     ChessBoard* tempStoreBoard = board;
@@ -36,7 +36,7 @@ bool ComputerLevelFive::canCaptureEnemyPiece(Move m){
     return false;
 }
 
-struct Move ComputerLevelFive::decideNextMove(){
+struct Move ComputerLevelFour::decideNextMove(){
     vector<Move> nextMoves;
     vector<Move> validNextMoves;
     vector<Move> captureMoves;
