@@ -31,7 +31,19 @@ struct Text {
     Text(Text &&o) noexcept : x{o.x}, y{o.y}, w{o.w}, h{o.h}, texture{o.texture} {
         o.texture = nullptr;
     }
-    ~Text() { SDL_DestroyTexture(texture); }
+    virtual ~Text() = 0;
+};
+
+struct OwningText : public Text {
+    OwningText(int x, int y, int w, int h, SDL_Texture *t) : Text{x, y, w, h, t} {}
+    OwningText(OwningText &&o) noexcept : Text{std::move(o)} {}
+    ~OwningText() { SDL_DestroyTexture(texture); }
+};
+
+struct NonOwningText : public Text {
+    NonOwningText(int x, int y, int w, int h, SDL_Texture *t) : Text{x, y, w, h, t} {}
+    NonOwningText(NonOwningText &&o) noexcept : Text{std::move(o)} {}
+    ~NonOwningText() {}
 };
 
 struct ImgDraw {
@@ -56,7 +68,7 @@ class Screen {
     int w, h;
     std::string screenName;
     std::vector<Rect> rects;
-    std::vector<Text> msgs;
+    std::vector<Text *> msgs;
     std::unordered_map<std::string, TTF_Font *> fonts;
     std::unordered_map<std::string, SDL_Texture *> imgs;
 
@@ -80,10 +92,6 @@ class Screen {
     void draw_img(std::string key, int x, int y);
     // Loads an image from the file designated at path, and associates it with key.
     void add_img(std::string key, std::string path);
-    // Draw a chess square tile on the board
-    void draw_square(std::string key, int x, int y, int s_width, int s_height);
-    // Draw a chess piece onto the board
-    void draw_piece(std::string key, int x, int y, int s_width, int s_height);
     // Loads a font from the TTF file at path, and associates it with key, also sets
     // its point to point. The default loaded FUTURAM is point 28,
     void add_font(std::string key, std::string path, unsigned int point);
@@ -91,6 +99,11 @@ class Screen {
     void update();
     int getWidth() { return w; }
     int getHeight() { return h; }
+
+    // Draw a chess square tile on the board
+    void draw_square(std::string key, int x, int y, int s_width, int s_height);
+    // Draw a chess piece onto the board
+    void draw_piece(std::string key, int x, int y, int s_width, int s_height);
 };
 
 // For timing framerate - we can't have our

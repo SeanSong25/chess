@@ -3,10 +3,10 @@
 #include <algorithm>
 #include <iostream>
 
+#include "ComputerLevelFour.h"
 #include "ComputerLevelOne.h"
 #include "ComputerLevelThree.h"
 #include "ComputerLevelTwo.h"
-#include "ComputerLevelFour.h"
 #include "ComputerPlayer.h"
 #include "HumanPlayer.h"
 #include "TextModifier.h"
@@ -23,6 +23,8 @@ Game::Game() {
 
 Game::~Game() {
     delete board;
+    if (whitePlayer) delete whitePlayer;
+    if (blackPlayer) delete blackPlayer;
 }
 
 void Game::play() {
@@ -134,7 +136,7 @@ Player *Game::initPlayer(string player, Colour colour) {
         retPtr = new ComputerLevelThree(colour);
     } else if (player == "computer4") {
         retPtr = new ComputerLevelFour(colour);
-    } else if (player == "computer5"){
+    } else if (player == "computer5") {
         retPtr = new ComputerLevelOne(colour);
     }
 
@@ -467,8 +469,7 @@ void Game::endGame() {
     if (blackPlayer) delete blackPlayer;
     cout << "Enter anything to start next game" << endl;
     string foo;
-    getline(cin, foo);
-    getline(cin, foo);
+    cin >> foo;
     board->destroy();
     notifyDisplays();
     cout << Modifier(FG_BLUE) << "Board cleared" << Modifier(FG_DEFAULT) << endl;
