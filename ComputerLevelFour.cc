@@ -25,9 +25,16 @@ bool ComputerLevelFour::canCaptureEnemyPiece(Move m){
         }
     }
     board->makeMove(m);
+    board->updatePiecesPossibleMoves();
     ourPiece -> updatePossibleNextPos();
     vector<Position> possibleCaptures = ourPiece->getPossibleCaptures();
     board = tempStoreBoard;
+    
+    if(ourPiece -> canBeCaptured(ourPiece->getPosition())){
+        delete newBoard;
+        return false;
+    }
+
     if(possibleCaptures.size() > 0){
         delete newBoard;
         return true;
@@ -192,18 +199,24 @@ struct Move ComputerLevelFour::decideNextMove(){
                 Piece* capturable = board->getBoard()[i.end.row][i.end.col];
                 if(priority_map[capturable->getPieceType()] > maxPriority){
                     maxPriority = priority_map[capturable->getPieceType()];
-                    decisionMove = i;
+                    return i;
                 }
             }
+            int index = rand()%validCaptureMoves.size();
+            decisionMove = validCaptureMoves[index];
         }
         else{
             //find if a move can lead to a next capture
-            decisionMove = validNextMoves[0];
+            
             for(auto &i : validNextMoves){
                 if(canCaptureEnemyPiece(i)){
-                    decisionMove = i;
+                    if(board->checkMove(i,getColour())){
+                        return i;
+                    }
                 }
             }
+            int index = rand()%validNextMoves.size();
+            decisionMove = validNextMoves[index];
         }
     }
     return decisionMove;
