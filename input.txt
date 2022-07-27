@@ -39,5 +39,3 @@ move g7 g6
 move h5 h8
 move g8 g7
 move h1 h7
-
-

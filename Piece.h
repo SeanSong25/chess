@@ -21,7 +21,6 @@ class Piece{
         std::vector<Position> possibleNextPos;
         std::vector<Position> possibleCaptures;
         std::vector<Position> canPhysicallyCapture;
-        bool canBeCaptured(Position);
     public:
         Piece();
         Piece(ChessBoard*, Colour, Position, PieceType);
@@ -43,6 +42,7 @@ class Piece{
         void setEnPassant(bool, Piece *, Position);
         bool putsKingInCheck(Position);
         bool isMoveValid(Position, Colour);
+        bool canBeCaptured(Position);
         virtual bool isInCheck();
         virtual void checkEnPassant(Position);
         void afterMove();

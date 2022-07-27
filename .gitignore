@@ -5,5 +5,5 @@ vscode/*
 .vscode
 .vscode/*
 chessProgram
-
-testCase.txt
+*.zip
+*.txt

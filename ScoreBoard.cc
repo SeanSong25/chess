@@ -19,3 +19,8 @@ void ScoreBoard::updateScore(Colour winner) {
     if (winner == BLACK) ++blackScore;
     if (winner == WHITE) ++whiteScore;
 }
+
+void ScoreBoard::updateTie() {
+    blackScore += 0.5;
+    whiteScore += 0.5;
+}

@@ -124,7 +124,7 @@ bool Piece::putsKingInCheck(Position p) {
             }
         }
     }
-
+    delete newBoard;
     return isInCheck;
 }
 

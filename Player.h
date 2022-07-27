@@ -8,7 +8,7 @@ public:
     Colour getColour();
     virtual bool makeMove() = 0;
     virtual PlayerType playerType() = 0; // Return HUMAN or COMPUTER
-    virtual ~Player() = default;
+    virtual ~Player() = 0;
     void setBoard(ChessBoard* board);
 protected:
     ChessBoard* board;

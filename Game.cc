@@ -3,10 +3,11 @@
 #include <algorithm>
 #include <iostream>
 
+#include "ComputerLevelFour.h"
 #include "ComputerLevelOne.h"
-#include "ComputerLevelTwo.h"
 #include "ComputerLevelThree.h"
 #include "ComputerLevelFive.h"
+#include "ComputerLevelTwo.h"
 #include "ComputerPlayer.h"
 #include "HumanPlayer.h"
 #include "TextModifier.h"
@@ -21,12 +22,18 @@ Game::Game() {
     graphicDisplay = make_unique<GraphicDisplay>();
 }
 
+Game::~Game() {
+    delete board;
+    if (whitePlayer) delete whitePlayer;
+    if (blackPlayer) delete blackPlayer;
+}
+
 void Game::play() {
     string cmd;
     cout << Modifier(FG_BLUE) << "Welcome to the chess game"
          << Modifier(FG_DEFAULT) << endl;
 
-    while (cin >> cmd) {
+    while (cin >> cmd && cmd != "quit") {
         if (cmd == "game") {
             this->startGame();
         } else if (cmd == "resign") {
@@ -36,6 +43,8 @@ void Game::play() {
         } else if (cmd == "setup") {
             this->setupGame();
         } else if (cmd == "undo") {
+        } else {
+            cout << "Command not found." << endl;
         }
     }
 
@@ -102,66 +111,6 @@ void Game::startGame() {
 
     // Game is now running
     gameRunning = true;
-
-    // TODO: add checkmate and stalemate handles AND valgrind (memory leak from ~Game???)
-    // check for checkmate and stalemate
-    if (currentPlayer == blackPlayer) {
-        Piece *king = board -> getBlackKing();
-        int blackAvailableMoves = 0;
-        bool isKingInCheck = king -> isInCheck();
-
-        // black is check mated
-        if (king -> isCheckMate()) {
-            std::cout << "black is checkmated" << std::endl;
-            return;
-        }
-
-        // black is in check
-        if (isKingInCheck) {
-            std::cout << "black is in check" << std::endl;
-            return;
-        }
-
-        for (auto &piece : board -> getBlackPieces()) {
-            for (auto &move: piece -> getPossibleNextPos()) {
-                 if (!piece -> putsKingInCheck(move)) {
-                    ++blackAvailableMoves;
-                }
-            }
-        }
-        // stalemate
-        if (blackAvailableMoves == 0 && !isKingInCheck) {
-            std::cout << "black has no moves left, stalemate" << std::endl;
-        }
-    } else {
-        Piece *king = board -> getWhiteKing();
-        int whiteAvailableMoves = 0;
-        bool isKingInCheck = king -> isInCheck();
-
-        // white is checkmated 
-        if (king->isCheckMate()) {
-            std::cout << "white is checkmated" << std::endl;
-            return;
-        }
-
-        // white is in check
-        if (isKingInCheck) {
-            std::cout << "white is in check" << std::endl;
-            return;
-        }
-
-        for (auto &piece : board -> getWhitePieces()) {
-            for (auto &move: piece -> getPossibleNextPos()) {
-                 if (!piece -> putsKingInCheck(move)) {
-                    ++whiteAvailableMoves;
-                 }
-            }
-        }
-        // stalemate
-        if (whiteAvailableMoves == 0 && !isKingInCheck) {
-            std::cout << "white has no moves left, stalemate" << std::endl;
-        }
-    }
 }
 
 void Game::announceTurn() {
@@ -174,9 +123,8 @@ void Game::announceTurn() {
     }
 }
 
-// TODO: Change the computerLevelOnes to level 2,3,4
-Player* Game::initPlayer(string player, Colour colour) {
-    Player* retPtr = nullptr;
+Player *Game::initPlayer(string player, Colour colour) {
+    Player *retPtr = nullptr;
 
     // TODO: change the computer to computer[1-4]
     if (player == "human") {
@@ -188,6 +136,8 @@ Player* Game::initPlayer(string player, Colour colour) {
     } else if (player == "computer3") {
         retPtr = new ComputerLevelThree(colour);
     } else if (player == "computer4") {
+        retPtr = new ComputerLevelFour(colour);
+    } else if (player == "computer5") {
         retPtr = new ComputerLevelFive(colour);
     }
 
@@ -223,10 +173,6 @@ void Game::resignGame() {
         scoreBoard->updateScore(BLACK);
     }
 
-    cout << Modifier(FG_MAGENTA) << "Print current scoreboard:"
-         << Modifier(FG_DEFAULT) << endl;
-    scoreBoard->printScore();
-
     endGame();
 }
 
@@ -245,66 +191,81 @@ void Game::moveGame() {
         return;
     }
 
-    // TODO: need to check whether the move is successful
     bool successMove = currentPlayer->makeMove();
 
-    // TODO: add checkmate and stalemate handles
-    // check for checkmate and stalemate
-    if (currentPlayer -> getColour() == WHITE) {
-        Piece *king = board -> getBlackKing();
+    // Check check/checkmate/stalemate after white player move
+    if (currentPlayer->getColour() == WHITE) {
+        Piece *king = board->getBlackKing();
         int blackAvailableMoves = 0;
-        bool isKingInCheck = king -> isInCheck();
+        bool isKingInCheck = king->isInCheck();
 
-        // black is checkmated 
-        if (king -> isCheckMate()) { 
-            std::cout << "black is checkmated" << std::endl;
+        // black is checkmated
+        if (king->isCheckMate()) {
+            std::cout << Modifier(FG_CYAN) << "Checkmate! White wins!" << Modifier(FG_DEFAULT) << std::endl;
+
+            // Game ended after checkmate
+            scoreBoard->updateScore(WHITE);
+            endGame();
+            return;
         }
 
         // black is in check
         if (isKingInCheck) {
-            std::cout << "black is in check" << std::endl;
+            std::cout << Modifier(FG_YELLOW) << "Black is in check." << Modifier(FG_DEFAULT) << std::endl;
         }
 
+        // Stalemate
         for (auto &piece : board->getBlackPieces()) {
-            for (auto &move: piece -> getPossibleNextPos()) {
-                if (!piece -> putsKingInCheck(move)) {
+            for (auto &move : piece->getPossibleNextPos()) {
+                if (!piece->putsKingInCheck(move)) {
                     ++blackAvailableMoves;
                 }
             }
         }
-        // stalemate
         if (blackAvailableMoves == 0 && !isKingInCheck) {
-            std::cout << "black has no moves left, stalemate" << std::endl;
+            std::cout << Modifier(FG_CYAN) << "Stalemate!" << Modifier(FG_DEFAULT) << std::endl;
+            scoreBoard->updateTie();
+            endGame();
+            return;
         }
-    } else {
+    }
+
+    // Check check/checkmate/stalemate after black player move
+    else {
         Piece *king = board->getWhiteKing();
         int whiteAvailableMoves = 0;
-        bool isKingInCheck = king -> isInCheck();
+        bool isKingInCheck = king->isInCheck();
 
         // white is checkmated
-        if (king -> isCheckMate()) {
-            std::cout << "white is checkmated" << std::endl;
-
+        if (king->isCheckMate()) {
+            std::cout << Modifier(FG_CYAN) << "Checkmate! Black wins!" << Modifier(FG_DEFAULT) << std::endl;
+            scoreBoard->updateScore(BLACK);
+            endGame();
+            return;
         }
 
         // white is in check
         if (isKingInCheck) {
-            std::cout << "white is in check" << std::endl;
+            std::cout << Modifier(FG_YELLOW) << "White is in check." << Modifier(FG_DEFAULT) << std::endl;
         }
 
+        // stalemate
         for (auto &piece : board->getWhitePieces()) {
-            for (auto &move: piece -> getPossibleNextPos()) {
-                if (!piece -> putsKingInCheck(move)) {
+            for (auto &move : piece->getPossibleNextPos()) {
+                if (!piece->putsKingInCheck(move)) {
                     ++whiteAvailableMoves;
                 }
             }
         }
-        // stalemate
-        if (whiteAvailableMoves == 0 && !king -> isInCheck()) {
-            std::cout << "white has no moves left, stalemate" << std::endl;
+        if (whiteAvailableMoves == 0 && !king->isInCheck()) {
+            std::cout << Modifier(FG_CYAN) << "Stalemate!" << Modifier(FG_DEFAULT) << std::endl;
+            scoreBoard->updateTie();
+            endGame();
+            return;
         }
     }
 
+    // Check if the move is valid
     if (successMove) {
         SwitchCurrentPlayer();
         announceTurn();
@@ -346,25 +307,26 @@ void Game::setupGame() {
         }
 
         else if (cmd == "done") {
-            // TODO: check the kings are not in checked
-            hasCustomSetup = true;
-            cout << Modifier(FG_YELLOW) << "Finished board setup" << Modifier(FG_DEFAULT) << endl;
-            return;
+            // User can only exit setup mode if the chessboard is at valid state
+            bool validity = validateChessBoard();
+            if (validity == true) {
+                cout << Modifier(FG_YELLOW) << "Finished board setup" << Modifier(FG_DEFAULT) << endl;
+                hasCustomSetup = true;
+                return;
+            }
         }
 
         else {
             cout << Modifier(FG_RED) << "Invalid Setup command" << Modifier(FG_DEFAULT) << endl;
         }
     }
-
-    
 }
 
 void Game::setupColour() {
     string colour;
     cin >> colour;
 
-    for_each(colour.begin(), colour.end(), [](char& c) {
+    for_each(colour.begin(), colour.end(), [](char &c) {
         c = ::tolower(c);
     });
 
@@ -384,16 +346,132 @@ void Game::setupColour() {
     }
 }
 
+bool Game::validateChessBoard() {
+    // Board contains exactly one white king and one black king
+    vector<vector<Piece *>> theBoard = board->getBoard();
+    bool foundBlackKing = false;
+    bool foundWhiteKing = false;
+
+    for (auto &row : theBoard) {
+        for (auto &piece : row) {
+            if (piece == nullptr) continue;
+
+            // Check for white king
+            if (piece->getPieceType() == KING && piece->getColour() == WHITE) {
+                if (foundWhiteKing == true) {
+                    cout << Modifier(FG_RED) << "Setup error: more than one white king exists. Please fix."
+                         << Modifier(FG_DEFAULT) << endl;
+                    return false;
+                } else {
+                    foundWhiteKing = true;
+                }
+            }
+
+            // Check for black king
+            else if (piece->getPieceType() == KING && piece->getColour() == BLACK) {
+                if (foundBlackKing == true) {
+                    cout << Modifier(FG_RED) << "Setup error: more than one black king exists. Please fix."
+                         << Modifier(FG_DEFAULT) << endl;
+                    return false;
+                } else {
+                    foundBlackKing = true;
+                }
+            }
+        }
+    }
+
+    Piece *whiteKing = board->getWhiteKing();
+    Piece *blackKing = board->getBlackKing();
+
+    if (whiteKing == nullptr || blackKing == nullptr) {
+        cout << Modifier(FG_RED) << "Setup error: board must contain both black king and white king. Please fix."
+             << Modifier(FG_DEFAULT) << endl;
+        return false;
+    }
+
+    // No pawn are on the first or last row of the board
+    vector<Piece *> whitePawns = board->getWhitePawns();
+    vector<Piece *> blackPawns = board->getBlackPawns();
+
+    for (auto pawn : whitePawns) {
+        int r = pawn->getPosition().row;
+        if (r == 0 || r == 7) {
+            cout << Modifier(FG_RED) << "Setup error: no pawn should exists on the first or last row of the board. Please fix."
+                 << Modifier(FG_DEFAULT) << endl;
+            return false;
+        }
+    }
+
+    for (auto pawn : blackPawns) {
+        int r = pawn->getPosition().row;
+        if (r == 0 || r == 7) {
+            cout << Modifier(FG_RED) << "Setup error: no pawn should exists on the first or last row of the board. Please fix."
+                 << Modifier(FG_DEFAULT) << endl;
+            return false;
+        }
+    }
+
+    // Neither king should be in check
+    board->updatePiecesPossibleMoves();
+
+    if (whiteKing->isInCheck()) {
+        cout << Modifier(FG_RED) << "Setup error: white king is in check. Please fix."
+             << Modifier(FG_DEFAULT) << endl;
+        return false;
+    }
+
+    if (blackKing->isInCheck()) {
+        cout << Modifier(FG_RED) << "Setup error: black king is in check. Please fix."
+             << Modifier(FG_DEFAULT) << endl;
+        return false;
+    }
+
+    // Board cannot be stalemate
+    int availableMoves = 0;
+    if (whitePlayerStart == true) {
+        for (auto &piece : board->getWhitePieces()) {
+            for (auto &move : piece->getPossibleNextPos()) {
+                if (!piece->putsKingInCheck(move)) {
+                    ++availableMoves;
+                }
+            }
+        }
+    } else {
+        for (auto &piece : board->getBlackPieces()) {
+            for (auto &move : piece->getPossibleNextPos()) {
+                if (!piece->putsKingInCheck(move)) {
+                    ++availableMoves;
+                }
+            }
+        }
+    }
+    if (availableMoves == 0) {
+        cout << Modifier(FG_RED) << "Setup error: this is a stalemate setup. Please fix."
+             << Modifier(FG_DEFAULT) << endl;
+        return false;
+    }
+
+    return true;
+}
+
 void Game::notifyDisplays() {
     textDisplay->notifyTextDisplay(board->getBoard());
     graphicDisplay->notifyGraphicDisplay(board->getBoard());
 }
 
 void Game::endGame() {
+    cout << Modifier(FG_BLUE) << "Current game ended" << Modifier(FG_DEFAULT) << endl;
+    cout << Modifier(FG_MAGENTA) << "Print current scoreboard:" << Modifier(FG_DEFAULT) << endl;
+    scoreBoard->printScore();
     gameRunning = false;
     hasCustomSetup = false;
     whitePlayerStart = true;
     if (whitePlayer) delete whitePlayer;
     if (blackPlayer) delete blackPlayer;
+    cout << "Enter anything to start next game" << endl;
+    string foo;
+    cin >> foo;
     board->destroy();
+    notifyDisplays();
+    cout << Modifier(FG_BLUE) << "Board cleared" << Modifier(FG_DEFAULT) << endl;
 }

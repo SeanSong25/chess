@@ -1,15 +1,49 @@
-#include "ComputerLevelThree.h"
+#include "ComputerLevelFour.h"
 #include "ChessBoard.h"
+#include <unordered_map>
 using namespace std;
-ComputerLevelThree::ComputerLevelThree(Colour col){
+ComputerLevelFour::ComputerLevelFour(Colour col){
     colour = col;
 }
 
-void ComputerLevelThree::setBoard(ChessBoard* board){
+void ComputerLevelFour::setBoard(ChessBoard* board){
     this->board = board;
 }
 
-struct Move ComputerLevelThree::decideNextMove(){
+//find out if after making this move, our piece can capture an opponent piece in
+//one move
+bool ComputerLevelFour::canCaptureEnemyPiece(Move m){
+    ChessBoard* newBoard = new ChessBoard(*board);
+    Piece* ourPiece = newBoard->getBoard()[m.start.row][m.start.col];
+    ChessBoard* tempStoreBoard = board;
+    board = newBoard;
+    for (auto &i : board -> getBoard()) {
+        for (auto &j: i) {
+            if(j){
+                j -> updatePossibleNextPos();
+            }
+        }
+    }
+    board->makeMove(m);
+    board->updatePiecesPossibleMoves();
+    ourPiece -> updatePossibleNextPos();
+    vector<Position> possibleCaptures = ourPiece->getPossibleCaptures();
+    board = tempStoreBoard;
+    
+    if(ourPiece -> canBeCaptured(ourPiece->getPosition())){
+        delete newBoard;
+        return false;
+    }
+
+    if(possibleCaptures.size() > 0){
+        delete newBoard;
+        return true;
+    }
+    delete newBoard;
+    return false;
+}
+
+struct Move ComputerLevelFour::decideNextMove(){
     vector<Move> nextMoves;
     vector<Move> validNextMoves;
     vector<Move> captureMoves;
@@ -19,6 +53,15 @@ struct Move ComputerLevelThree::decideNextMove(){
     vector<Move> opponentCaptureMoves;
     vector<Move> opponentValidCaptureMoves;
     vector<Piece* > ourPieces;
+
+    unordered_map<PieceType, int> priority_map;
+    
+    priority_map[KING] = 7;
+    priority_map[QUEEN] = 6;
+    priority_map[BISHOP] = 5;
+    priority_map[KNIGHT] = 5;
+    priority_map[ROOK] = 5;
+    priority_map[PAWN] = 1;
 
     nextMoves = board->getNextMoves(getColour());
     //loop through next moves to find valid next moves
@@ -91,10 +134,41 @@ struct Move ComputerLevelThree::decideNextMove(){
                     }
                 }
 
+                //find out if we can capture another piece with an equivalent or higher priority,
+                //if we can, trade it
+
+                for(int m = 0; m<validCaptureMoves.size(); m++){
+                    Position captureablePosition = validCaptureMoves[m].end;
+                    Piece* captureablePiece = board->getBoard()[captureablePosition.row][captureablePosition.col];
+                    if(priority_map[captureablePiece->getPieceType()] >= priority_map[ourPieces[i]->getPieceType()]){
+                        return validCaptureMoves[m];
+                    }
+                }
+
                 //find the next positions our to-be captured piece can go to
                 //if there are such positions, find if there exists one that we can go to
                 // and there are no possible captures by opponent pieces on that new position
                 vector<Position> nextPositions = ourPieces[i] -> getPossibleNextPos();
+                vector<Position> nextCaptures = ourPieces[i] -> getPossibleCaptures();
+                if(nextCaptures.size() > 0){
+                    for(int k = 0; k<nextCaptures.size(); k++){
+                        Position myNextPosition = nextCaptures[k];
+                        bool flag = true;
+                        for(int l = 0; l<opponentValidPossibleMoves.size(); l++){
+
+                            if(opponentValidPossibleMoves[l].end == myNextPosition){
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if(flag){
+                            decisionMove = Move{p, myNextPosition};
+                            if(board->checkMove(decisionMove, getColour())){
+                                return decisionMove;
+                            }
+                        }
+                    }
+                }
                 if(nextPositions.size() > 0){
                     for(int k = 0; k<nextPositions.size(); k++){
                         Position myNextPosition = nextPositions[k];
@@ -118,11 +192,29 @@ struct Move ComputerLevelThree::decideNextMove(){
         }
     }
         if(validCaptureMoves.size()>0){
-        //if there is capture move then pick a capture move randomly
+            //find a capture move that captures the most valuable piece
+            int maxPriority = 1;
+            decisionMove = validCaptureMoves[0];
+            for(auto &i : validCaptureMoves){
+                Piece* capturable = board->getBoard()[i.end.row][i.end.col];
+                if(priority_map[capturable->getPieceType()] > maxPriority){
+                    maxPriority = priority_map[capturable->getPieceType()];
+                    return i;
+                }
+            }
             int index = rand()%validCaptureMoves.size();
             decisionMove = validCaptureMoves[index];
         }
         else{
+            //find if a move can lead to a next capture
+            
+            for(auto &i : validNextMoves){
+                if(canCaptureEnemyPiece(i)){
+                    if(board->checkMove(i,getColour())){
+                        return i;
+                    }
+                }
+            }
             int index = rand()%validNextMoves.size();
             decisionMove = validNextMoves[index];
         }

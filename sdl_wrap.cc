@@ -8,6 +8,8 @@ namespace SDL {
 
 int SDL_Runner::x = 0;
 
+Text::~Text() {}
+
 Screen::Screen(int w, int h, std::string screenName) : window{SDL_CreateWindow(screenName.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, SDL_WINDOW_SHOWN)},
                                                        render{SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED)},
                                                        w{w},
@@ -25,13 +27,12 @@ Screen::~Screen() {
         TTF_CloseFont(p.second);
     }
     for (auto &t : msgs) {
-        SDL_DestroyTexture(t.texture);
+        SDL_DestroyTexture(t->texture);
     }
-    for (auto &p : imgs) {
-        SDL_DestroyTexture(p.second);
+    for (auto &i : imgs) {
+        SDL_DestroyTexture(i.second);
     }
     SDL_DestroyRenderer(render);
-    SDL_DestroyWindow(window);
     SDL_DestroyWindow(window);
 }
 
@@ -53,7 +54,7 @@ void Screen::draw_string(string msg, int x, int y, Colour c, string fontKey) {
     if (texture == NULL) {
         cerr << "Error loading string texture: " << SDL_GetError() << endl;
     }
-    msgs.emplace_back(Text{x, y, textSurface->w, textSurface->h, texture});
+    msgs.emplace_back(new OwningText{x, y, textSurface->w, textSurface->h, texture});
     SDL_FreeSurface(textSurface);
 }
 
@@ -69,19 +70,23 @@ void Screen::add_img(string key, string path) {
         return;
     }
     SDL_FreeSurface(imgSurface);
+    if (imgs.find(key) != imgs.end()) SDL_DestroyTexture(imgs[key]);
     imgs[key] = texture;
 }
+
+// ----------------------------------------------------------------------------
+// Added methods
 
 void Screen::draw_img(std::string key, int x, int y) {
     int w, h;
     SDL_QueryTexture(imgs[key], NULL, NULL, &w, &h);
-    msgs.emplace_back(Text{x, y, w, h, imgs[key]});
+    msgs.emplace_back(new NonOwningText{x, y, w, h, imgs[key]});
 }
 
 void Screen::draw_square(string key, int x, int y, int s_width, int s_height) {
     int o, p;
     SDL_QueryTexture(imgs[key], NULL, NULL, &o, &p);
-    msgs.emplace_back(Text{x, y, s_width, s_height, imgs[key]});
+    msgs.emplace_back(new NonOwningText{x, y, s_width, s_height, imgs[key]});
 }
 
 void Screen::draw_piece(string key, int x, int y, int s_width, int s_height) {
@@ -90,8 +95,10 @@ void Screen::draw_piece(string key, int x, int y, int s_width, int s_height) {
     int height = s_height * 0.7;
     int offset = s_width * 0.15;
     SDL_QueryTexture(imgs[key], NULL, NULL, &o, &p);
-    msgs.emplace_back(Text{x + offset, y + offset, width, height, imgs[key]});
+    msgs.emplace_back(new NonOwningText{x + offset, y + offset, width, height, imgs[key]});
 }
+
+// ----------------------------------------------------------------------------
 
 void Screen::update() {
     SDL_RenderClear(render);
@@ -100,18 +107,18 @@ void Screen::update() {
         SDL_RenderFillRect(render, &r.rect);
     }
     for (auto &m : msgs) {
-        SDL_Rect r{m.x, m.y, m.w, m.h};
-        SDL_RenderCopy(render, m.texture, nullptr, &r);
+        SDL_Rect r{m->x, m->y, m->w, m->h};
+        SDL_RenderCopy(render, m->texture, nullptr, &r);
     }
     SDL_RenderPresent(render);
 
-    // for (auto &m : msgs) {
-    //     SDL_DestroyTexture(m.texture);
-    // }
-    // msgs.clear();
-    // rects.clear();
+    for (auto &m : msgs) {
+        delete m;
+    }
+    msgs.clear();
+    rects.clear();
 
-    // All rects and images are erased each update.
+    // All rects are erased each update.
 }
 
 void Clock::start() {
