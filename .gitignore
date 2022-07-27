@@ -6,4 +6,4 @@ vscode/*
 .vscode/*
 chessProgram
 
-testCase.txt
+*.txt
