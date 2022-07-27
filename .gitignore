@@ -5,5 +5,5 @@ vscode/*
 .vscode
 .vscode/*
 chessProgram
-
+*.zip
 *.txt
