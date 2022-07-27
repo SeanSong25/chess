@@ -6,6 +6,7 @@
 #include "ComputerLevelOne.h"
 #include "ComputerLevelTwo.h"
 #include "ComputerLevelThree.h"
+#include "ComputerLevelFive.h"
 #include "ComputerPlayer.h"
 #include "HumanPlayer.h"
 #include "TextModifier.h"
@@ -187,7 +188,7 @@ Player* Game::initPlayer(string player, Colour colour) {
     } else if (player == "computer3") {
         retPtr = new ComputerLevelThree(colour);
     } else if (player == "computer4") {
-        retPtr = new ComputerLevelOne(colour);
+        retPtr = new ComputerLevelFive(colour);
     }
 
     return retPtr;

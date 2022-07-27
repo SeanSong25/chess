@@ -1,0 +1,7 @@
+setup
++ k a3 
++ K a1
++ N d1
+done
+game
+computer4 computer4

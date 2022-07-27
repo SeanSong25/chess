@@ -46,18 +46,54 @@ ChessBoard::ChessBoard(const ChessBoard &o) {
             Colour colour = o.theBoard[r][c]->getColour();
             PieceType pieceType = o.theBoard[r][c]->getPieceType();
             Position position = o.theBoard[r][c]->getPosition();
-            theBoard[r][c] = copyPiece(colour, pieceType, position);
+            bool firstMove = o.theBoard[r][c]->isFirstMove();
+            bool enPassant = o.theBoard[r][c]->isEnPassant();
+            Piece *enPassantPiece = o.theBoard[r][c] -> getEnPassantPiece();
+            Position enPassantPosition = o.theBoard[r][c] -> getEnPassantPosition();
+            theBoard[r][c] = copyPiece(colour, pieceType, position,
+             firstMove, enPassant, enPassantPiece, enPassantPosition);
         }
     }
 }
 
-Piece *ChessBoard::copyPiece(Colour col, PieceType type, Position pos) {
-    if (type == KING) return new King(this, col, pos);
-    if (type == QUEEN) return new Queen(this, col, pos);
-    if (type == BISHOP) return new Bishop(this, col, pos);
-    if (type == KNIGHT) return new Knight(this, col, pos);
-    if (type == PAWN) return new Pawn(this, col, pos);
-    if (type == ROOK) return new Rook(this, col, pos);
+Piece *ChessBoard::copyPiece(Colour col, PieceType type, Position pos,
+    bool firstMove, bool enPassant, Piece *enPassantPiece, Position enPassantPosition) {
+    if (type == KING) {
+        Piece * p = new King(this, col, pos);
+        p->setFirstMove(firstMove);
+        p->setEnPassant(enPassant, enPassantPiece, enPassantPosition);
+        return p;
+    } 
+    if (type == QUEEN) {
+        Piece * p = new Queen(this, col, pos);
+        p->setFirstMove(firstMove);
+        p->setEnPassant(enPassant, enPassantPiece, enPassantPosition);
+        return p;
+    }
+    if (type == BISHOP) {
+        Piece * p = new Bishop(this, col, pos);
+        p->setFirstMove(firstMove);
+        p->setEnPassant(enPassant, enPassantPiece, enPassantPosition);
+        return p;
+    }
+    if (type == KNIGHT) {
+        Piece * p = new Knight(this, col, pos);
+        p->setFirstMove(firstMove);
+        p->setEnPassant(enPassant, enPassantPiece, enPassantPosition);
+        return p;
+    }
+    if (type == PAWN) {
+        Piece * p = new Pawn(this, col, pos);
+        p->setFirstMove(firstMove);
+        p->setEnPassant(enPassant, enPassantPiece, enPassantPosition);
+        return p;
+    }
+    if (type == ROOK) {
+        Piece * p = new Rook(this, col, pos);
+        p->setFirstMove(firstMove);
+        p->setEnPassant(enPassant, enPassantPiece, enPassantPosition);
+        return p;
+    }
 }
 
 // ----------------------------------------------------------------------------
@@ -473,6 +509,43 @@ std::vector<Move> ChessBoard::getNextMoves(Colour clr) {
         }
     }
     return nextMoves;
+}
+
+void ChessBoard::print() {
+    for (auto &i: theBoard) {
+        for (auto &j: i) {
+            if (!j) {
+                std::cout << " ";
+            } else {
+                if (j->getPieceType()==PAWN & j->getColour()==WHITE) {
+                    std::cout << "P";
+                } else if (j->getPieceType()==PAWN & j->getColour()==BLACK) {
+                    std::cout << "p";
+                } else if (j->getPieceType()==KNIGHT & j->getColour()==WHITE) {
+                    std::cout << "N";
+                } else if (j->getPieceType()==KNIGHT & j->getColour()==BLACK) {
+                    std::cout << "n";
+                } else if (j->getPieceType()==KING & j->getColour()==WHITE) {
+                    std::cout << "K";
+                } else if (j->getPieceType()==KING & j->getColour()==BLACK) {
+                    std::cout << "k";
+                } else if (j->getPieceType()==QUEEN & j->getColour()==WHITE) {
+                    std::cout << "Q";
+                } else if (j->getPieceType()==QUEEN & j->getColour()==BLACK) {
+                    std::cout << "q";
+                } else if (j->getPieceType()==BISHOP & j->getColour()==WHITE) {
+                    std::cout << "B";
+                } else if (j->getPieceType()==BISHOP & j->getColour()==BLACK) {
+                    std::cout << "b";
+                } else if (j->getPieceType()==ROOK & j->getColour()==WHITE) {
+                    std::cout << "R";
+                } else if (j->getPieceType()==ROOK & j->getColour()==BLACK) {
+                    std::cout << "r";
+                }
+            }
+        }
+        std::cout << std::endl;
+    }
 }
 
 std::vector<Move> ChessBoard::getCaptureMoves(Colour clr) {

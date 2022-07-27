@@ -9,7 +9,7 @@ class Piece;
 class ChessBoard{
   private:
     std::vector<std::vector<Piece *>> theBoard;  // 8 x 8 chessboard
-    Piece *copyPiece(Colour, PieceType, Position);
+    Piece *copyPiece(Colour, PieceType, Position, bool, bool, Piece *, Position);
 
   public:
     ChessBoard();
@@ -42,6 +42,8 @@ class ChessBoard{
     void undo();
     std::vector<Move> getNextMoves(Colour clr);
     std::vector<Move> getCaptureMoves(Colour clr);
+
+    void print();
 
     void updatePiecesPossibleMoves();
 };
