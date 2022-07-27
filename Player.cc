@@ -8,3 +8,7 @@ void Player::setBoard(ChessBoard* board){
 Colour Player::getColour() {
     return colour;
 }
+
+Player:: ~Player(){
+    board = nullptr;
+}
